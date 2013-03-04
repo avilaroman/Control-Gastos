@@ -1,6 +1,6 @@
 # Integrantes
 
-ESPARZA ZAMARRIPA, JOSE EDUARDO
+ESPARZA ZAMARRIPA, JOSE EDUARDO         neoraidenx@gmail.com
 SEGUAME REYES, MIGUEL			seguame@gmail.com
 
 
