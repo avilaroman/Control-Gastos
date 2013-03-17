@@ -1,7 +1,7 @@
 SET @OLD_UNIQUE_CHECKS=@@UNIQUE_CHECKS, UNIQUE_CHECKS=0;
 SET @OLD_FOREIGN_KEY_CHECKS=@@FOREIGN_KEY_CHECKS, FOREIGN_KEY_CHECKS=0;
 SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='TRADITIONAL,ALLOW_INVALID_DATES';
- 
+
 CREATE SCHEMA IF NOT EXISTS `Control_Gastos` DEFAULT CHARACTER SET utf8 COLLATE utf8_spanish_ci ;
 USE `Control_Gastos` ;
 
@@ -9,7 +9,7 @@ USE `Control_Gastos` ;
 -- Table `Control_Gastos`.`Entidad`
 -- -----------------------------------------------------
 CREATE  TABLE IF NOT EXISTS `Control_Gastos`.`Entidad` (
-  `id_entidad` INT NOT NULL ,
+  `id_entidad` INT NOT NULL AUTO_INCREMENT ,
   `nombre` VARCHAR(45) NOT NULL ,
   `apellido_paterno` VARCHAR(45) NULL ,
   `apellido_materno` VARCHAR(45) NULL ,
@@ -204,7 +204,7 @@ ENGINE = InnoDB;
 -- Table `Control_Gastos`.`Asunto`
 -- -----------------------------------------------------
 CREATE  TABLE IF NOT EXISTS `Control_Gastos`.`Asunto` (
-  `id_asunto` INT NOT NULL ,
+  `id_asunto` INT NOT NULL AUTO_INCREMENT ,
   `asunto` VARCHAR(255) NOT NULL ,
   `presupuestado` TINYINT(1) NOT NULL ,
   PRIMARY KEY (`id_asunto`) )
