@@ -1,7 +1,6 @@
 <?php
 
 require('Model/cliente.php');
-require('accionesCliente.php');
 
 class ControladorCliente
 {
@@ -21,7 +20,6 @@ class ControladorCliente
 		$esPersonaFisica = $_REQUEST['esPersonaFisica'];
 		
 		$this->modelo = new Cliente($nombre, $apellidoPat, $apellidoMat, $RFC, $telefonos, $cuentasBancarias, $emails, $domicilios, $esPersonaFisica);
-		$this->accionador = new PuenteBD();
 	}
 	
 	function ejecutar()
