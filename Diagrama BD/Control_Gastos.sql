@@ -1,7 +1,7 @@
 SET @OLD_UNIQUE_CHECKS=@@UNIQUE_CHECKS, UNIQUE_CHECKS=0;
 SET @OLD_FOREIGN_KEY_CHECKS=@@FOREIGN_KEY_CHECKS, FOREIGN_KEY_CHECKS=0;
 SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='TRADITIONAL,ALLOW_INVALID_DATES';
- 
+
 CREATE SCHEMA IF NOT EXISTS `Control_Gastos` DEFAULT CHARACTER SET utf8 COLLATE utf8_spanish_ci ;
 USE `Control_Gastos` ;
 
@@ -104,7 +104,6 @@ ENGINE = InnoDB;
 CREATE  TABLE IF NOT EXISTS `Control_Gastos`.`Cuenta_Bancaria` (
   `id_cuenta_Bancaria` INT NOT NULL AUTO_INCREMENT ,
   `Entidad_id_entidad` INT NOT NULL ,
-  `nombre_banco` VARCHAR(45) NOT NULL ,
   `num_cuenta` VARCHAR(45) NOT NULL ,
   PRIMARY KEY (`id_cuenta_Bancaria`) ,
   INDEX `fk_Cuenta_Bancaria_Entidad1_idx` (`Entidad_id_entidad` ASC) ,
@@ -295,6 +294,38 @@ CREATE  TABLE IF NOT EXISTS `Control_Gastos`.`Entidad_has_Domicilio` (
   CONSTRAINT `fk_Entidad_has_Domicilio_Domicilio1`
     FOREIGN KEY (`Domicilio_id_domicilio` )
     REFERENCES `Control_Gastos`.`Domicilio` (`id_domicilio` )
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION)
+ENGINE = InnoDB;
+
+
+-- -----------------------------------------------------
+-- Table `Control_Gastos`.`Banco`
+-- -----------------------------------------------------
+CREATE  TABLE IF NOT EXISTS `Control_Gastos`.`Banco` (
+  `id_banco` INT NOT NULL AUTO_INCREMENT ,
+  `nombre` VARCHAR(45) NOT NULL ,
+  PRIMARY KEY (`id_banco`) )
+ENGINE = InnoDB;
+
+
+-- -----------------------------------------------------
+-- Table `Control_Gastos`.`Cuenta_Bancaria_has_Banco`
+-- -----------------------------------------------------
+CREATE  TABLE IF NOT EXISTS `Control_Gastos`.`Cuenta_Bancaria_has_Banco` (
+  `Cuenta_Bancaria_id_cuenta_Bancaria` INT NOT NULL ,
+  `Banco_id_banco` INT NOT NULL ,
+  PRIMARY KEY (`Cuenta_Bancaria_id_cuenta_Bancaria`, `Banco_id_banco`) ,
+  INDEX `fk_Cuenta_Bancaria_has_Banco_Banco1_idx` (`Banco_id_banco` ASC) ,
+  INDEX `fk_Cuenta_Bancaria_has_Banco_Cuenta_Bancaria1_idx` (`Cuenta_Bancaria_id_cuenta_Bancaria` ASC) ,
+  CONSTRAINT `fk_Cuenta_Bancaria_has_Banco_Cuenta_Bancaria1`
+    FOREIGN KEY (`Cuenta_Bancaria_id_cuenta_Bancaria` )
+    REFERENCES `Control_Gastos`.`Cuenta_Bancaria` (`id_cuenta_Bancaria` )
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION,
+  CONSTRAINT `fk_Cuenta_Bancaria_has_Banco_Banco1`
+    FOREIGN KEY (`Banco_id_banco` )
+    REFERENCES `Control_Gastos`.`Banco` (`id_banco` )
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
 ENGINE = InnoDB;
