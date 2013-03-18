@@ -8,12 +8,12 @@ class Contrato{
 	private $saldado;
 
 	function __construct($fechaC,$periodoC,$presupuestoC,$plazosC,$renovacionC,$saldadoC){
-		this->fecha=$fechaC;
-		this->periodo=$periodoC;
-		this->presupuesto=$presupuestoC;
-		this->plazos=$plazosC;
-		this->renovacion=$renovacionC;
-		this->saldado=$saldadoC;
+		$this->fecha=$fechaC;
+		$this->periodo=$periodoC;
+		$this->presupuesto=$presupuestoC;
+		$this->plazos=$plazosC;
+		$this->renovacion=$renovacionC;
+		$this->saldado=$saldadoC;
 
 	}
 
