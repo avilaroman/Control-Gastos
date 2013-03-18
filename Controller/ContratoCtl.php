@@ -34,7 +34,7 @@ class ControladorContrato{
 			case 'gasto':
 				$usuario = $this->model->realizarGasto();*/
 			default:
-				echo 'Ola k ase?, ekivokandose o k ase? :v'
+				echo 'Ola k ase?, ekivokandose o k ase? :v';
 				break;
 		}
 

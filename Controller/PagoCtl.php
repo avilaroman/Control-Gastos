@@ -28,7 +28,7 @@ class ControladorPago
 				$usuario=$this->model->lista();
 				break;
 			default:
-				echo 'Ola k ase?, ekivokandose o k ase? :v'
+				echo 'Ola k ase?, ekivokandose o k ase? :v';
 				break;
 		}
 
