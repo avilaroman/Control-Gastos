@@ -29,7 +29,7 @@ class Cliente extends Entidad
 	 * @param array>object> $domicilios: sus direcciones de contacto
 	 * @param boolean $esPersonaFisica: FALSE para que sea persona moral 
 	 */
-	public function __construct($nombre, $apellidoPat, $apellidoMat, $RFC, $telefonos, $cuentasBancarias, $emails, $domicilios, $esPersonaFisica = TRUE)
+	public function __construct($nombre = "", $apellidoPat= "", $apellidoMat= "", $RFC= "", $telefonos= "", $cuentasBancarias= "", $emails= "", $domicilios= "", $esPersonaFisica = TRUE)
 	{
 		parent::__construct($nombre, $apellidoPat, $apellidoMat, $RFC, $telefonos, $cuentasBancarias, $emails, $domicilios);
 		$this->esPersonaFisica = $esPersonaFisica;
@@ -75,10 +75,138 @@ class Cliente extends Entidad
 			$this->idCliente = $BD->conexion->insert_id;
 			$retornable = $this->idCliente;
 		}
+		
+		$username = $BD->limpiarCadena($_REQUEST['username']);
+		$password = $BD->limpiarCadena($_REQUEST['password']);
+		
+		
+		
+		$query = " INSERT INTO 
+						Cuenta(Cliente_id_cliente, nombre_usuario, clave_acceso)
+					VALUES
+						($this->idCliente,
+						'$username',
+						'$password')";
+						
+		echo "$query";
+		
+		//$resultado = $BD->consulta($query);
+		$resultado = $BD->conexion->query($query);
+
+		if(!$resultado)
+		{
+			echo 'SHIT HAPPENS: '.$BD->conexion->errno.':'.$BD->conexion->error;
+			$retornable = FALSE;
+		}
+		
+		//Esto es el ID de la cuenta, per no interesa
+		/*else
+		{
+			$this->idCliente = $BD->conexion->insert_id;
+			$retornable = $this->idCliente;
+		}*/
 
 		$BD->cerrar_conexion();
 
 		return $retornable;
+	}
+
+	public function recuperarCliente($username, $password)
+	{
+		require('bd_info.inc');
+		require_once('baseDatos.php');
+
+		$BD = new BaseDatos($hostdb, $userdb, $passdb, $db);
+
+		if(!$BD->conecta())
+		{
+			die('SHIT HAPPENS: '.$BD->conexion->errno.':'.$BD->conexion->error);
+		}
+
+		
+		$query = "SELECT
+						*
+				  FROM
+						Cuenta
+				  WHERE
+				  		nombre_usuario LIKE '$username'
+				  AND
+				  		clave_acceso LIKE '$password'";
+				  		
+		
+
+		//Ejecutar el query
+		$resultado = $BD->conexion->query($query);
+		if($BD->conexion->errno)
+		{
+			echo 'FALLO '.$BD->conexion->errno.' : '.$BD->conexion->error;
+			//Cerrar la conexion
+			
+			$BD->conexion -> close();
+			return FALSE;
+		}
+		else
+		{
+			$BD->cerrar_conexion();
+
+			while ($fila = $resultado -> fetch_assoc())
+				$cliente[] = $fila;
+			
+			if(isset($cliente))
+			{
+				$idCliente		= $cliente[0]['Cliente_id_cliente'];
+				return $this->reconstruirCliente($idCliente);
+			}
+			
+			return FALSE;
+			
+		}
+	}
+
+	private function reconstruirCliente($idCliente)
+	{
+		require('bd_info.inc');
+		require_once('baseDatos.php');
+
+		$BD = new BaseDatos($hostdb, $userdb, $passdb, $db);
+
+		if(!$BD->conecta())
+		{
+			die('SHIT HAPPENS: '.$BD->conexion->errno.':'.$BD->conexion->error);
+		}
+
+
+		$query = "SELECT
+						*
+				  FROM
+						Cliente
+				  WHERE
+				  		id_cliente = $idCliente";
+
+		//Ejecutar el query
+		$resultado = $BD->conexion->query($query);
+
+		if($BD->conexion->errno)
+		{
+			echo 'FALLO '.$BD->conexion->errno.' : '.$BD->conexion->error;
+			//Cerrar la conexion
+			$BD->conexion -> close();
+			return FALSE;
+		}
+		else
+		{
+			//Cerrar la conexion
+			$BD->cerrar_conexion();
+
+			while ($fila = $resultado -> fetch_assoc())
+				$cliente[] = $fila;
+			
+			$esPersonaFisica		= $cliente[0]['persona_fisica'];
+			
+			parent::recuperar("Entidad", $cliente[0]['Entidad_id_entidad']);
+			
+			return $this;			
+		}
 	}
 }
 

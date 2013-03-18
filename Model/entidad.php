@@ -73,6 +73,57 @@ class Entidad implements iTablaDB
 
     public function eliminar($tabla){}
     public function modificar($tabla){}
+	
+	public function recuperar($tabla, $id)
+	{
+		require('bd_info.inc');
+		require_once('baseDatos.php');
+
+		$BD = new BaseDatos($hostdb, $userdb, $passdb, $db);
+
+		if(!$BD->conecta())
+		{
+			die('SHIT HAPPENS: '.$BD->conexion->errno.':'.$BD->conexion->error);
+		}
+
+
+		$query = "SELECT
+						*
+				  FROM
+						$tabla
+				  WHERE
+				  		$id = id_entidad";
+
+		//Ejecutar el query
+		$resultado = $BD->conexion->query($query);
+
+		if($BD->conexion->errno)
+		{
+			echo 'FALLO '.$BD->conexion->errno.' : '.$BD->conexion->error;
+			//Cerrar la conexion
+			$BD->conexion -> close();
+			return FALSE;
+		}
+		else
+		{
+			//Cerrar la conexion
+			$BD->cerrar_conexion();
+
+			while ($fila = $resultado -> fetch_assoc())
+				$entidad[] = $fila;
+			
+			$this->nombre 			= $entidad[0]['nombre'];
+			$this->apellidoPat 		= $entidad[0]['apellido_paterno'];
+			$this->apellidoMat 		= $entidad[0]['apellido_materno'];
+			$this->RFC 				= $entidad[0]['RFC'];
+			/*$this->telefonos 		= $entidad[0]['nombre'];
+			$this->cuentasBancarias = $entidad[0]['nombre'];
+			$this->emails 			= $entidad[0]['nombre'];
+			$this->domicilios 		= $entidad[0]['nombre'];*/
+			
+			return $entidad;			
+		}
+	}
 }
 
 ?>
