@@ -104,6 +104,7 @@ ENGINE = InnoDB;
 CREATE  TABLE IF NOT EXISTS `Control_Gastos`.`Cuenta_Bancaria` (
   `id_cuenta_Bancaria` INT NOT NULL AUTO_INCREMENT ,
   `Entidad_id_entidad` INT NOT NULL ,
+  `nombre_banco` VARCHAR(45) NOT NULL ,
   `num_cuenta` VARCHAR(45) NOT NULL ,
   PRIMARY KEY (`id_cuenta_Bancaria`) ,
   INDEX `fk_Cuenta_Bancaria_Entidad1_idx` (`Entidad_id_entidad` ASC) ,
