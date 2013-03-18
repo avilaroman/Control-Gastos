@@ -1,10 +1,4 @@
-<html>
-<head>
-	<title> ola k mira </title>
-</head>
-<body>
-	Van a Reprobar :v <br>
-	<?php
+<?php
 
 	include ('Controller/controladorCliente.php');
 
@@ -17,12 +11,20 @@
 			//$controlador = asdasdas;
 		
 		default:
-			die('No pusiste un modulo D:<');
+			$invalido = TRUE;
 			break;
 	}
 
-	$controlador->ejecutar();
+	if(isset($invalido))
+	{
+		echo 'Ejemplos de uso: '.PHP_EOL;
+		
+		//Llamadas al controlador que se encarga de manejar al cliente
+		echo '?uso=cliente&accion=insertar&nombre=Miguel&apellidoPat=Seguame&apellidoMat=Reyes&RFC=1234567890123&telefonos=36436418&cuentasBancarias=012345678&emails=lol%40lol&domicilios=JesusUrueta&esPersonaFisica=TRUE'.PHP_EOL;
+	}
+	else 
+	{
+		$controlador->ejecutar();
+	}
 
-	?>
-</body>
-</html>
+?>
