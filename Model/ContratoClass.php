@@ -1,5 +1,8 @@
 <?php
-class Contrato implements iTablaDB{
+
+require_once 'Model/iTablaDB.php';
+
+class ContratoClass implements iTablaDB{
 	private $id;
 	private $fecha;
 	private $periodo;
@@ -68,6 +71,12 @@ class Contrato implements iTablaDB{
 		$model = new GastoClass($costoG,$precioG,$comentarioG,
 			$categoriaG,$cuenta_origenG,$cuenta_destinoG,$comisionG);
 	}
+	
+	
+	public function insertar($tabla){}
+    public function eliminar($tabla){}
+    public function modificar($tabla){}
+	public function recuperar($tabla, $id){}
 
 }
 ?>

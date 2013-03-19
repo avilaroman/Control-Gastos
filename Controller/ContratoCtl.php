@@ -2,6 +2,8 @@
 
 
 require('Model/ContratoClass.php');
+require('Model/PagoClass.php');
+require('Model/GastoClass.php');
 class ControladorContrato{
 	public $model;
 
@@ -10,9 +12,9 @@ class ControladorContrato{
 	}
 
 	function ejecutar(){
-		if(!isset($_REQUEST['action'])){
+		if(!isset($_REQUEST['accion'])){
 			$usuarios = $this->model->error();//
-		}else switch ($_REQUEST['action']){
+		}else switch ($_REQUEST['accion']){
 
 			case 'crear':
 				$fecha = $_REQUEST['fecha'];
