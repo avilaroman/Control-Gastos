@@ -1,6 +1,7 @@
 <?php
 
 require_once 'Model/iTablaDB.php';
+require_once 'Model/baseDatos.php';
 
 class ContratoClass implements iTablaDB{
 	private $id;
