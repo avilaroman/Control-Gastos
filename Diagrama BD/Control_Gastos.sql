@@ -206,7 +206,6 @@ ENGINE = InnoDB;
 CREATE  TABLE IF NOT EXISTS `Control_Gastos`.`Asunto` (
   `id_asunto` INT NOT NULL AUTO_INCREMENT ,
   `asunto` VARCHAR(255) NOT NULL ,
-  `presupuestado` TINYINT(1) NOT NULL ,
   PRIMARY KEY (`id_asunto`) )
 ENGINE = InnoDB;
 
@@ -261,6 +260,7 @@ ENGINE = InnoDB;
 CREATE  TABLE IF NOT EXISTS `Control_Gastos`.`Contrato_has_Asunto` (
   `Contrato_id_contrato` INT NOT NULL ,
   `Asunto_id_asunto` INT NOT NULL ,
+  `presupuestado` TINYINT(1) NOT NULL ,
   PRIMARY KEY (`Contrato_id_contrato`, `Asunto_id_asunto`) ,
   INDEX `fk_Contrato_has_Asunto_Asunto1_idx` (`Asunto_id_asunto` ASC) ,
   INDEX `fk_Contrato_has_Asunto_Contrato1_idx` (`Contrato_id_contrato` ASC) ,
