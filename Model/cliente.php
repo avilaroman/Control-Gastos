@@ -29,9 +29,9 @@ class Cliente extends Entidad
 	 * @param array>object> $domicilios: sus direcciones de contacto
 	 * @param boolean $esPersonaFisica: FALSE para que sea persona moral 
 	 */
-	public function __construct($nombre = "", $apellidoPat= "", $apellidoMat= "", $RFC= "", $telefonos= "", $cuentasBancarias= "", $emails= "", $domicilios= "", $esPersonaFisica = TRUE)
+	public function __construct($nombre = "", $apellidoPat= "", $apellidoMat= "", $RFC= "", $telefonos= "", $emails= "", $domicilios= "", $esPersonaFisica = TRUE)
 	{
-		parent::__construct($nombre, $apellidoPat, $apellidoMat, $RFC, $telefonos, $cuentasBancarias, $emails, $domicilios);
+		parent::__construct($nombre, $apellidoPat, $apellidoMat, $RFC, $telefonos, $emails, $domicilios);
 		$this->esPersonaFisica = $esPersonaFisica;
 	}
 	
@@ -52,7 +52,7 @@ class Cliente extends Entidad
 
 		if(!$BD->conecta())
 		{
-			die('SHIT HAPPENS: '.$BD->conexion->errno.':'.$BD->conexion->error);
+			die('No se logro conectar la base de datos: '.$BD->conexion->errno.':'.$BD->conexion->error);
 		}
 
 
@@ -67,7 +67,7 @@ class Cliente extends Entidad
 
 		if(!$resultado)
 		{
-			echo 'SHIT HAPPENS: '.$BD->conexion->errno.':'.$BD->conexion->error;
+			echo 'No se pudo insertar el cliente: '.$BD->conexion->errno.':'.$BD->conexion->error;
 			$retornable = FALSE;
 		}
 		else
@@ -84,27 +84,16 @@ class Cliente extends Entidad
 		$query = " INSERT INTO 
 						Cuenta(Cliente_id_cliente, nombre_usuario, clave_acceso)
 					VALUES
-						($this->idCliente,
-						'$username',
-						'$password')";
-						
-		echo "$query";
+						($this->idCliente,'$username', '$password')";
 		
 		//$resultado = $BD->consulta($query);
 		$resultado = $BD->conexion->query($query);
 
 		if(!$resultado)
 		{
-			echo 'SHIT HAPPENS: '.$BD->conexion->errno.':'.$BD->conexion->error;
+			echo 'No se pudo crear la cuenta '.$BD->conexion->errno.':'.$BD->conexion->error;
 			$retornable = FALSE;
 		}
-		
-		//Esto es el ID de la cuenta, per no interesa
-		/*else
-		{
-			$this->idCliente = $BD->conexion->insert_id;
-			$retornable = $this->idCliente;
-		}*/
 
 		$BD->cerrar_conexion();
 
@@ -120,7 +109,7 @@ class Cliente extends Entidad
 
 		if(!$BD->conecta())
 		{
-			die('SHIT HAPPENS: '.$BD->conexion->errno.':'.$BD->conexion->error);
+			die('No se pudo conectar la BD para recuperar informacion del cliente: '.$BD->conexion->errno.':'.$BD->conexion->error);
 		}
 
 		
@@ -139,7 +128,7 @@ class Cliente extends Entidad
 		$resultado = $BD->conexion->query($query);
 		if($BD->conexion->errno)
 		{
-			echo 'FALLO '.$BD->conexion->errno.' : '.$BD->conexion->error;
+			echo 'FALLO la recuperacion de la cuenta con esas credenciales '.$BD->conexion->errno.' : '.$BD->conexion->error;
 			//Cerrar la conexion
 			
 			$BD->cerrar_conexion();
@@ -172,7 +161,7 @@ class Cliente extends Entidad
 
 		if(!$BD->conecta())
 		{
-			die('SHIT HAPPENS: '.$BD->conexion->errno.':'.$BD->conexion->error);
+			die('No se pudo conectar a la BD para reconstruir al cliente: '.$BD->conexion->errno.':'.$BD->conexion->error);
 		}
 
 
@@ -188,7 +177,7 @@ class Cliente extends Entidad
 
 		if($BD->conexion->errno)
 		{
-			echo 'FALLO '.$BD->conexion->errno.' : '.$BD->conexion->error;
+			echo 'Error obteiendo a el cliente '.$BD->conexion->errno.' : '.$BD->conexion->error;
 			//Cerrar la conexion
 			$BD->conexion -> close();
 			return FALSE;
