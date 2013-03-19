@@ -28,10 +28,10 @@ class ControladorCliente
 				$this->modelo = new Cliente($nombre, $apellidoPat, $apellidoMat, $RFC, $telefonos, $emails, $esPersonaFisica);
 				
 				$usuario = $this->modelo;
-				$idBase = $this->modelo->insertar("Entidad");
+				$idBase = $this->modelo->insertar();
 				$this->modelo->crearCliente($idBase);
 				break;
-				//http://www.seguame.com/?uso=cliente&accion=insertar&nombre=12445&apellidoPat=adw&apellidoMat=asdasd&RFC=aasd&telefonos=234234&cuentasBancarias=23423423&emails=lolatlol&domicilios=1234&esPersonaFisica=FALSE&username=lol&password=lol
+				
 			case 'consultar':
 				
 				$this->modelo = new Cliente();

@@ -21,8 +21,10 @@ class ControladorContrato{
 				$apellidoPat = $_REQUEST['apellidoPat'];
 				$apellidoMat = $_REQUEST['apellidoMat'];
 				$rfc = $_REQUEST['RFC'];
+				
 				$entidad = new Entidad($nombre,$apellidoPat,$apellidoMat,$rfc,"","","","");
-				$entidad->insertar("Entidad");
+				$entidad->insertar();
+				
 				$idEnt_Cont = $entidad -> idEntidad;
 				$idCuenta = $_REQUEST['idCuenta'];
 				$fecha = $_REQUEST['fecha'];

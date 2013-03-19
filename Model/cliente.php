@@ -192,7 +192,7 @@ class Cliente extends Entidad
 			
 			$esPersonaFisica		= $cliente[0]['persona_fisica'];
 			
-			parent::recuperar("Entidad", $cliente[0]['Entidad_id_entidad']);
+			parent::recuperar($cliente[0]['Entidad_id_entidad']);
 			
 			return $this;			
 		}

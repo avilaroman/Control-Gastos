@@ -15,7 +15,7 @@ class CuentaBanco implements iTablaDB
 		$this->idDuenio = $idDuenio;
 	}
 	
-	public function insertar($tabla)
+	public function insertar()
 	{
 		require('bd_info.inc');
 		require_once('baseDatos.php');
@@ -31,7 +31,7 @@ class CuentaBanco implements iTablaDB
 
 
 		$query = "	INSERT INTO 
-						$tabla (Entidad_id_entidad,num_cuenta)
+						Cuenta_Bancaria (Entidad_id_entidad,num_cuenta)
 					VALUES 
 						($this->idDuenio,
 						'$this->numerosCuenta')";
@@ -90,8 +90,8 @@ class CuentaBanco implements iTablaDB
 
 		return $retornable;
 	}
-    public function eliminar($tabla){}
-    public function modificar($tabla){}
-	public function recuperar($tabla, $id){}
+    public function eliminar(){}
+    public function modificar(){}
+	public function recuperar($id){}
 }
 ?>

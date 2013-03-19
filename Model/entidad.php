@@ -27,7 +27,7 @@ class Entidad implements iTablaDB
 		
 	}
 
-	public function insertar($tabla)
+	public function insertar()
 	{
 		require('bd_info.inc');
 		require_once('baseDatos.php');
@@ -48,7 +48,7 @@ class Entidad implements iTablaDB
 
 
 		$query = "	INSERT INTO 
-						$tabla (nombre, apellido_paterno, apellido_materno, RFC)
+						Entidad (nombre, apellido_paterno, apellido_materno, RFC)
 					VALUES 
 						('$this->nombre',
 						'$this->apellidoPat',
@@ -104,12 +104,12 @@ class Entidad implements iTablaDB
 			$this->cuentasBancarias = new CuentaBanco($nombre_banco, $numero_cuenta, $this->idEntidad);
 			
 			
-			$this->cuentasBancarias->insertar("Cuenta_Bancaria");
+			$this->cuentasBancarias->insertar();
 			
 			//Domicilini
 			$this->domicilios = new Direccion($_REQUEST['calle'],$_REQUEST['numInterior'],$_REQUEST['numExterior'], $_REQUEST['colonia'], $_REQUEST['cp'], $_REQUEST['estado'], $_REQUEST['municipio'], $this->idEntidad);
 			
-			$this->domicilios->insertar("Domicilio");
+			$this->domicilios->insertar();
 		}
 
 		$BD->cerrar_conexion();
@@ -117,10 +117,10 @@ class Entidad implements iTablaDB
 		return $retornable;
 	}
 
-    public function eliminar($tabla){}
-    public function modificar($tabla){}
+    public function eliminar(){}
+    public function modificar(){}
 	
-	public function recuperar($tabla, $id)
+	public function recuperar($id)
 	{
 		require('bd_info.inc');
 		require_once('baseDatos.php');
@@ -136,7 +136,7 @@ class Entidad implements iTablaDB
 		$query = "SELECT
 						*
 				  FROM
-						$tabla
+						Entidad
 				  WHERE
 				  		$id = id_entidad";
 

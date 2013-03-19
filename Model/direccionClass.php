@@ -24,7 +24,7 @@ class Direccion implements iTablaDB
 		$this->idDuenio		= $idDuenio;
 	}
 	
-	public function insertar($tabla)
+	public function insertar()
 	{
 		require('bd_info.inc');
 		require_once('baseDatos.php');
@@ -43,7 +43,7 @@ class Direccion implements iTablaDB
 
 
 		$query = "	INSERT INTO 
-						$tabla (calle, num_interior, num_exterior, colonia, codigo_postal, stado, municipio)
+						Domicilio (calle, num_interior, num_exterior, colonia, codigo_postal, stado, municipio)
 					VALUES 
 						('$this->calle',
 						$this->numInterior,
@@ -89,8 +89,8 @@ class Direccion implements iTablaDB
 		return $retornable;
 	}
 	
-    public function eliminar($tabla){}
-    public function modificar($tabla){}
-	public function recuperar($tabla, $id){}
+    public function eliminar(){}
+    public function modificar(){}
+	public function recuperar($id){}
 }
 ?>
