@@ -36,8 +36,8 @@ class ContratoClass implements iTablaDB{
 		$query = "INSERT INTO
 			Contrato(Cuenta_id_cuenta,Entidad_id_contacto,fecha_contrato,periodo_fiscal,presupuesto,plazos,renovacion,saldado)
 			VALUES 
-			('$this->idCuenta',
-			'$this->idEnt',
+			($this->idCuenta,
+			$this->idEnt,
 			'$this->fecha',
 			'$this->periodo',
 			'$this->presupuesto',
@@ -45,7 +45,7 @@ class ContratoClass implements iTablaDB{
 			'$this->renovacion',
 			'$this->saldado')
 					";
-
+		echo "$query";
 		$resultado = $BD->conexion->query($query);
 		if(!$resultado)
 		{
