@@ -24,8 +24,13 @@
 	{
 		echo 'Ejemplos de uso: '.PHP_EOL;
 		
+		echo 'Para clientes'.PHP_EOL.PHP_EOL;
 		//Llamadas al controlador que se encarga de manejar al cliente
-		echo '?uso=cliente&accion=insertar&nombre=Miguel&apellidoPat=Seguame&apellidoMat=Reyes&RFC=1234567890123&telefonos=36436418&cuentasBancarias=012345678&emails=lol%40lol&domicilios=JesusUrueta&esPersonaFisica=TRUE&username=lal&password=lal'.PHP_EOL;
+		echo 'http://www.seguame.com/?uso=cliente&accion=insertar&nombre=Miguel&apellidoPat=Seguame&apellidoMat=Reyes&RFC=1234567890123&telefonos=36436418&nombreBanco=Santander&numeroCuenta=124a&emails=lol%40lol&calle=JesusUrueta&numInterior=1600&numExterior=1&colonia=Mirador&cp=4444&estado=Jalisco&municipio=gdl&esPersonaFisica=TRUE&username=lal&password=lal'.PHP_EOL;
+		
+		echo 'Para contrato'.PHP_EOL.PHP_EOL;
+		//Controlador de Contrato
+		echo '?uso=contrato&accion=crear&nombre=Miguel&apellidoPat=Seguame&apellidoMat=Reyes&RFC=1234567890123&telefonos=36436418&nombreBanco=Santander&numeroCuenta=124a&emails=lol%40lol&calle=JesusUrueta&numInterior=1600&numExterior=1&colonia=Mirador&cp=4444&estado=Jalisco&municipio=gdl&idCuenta=1&fecha=hoy&periodo=masd&presupuesto=1212&plazos=TRUE&renovacion=2432&saldado=FALSE';
 	}
 
 ?>
