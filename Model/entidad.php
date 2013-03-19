@@ -1,6 +1,7 @@
 <?php
 
 require_once('iTablaDB.php');
+require_once('Model/cuentaBancoClass.php');
 
 class Entidad implements iTablaDB
 {
@@ -14,16 +15,16 @@ class Entidad implements iTablaDB
 	public $domicilios;
 	public $idEntidad;
 
-	public function __construct($nombre, $apellidoPat, $apellidoMat, $RFC, $telefonos, $cuentasBancarias, $emails, $domicilios)
+	public function __construct($nombre, $apellidoPat, $apellidoMat, $RFC, $telefonos, $emails, $domicilios)
 	{
 		$this->nombre 			= $nombre;
 		$this->apellidoPat 		= $apellidoPat;
 		$this->apellidoMat 		= $apellidoMat;
 		$this->RFC 				= $RFC;
 		$this->telefonos 		= $telefonos;
-		$this->cuentasBancarias = $cuentasBancarias;
 		$this->emails 			= $emails;
 		$this->domicilios 		= $domicilios;
+		
 	}
 
 	public function insertar($tabla)
@@ -42,6 +43,8 @@ class Entidad implements iTablaDB
 		$this->apellidoPat 		= $BD->limpiarCadena($this->apellidoPat);
 		$this->apellidoMat 		= $BD->limpiarCadena($this->apellidoMat);
 		$this->RFC 				= $BD->limpiarCadena($this->RFC);
+		$this->telefonos 		= $BD->limpiarCadena($this->telefonos);
+		$this->emails 			= $BD->limpiarCadena($this->emails);
 
 
 		$query = "	INSERT INTO 
@@ -57,13 +60,51 @@ class Entidad implements iTablaDB
 
 		if(!$resultado)
 		{
-			echo 'SHIT HAPPENS: '.$BD->conexion->errno.':'.$BD->conexion->error;
+			echo 'No se logro insertar la entidad: '.$BD->conexion->errno.':'.$BD->conexion->error;
 			$retornable = FALSE;
 		}
 		else
 		{
 			$this->idEntidad = $BD->conexion->insert_id;
 			$retornable = $this -> idEntidad;
+			
+			$query = " INSERT INTO
+							Telefono(Entidad_id_entidad, telefono)
+						VALUES
+							($this->idEntidad,
+							'$this->telefonos')";
+							
+			$resultado = $BD->conexion->query($query);
+			
+			if(!$resultado)
+			{
+				echo 'No se pudo insertar el Telefono: '.$BD->conexion->errno.':'.$BD->conexion->error;
+				$retornable = FALSE;
+			}
+			
+			$query = " INSERT INTO
+							Email(Entidad_id_entidad, email)
+						VALUES
+							($this->idEntidad,
+							'$this->emails')";
+							
+			$resultado = $BD->conexion->query($query);
+			
+			if(!$resultado)
+			{
+				echo 'No se pudo insertar el email: '.$BD->conexion->errno.':'.$BD->conexion->error;
+				$retornable = FALSE;
+			}
+			
+			
+			//Banquini
+			$nombre_banco = $_REQUEST['nombreBanco'];
+			$numero_cuenta = $_REQUEST['numeroCuenta'];
+			
+			$this->cuentasBancarias = new CuentaBanco($nombre_banco, $numero_cuenta, $this->idEntidad);
+			
+			
+			$this->cuentasBancarias->insertar("Cuenta_Bancaria");
 		}
 
 		$BD->cerrar_conexion();
@@ -116,6 +157,7 @@ class Entidad implements iTablaDB
 			$this->apellidoPat 		= $entidad[0]['apellido_paterno'];
 			$this->apellidoMat 		= $entidad[0]['apellido_materno'];
 			$this->RFC 				= $entidad[0]['RFC'];
+			$this->idEntidad		= $entidad[0]['id_entidad'];
 			/*$this->telefonos 		= $entidad[0]['nombre'];
 			$this->cuentasBancarias = $entidad[0]['nombre'];
 			$this->emails 			= $entidad[0]['nombre'];
