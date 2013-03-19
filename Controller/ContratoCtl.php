@@ -22,6 +22,7 @@ class ControladorContrato{
 				$apellidoMat = $_REQUEST['apellidoMat'];
 				$rfc = $_REQUEST['RFC'];
 				$entidad = new Entidad($nombre,$apellidoPat,$apellidoMat,$rfc,"","","","");
+				$entidad->insertar("Entidad");
 				$idEnt_Cont = $entidad -> idEntidad;
 				$idCuenta = $_REQUEST['idCuenta'];
 				$fecha = $_REQUEST['fecha'];
@@ -31,7 +32,7 @@ class ControladorContrato{
 				$renovacion = $_REQUEST['renovacion'];
 				$saldado = $_REQUEST['saldado'];
 				
-				$usuario = $this->model->crear($idCta,$idEnt_Cont,$fecha,$periodo,$presupuesto,$plazos,$renovacion,$saldado);
+				$usuario = $this->model->crear($idCuenta,$idEnt_Cont,$fecha,$periodo,$presupuesto,$plazos,$renovacion,$saldado);
 				
 
 				break;
