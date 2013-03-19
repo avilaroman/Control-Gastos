@@ -29,9 +29,9 @@ class Cliente extends Entidad
 	 * @param array>object> $domicilios: sus direcciones de contacto
 	 * @param boolean $esPersonaFisica: FALSE para que sea persona moral 
 	 */
-	public function __construct($nombre = "", $apellidoPat= "", $apellidoMat= "", $RFC= "", $telefonos= "", $emails= "", $domicilios= "", $esPersonaFisica = TRUE)
+	public function __construct($nombre = "", $apellidoPat= "", $apellidoMat= "", $RFC= "", $telefonos= "", $emails= "", $esPersonaFisica = TRUE)
 	{
-		parent::__construct($nombre, $apellidoPat, $apellidoMat, $RFC, $telefonos, $emails, $domicilios);
+		parent::__construct($nombre, $apellidoPat, $apellidoMat, $RFC, $telefonos, $emails);
 		$this->esPersonaFisica = $esPersonaFisica;
 	}
 	

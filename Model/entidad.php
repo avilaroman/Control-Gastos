@@ -2,6 +2,7 @@
 
 require_once('iTablaDB.php');
 require_once('Model/cuentaBancoClass.php');
+require_once('Model/direccionClass.php');
 
 class Entidad implements iTablaDB
 {
@@ -15,7 +16,7 @@ class Entidad implements iTablaDB
 	public $domicilios;
 	public $idEntidad;
 
-	public function __construct($nombre, $apellidoPat, $apellidoMat, $RFC, $telefonos, $emails, $domicilios)
+	public function __construct($nombre, $apellidoPat, $apellidoMat, $RFC, $telefonos, $emails)
 	{
 		$this->nombre 			= $nombre;
 		$this->apellidoPat 		= $apellidoPat;
@@ -23,7 +24,6 @@ class Entidad implements iTablaDB
 		$this->RFC 				= $RFC;
 		$this->telefonos 		= $telefonos;
 		$this->emails 			= $emails;
-		$this->domicilios 		= $domicilios;
 		
 	}
 
@@ -105,6 +105,11 @@ class Entidad implements iTablaDB
 			
 			
 			$this->cuentasBancarias->insertar("Cuenta_Bancaria");
+			
+			//Domicilini
+			$this->domicilios = new Direccion($_REQUEST['calle'],$_REQUEST['numInterior'],$_REQUEST['numExterior'], $_REQUEST['colonia'], $_REQUEST['cp'], $_REQUEST['estado'], $_REQUEST['municipio'], $this->idEntidad);
+			
+			$this->domicilios->insertar("Domicilio");
 		}
 
 		$BD->cerrar_conexion();
