@@ -1,0 +1,7 @@
+*.bak
+*.inc
+*.*~
+.metadata/
+.project
+.settings/
+*.dia.autosave
