@@ -10,9 +10,9 @@ class ControladorCliente
 	function ejecutar()
 	{
 		//si no hya parametros, nomas listar los usuarios
-		if( !isset($_REQUEST['accion']) )
+		if(!isset($_REQUEST['accion']) )
 		{
-			$usuarios = $this->modelo->listar();		
+			die('No se definio que accion tomar');	
 		}
 		else switch ($_REQUEST['accion']) 
 		{
@@ -22,12 +22,11 @@ class ControladorCliente
 				$apellidoMat = $_REQUEST['apellidoMat'];
 				$RFC = $_REQUEST['RFC'];
 				$telefonos = $_REQUEST['telefonos'];
-				$cuentasBancarias = $_REQUEST['cuentasBancarias'];
 				$emails = $_REQUEST['emails'];
 				$domicilios = $_REQUEST['domicilios'];
 				$esPersonaFisica = $_REQUEST['esPersonaFisica'];
 				
-				$this->modelo = new Cliente($nombre, $apellidoPat, $apellidoMat, $RFC, $telefonos, $cuentasBancarias, $emails, $domicilios, $esPersonaFisica);
+				$this->modelo = new Cliente($nombre, $apellidoPat, $apellidoMat, $RFC, $telefonos, $emails, $domicilios, $esPersonaFisica);
 				
 				$usuario = $this->modelo;
 				$idBase = $this->modelo->insertar("Entidad");
