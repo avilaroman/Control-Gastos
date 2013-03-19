@@ -142,7 +142,7 @@ class Cliente extends Entidad
 			echo 'FALLO '.$BD->conexion->errno.' : '.$BD->conexion->error;
 			//Cerrar la conexion
 			
-			$BD->conexion -> close();
+			$BD->cerrar_conexion();
 			return FALSE;
 		}
 		else
