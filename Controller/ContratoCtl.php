@@ -32,9 +32,9 @@ class ControladorContrato{
 				$renovacion = $_REQUEST['renovacion'];
 				$saldado = $_REQUEST['saldado'];
 				
-				$usuario = $this->model->crear($idCuenta,$idEnt_Cont,$fecha,$periodo,$presupuesto,$plazos,$renovacion,$saldado);
+				$this->model->crear($idCuenta,$idEnt_Cont,$fecha,$periodo,$presupuesto,$plazos,$renovacion,$saldado);
 				
-
+				$usuario = $this->model;
 				break;
 			case 'pago':
 				$monto = $_REQUEST['monto'];
@@ -53,7 +53,7 @@ class ControladorContrato{
 				break;
 		}
 
-
+		include ('View/vista.php');
 	}
 }
 
