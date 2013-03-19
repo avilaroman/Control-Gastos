@@ -1,5 +1,5 @@
 <?php
-class Contrato{
+class Contrato implements iTablaDB{
 	private $id;
 	private $fecha;
 	private $periodo;
@@ -7,7 +7,7 @@ class Contrato{
 	private $renovacion;
 	private $saldado;
 
-	function __construct($fechaC,$periodoC,$presupuestoC,$plazosC,$renovacionC,$saldadoC){
+	function crear($fechaC,$periodoC,$presupuestoC,$plazosC,$renovacionC,$saldadoC){
 		$this->fecha=$fechaC;
 		$this->periodo=$periodoC;
 		$this->presupuesto=$presupuestoC;
@@ -15,9 +15,7 @@ class Contrato{
 		$this->renovacion=$renovacionC;
 		$this->saldado=$saldadoC;
 
-	}
 
-	function crear(){
 		require('bd_info.inc');
 
 		$BD = new BaseDatos($hostdb, $userdb, $passdb, $db);
@@ -44,9 +42,31 @@ class Contrato{
 			echo 'SHIT HAPPENS: '.$BD->conexion->errno.':'.$BD->conexion->error;
 			$retornable = FALSE;
 		}
+		else{
+			$this->id = $BD->conexion->insert_id;
+			$retornable = $this->id;
+		}
 
+		$query = "INSERT INTO
+			Contrato_has_Asunto(Contrato_id_contrato)
+			VALUES
+			('this->id')";
+
+		$resultado = $BD->conexion->query($query);
 		$BD->cerrar_conexion();
 
+		return $retornable;
+
+	}
+
+	function RealizarPago($montoP,$fechaP){
+		$model = new PagoClass($montoP,$fechaP);
+	}
+
+	function RealizarGasto($costoG,$precioG,$comentarioG,
+			$categoriaG,$cuenta_origenG,$cuenta_destinoG,$comisionG){
+		$model = new GastoClass($costoG,$precioG,$comentarioG,
+			$categoriaG,$cuenta_origenG,$cuenta_destinoG,$comisionG);
 	}
 
 }

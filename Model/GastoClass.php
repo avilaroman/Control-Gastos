@@ -1,5 +1,5 @@
 <?php
-class GastoClass{
+class GastoClass implements iTablaDB{
 
 
 	private $costo;

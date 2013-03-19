@@ -1,5 +1,5 @@
 <?php
-class PagoClass{
+class PagoClass implements iTablaDB{
 
 
 	private $monto;
