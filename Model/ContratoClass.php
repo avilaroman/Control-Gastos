@@ -2,16 +2,20 @@
 
 require_once 'Model/iTablaDB.php';
 require_once 'Model/baseDatos.php';
+require_once 'Model/entidad.php';
 
 class ContratoClass implements iTablaDB{
-	private $id;
+	private $idCuenta;
+	private $idEnt;
 	private $fecha;
 	private $periodo;
 	private $plazos;
 	private $renovacion;
 	private $saldado;
 
-	function crear($fechaC,$periodoC,$presupuestoC,$plazosC,$renovacionC,$saldadoC){
+	function crear($idC,$idEn,$fechaC,$periodoC,$presupuestoC,$plazosC,$renovacionC,$saldadoC){
+		$this->idCuenta=$idC;
+		$this->idEnt=$idEn;
 		$this->fecha=$fechaC;
 		$this->periodo=$periodoC;
 		$this->presupuesto=$presupuestoC;
@@ -19,7 +23,7 @@ class ContratoClass implements iTablaDB{
 		$this->renovacion=$renovacionC;
 		$this->saldado=$saldadoC;
 
-
+		
 		require('bd_info.inc');
 
 		$BD = new BaseDatos($hostdb, $userdb, $passdb, $db);
@@ -30,9 +34,11 @@ class ContratoClass implements iTablaDB{
 		}
 
 		$query = "INSERT INTO
-			Contrato(fecha_contrato,periodo_fiscal,presupuesto,plazos,renovacion,saldado)
+			Contrato(Cuenta_id_cuenta,Entidad_id_contacto,fecha_contrato,periodo_fiscal,presupuesto,plazos,renovacion,saldado)
 			VALUES 
-			('$this->fecha',
+			('$this->idCuenta',
+			'$this->idEnt',
+			'$this->fecha',
 			'$this->periodo',
 			'$this->presupuesto',
 			'$this->plazos',
@@ -57,6 +63,8 @@ class ContratoClass implements iTablaDB{
 			('this->id')";
 
 		$resultado = $BD->conexion->query($query);
+
+
 		$BD->cerrar_conexion();
 
 		return $retornable;
