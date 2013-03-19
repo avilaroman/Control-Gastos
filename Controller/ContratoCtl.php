@@ -17,6 +17,10 @@ class ControladorContrato{
 		}else switch ($_REQUEST['accion']){
 
 			case 'crear':
+				$nombre = $_REQUEST['nombre'];
+				$apellidoPat = $_REQUEST['apellidoPat'];
+				$apellidoMat = $_REQUEST['apellidoMat'];
+				$rfc = $_REQUEST['RFC'];
 				$entidad = new Entidad($nombre,$apellidoPat,$apellidoMat,$rfc,"","","","");
 				$idEnt_Cont = $entidad -> idEntidad;
 				$idCuenta = $_REQUEST['idCuenta'];
@@ -26,10 +30,6 @@ class ControladorContrato{
 				$plazos = $_REQUEST['plazos'];
 				$renovacion = $_REQUEST['renovacion'];
 				$saldado = $_REQUEST['saldado'];
-				$nombre = $_REQUEST['nombre'];
-				$apellidoPat = $_REQUEST['apellidoPat'];
-				$apellidoMat = $_REQUEST['apellidoMat'];
-				$rfc = $_REQUEST['RFC'];
 				
 				$usuario = $this->model->crear($idCta,$idEnt_Cont,$fecha,$periodo,$presupuesto,$plazos,$renovacion,$saldado);
 				
