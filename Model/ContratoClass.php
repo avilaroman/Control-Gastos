@@ -45,7 +45,6 @@ class ContratoClass implements iTablaDB{
 			'$this->renovacion',
 			'$this->saldado')
 					";
-		echo "$query";
 		$resultado = $BD->conexion->query($query);
 		if(!$resultado)
 		{
