@@ -13,7 +13,6 @@
 			case 'contrato':
 				$controlador = new ControladorContrato();
 				break;
-			
 			default:
 				die("'uso' invalido");
 		}

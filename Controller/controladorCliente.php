@@ -35,8 +35,9 @@ class ControladorCliente
 			case 'consultar':
 				
 				$this->modelo = new Cliente();
-				
-				$usuario = $this->modelo->recuperarCliente($_REQUEST['username'], $_REQUEST['password']);
+				$usuario = $this->modelo->recuperarCliente($_POST['username'], $_POST['password']);
+                if($usuario==FALSE)
+                    echo "Usuario y/o contraseña incorrectos";
 				break;
 
 			default:
