@@ -37,7 +37,7 @@ class ControladorCliente
 				$this->modelo = new Cliente();
 				$usuario = $this->modelo->recuperarCliente($_POST['username'], $_POST['password']);
                 if($usuario==FALSE)
-                    echo "Usuario y/o contraseña incorrectos";
+                    echo "Usuario y/o contraseña incorrectos ";
 				break;
 
 			default:

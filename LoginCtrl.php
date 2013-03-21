@@ -29,7 +29,7 @@
 ?>
 <html>
     <head>
-        <title>Login</title>
+        <title>Login Control de Gastos</title>
     </head>
     
     <body>
