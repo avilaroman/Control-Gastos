@@ -1,25 +1,14 @@
 <?php
 
-class BaseDatos
+abstract class BaseDatos
 {
-	private $host;
-	private $user;
-	private $pass;
-	private $db;
-
-	public $conexion;
-
-	function __construct($dbhost, $dbuser, $dbpass, $db)
+	protected $conexion;
+	
+	protected function conecta()
 	{
-		$this->host = $dbhost;
-		$this->user = $dbuser;
-		$this->pass = $dbpass;
-		$this->db 	= $db;
-	}
-
-	function conecta()
-	{
-		$this->conexion = new mysqli($this->host, $this->user, $this->pass, $this->db);
+		require_once('bd_info.php');
+		
+		$this->conexion = new mysqli($host, $user, $pass, $db);
 
 		if($this->conexion->errno)
 		{
@@ -29,7 +18,7 @@ class BaseDatos
 		return TRUE;
 	}
 
-	function consulta($query)
+	protected function consulta($query)
 	{
 		$resultado = $this->conexion->query($query);
 
@@ -65,12 +54,12 @@ class BaseDatos
 		return $resultado->affected_rows;
 	}
 
-	function cerrar_conexion()
+	protected function cerrar_conexion()
 	{
 		return $this->conexion->close();
 	}
 
-	function limpiarCadena($cadena)
+	protected function limpiarCadena($cadena)
 	{
 		return $this->conexion->real_escape_string($cadena);
 	}

@@ -4,7 +4,7 @@ require_once 'Model/iTablaDB.php';
 require_once 'Model/baseDatos.php';
 require_once 'Model/entidad.php';
 
-class ContratoClass implements iTablaDB{
+class ContratoClass extends iTablaDB{
 	private $idCuenta;
 	private $idEnt;
 	private $fecha;
@@ -84,7 +84,7 @@ class ContratoClass implements iTablaDB{
 	public function insertar(){}
     public function eliminar(){}
     public function modificar(){}
-	public function recuperar($id){}
+	public static function recuperar($id){}
 
 }
 ?>
