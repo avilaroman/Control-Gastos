@@ -2,7 +2,6 @@
 
 include ('Controller/ClienteCtl.php');
 include ('Controller/ContratoCtl.php');
-include ('Controller/SessionCtl.php');
     
     if(isset($_REQUEST['uso']))
     {
