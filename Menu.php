@@ -15,7 +15,7 @@ include ('Controller/SessionCtl.php');
                 $controlador = new ControladorContrato();
                 break;
             case 'login':
-                $controlador = new SessionCtl();
+                $controlador = new LoginCtl();
                 break;
             default:
                 die("'uso' invalido");
