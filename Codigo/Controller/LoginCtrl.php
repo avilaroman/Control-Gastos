@@ -36,6 +36,8 @@
         <form action="index.php" method="post" name="login">
             <table width="300" align="center">
                 <tr>
+                    <input type="hidden" name="uso" value="login">
+                    <input type="hidden" name="accion" value="consultar">
                     <td width="100"><label>Usuario: </label></td>
                     <td width="200"><input type="text" width="200" name="username"/></td>
                 </tr>
@@ -44,8 +46,7 @@
                     <td width="200"><input type="password" width="200" name="password" /></td>
                 </tr>
                 <tr>
-                    <input type="hidden" name="uso" value="cliente">
-                    <input type="hidden" name="accion" value="consultar">
+                    
                     <td colspan="2" align="center"><input type="submit" name="enviar" value="Enviar"/></td>
                 </tr>
             </table>
