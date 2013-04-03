@@ -1,7 +1,7 @@
 <?php
 require_once 'iTablaDB.php';
 
-class Direccion implements iTablaDB
+class Direccion extends iTablaDB
 {
 	public $calle;
 	public $numInterior;
@@ -91,6 +91,6 @@ class Direccion implements iTablaDB
 	
     public function eliminar(){}
     public function modificar(){}
-	public function recuperar($id){}
+	public static function recuperar($id){}
 }
 ?>

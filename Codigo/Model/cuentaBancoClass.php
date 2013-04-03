@@ -2,7 +2,7 @@
 
 require_once ('Model/iTablaDB.php');
 
-class CuentaBanco implements iTablaDB
+class CuentaBanco extends iTablaDB
 {
 	public $nombreBanco;
 	public $numerosCuenta;
@@ -92,6 +92,6 @@ class CuentaBanco implements iTablaDB
 	}
     public function eliminar(){}
     public function modificar(){}
-	public function recuperar($id){}
+	public static function recuperar($id){}
 }
 ?>

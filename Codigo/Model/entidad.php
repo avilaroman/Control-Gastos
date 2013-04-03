@@ -4,7 +4,7 @@ require_once('iTablaDB.php');
 require_once('Model/cuentaBancoClass.php');
 require_once('Model/direccionClass.php');
 
-class Entidad implements iTablaDB
+class Entidad extends iTablaDB
 {
 	public $nombre;
 	public $apellidoPat;
@@ -120,7 +120,7 @@ class Entidad implements iTablaDB
     public function eliminar(){}
     public function modificar(){}
 	
-	public function recuperar($id)
+	public static function recuperar($id)
 	{
 		require('bd_info.inc');
 		require_once('baseDatos.php');

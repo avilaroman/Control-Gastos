@@ -1,11 +1,13 @@
 <?php
 
-interface iTablaDB
+require_once('baseDatos.php');
+
+abstract class iTablaDB extends BaseDatos
 {
-    public function insertar();
-    public function eliminar();
-    public function modificar();
-	public function recuperar($id);
+    public abstract function insertar();
+    public abstract function eliminar();
+    public abstract function modificar();
+	public abstract static function recuperar($id);
 }
 
 
