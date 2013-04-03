@@ -1,7 +1,8 @@
 <?php
 
-	include ('Controller/controladorCliente.php');
+	include ('Controller/ClienteCtl.php');
 	include ('Controller/ContratoCtl.php');
+    include ('Controller/SessionCtl.php');
 	
 	if(isset($_REQUEST['uso']))
 	{
@@ -13,11 +14,16 @@
 			case 'contrato':
 				$controlador = new ControladorContrato();
 				break;
+            case 'login':
+                $controlador = new SessionCtl();
+                break;
 			default:
 				die("'uso' invalido");
 		}
 		
 		$controlador->ejecutar();
+        if($controlador->valido==TRUE)
+            $_SESSION['usuario']=$controlador->model->nombre;
 	}
 	else
 	{
