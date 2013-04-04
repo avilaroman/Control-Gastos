@@ -6,7 +6,7 @@ abstract class BaseDatos
 	
 	protected function conecta()
 	{
-		require_once('bd_info.inc');
+		require('bd_info.inc');
 		
 		$this->conexion = new mysqli($host, $user, $pass, $db);
 
