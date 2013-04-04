@@ -11,7 +11,7 @@ class LoginCtl{
         if($usuario==FALSE)
             echo "Usuario y/o contraseña incorrectos ";
         else
-            $_SESSION['user']=$usuario;
+            $_SESSION['usuario']=$usuario;
     }
     
            
