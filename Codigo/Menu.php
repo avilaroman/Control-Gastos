@@ -22,8 +22,6 @@ include ('Controller/LoginCtl.php');
         }
         
         $controlador->ejecutar();
-        if($controlador->valido==TRUE)
-            $_SESSION['usuario']=$controlador->model->nombre;
     }
     else
     {
