@@ -19,7 +19,7 @@ class Cleaner{
 # ataques de XSS o SQLi
     public static function LimpiarTodo($datos){
         if(is_array($datos)){
-            $datos = array_map('limpia',$datos);
+            $datos = array_map('Cleaner::limpia',$datos);
         
         return $datos;  
         } 
