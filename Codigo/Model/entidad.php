@@ -4,7 +4,7 @@ require_once('iTablaDB.php');
 require_once('Model/cuentaBancoClass.php');
 require_once('Model/direccionClass.php');
 
-class Entidad extends iTablaDB
+class Entidad extends BaseDatos
 {
 	public $nombre;
 	public $apellidoPat;
@@ -29,22 +29,17 @@ class Entidad extends iTablaDB
 
 	public function insertar()
 	{
-		require('bd_info.inc');
-		require_once('baseDatos.php');
-
-		$BD = new BaseDatos($hostdb, $userdb, $passdb, $db);
-
-		if(!$BD->conecta())
+		if(!$this->conecta())
 		{
-			die('SHIT HAPPENS: '.$BD->conexion->errno.':'.$BD->conexion->error);
+			die('SHIT HAPPENS: '.$this->conexion->errno.':'.$this->conexion->error);
 		}
 
-		$this->nombre 			= $BD->limpiarCadena($this->nombre);
-		$this->apellidoPat 		= $BD->limpiarCadena($this->apellidoPat);
-		$this->apellidoMat 		= $BD->limpiarCadena($this->apellidoMat);
-		$this->RFC 				= $BD->limpiarCadena($this->RFC);
-		$this->telefonos 		= $BD->limpiarCadena($this->telefonos);
-		$this->emails 			= $BD->limpiarCadena($this->emails);
+		$this->nombre 			= $this->limpiarCadena($this->nombre);
+		$this->apellidoPat 		= $this->limpiarCadena($this->apellidoPat);
+		$this->apellidoMat 		= $this->limpiarCadena($this->apellidoMat);
+		$this->RFC 				= $this->limpiarCadena($this->RFC);
+		$this->telefonos 		= $this->limpiarCadena($this->telefonos);
+		$this->emails 			= $this->limpiarCadena($this->emails);
 
 
 		$query = "	INSERT INTO 
@@ -55,17 +50,17 @@ class Entidad extends iTablaDB
 						'$this->apellidoMat',
 						'$this->RFC')";
 
-		//$resultado = $BD->consulta($query);
-		$resultado = $BD->conexion->query($query);
+		//$resultado = $this->consulta($query);
+		$resultado = $this->conexion->query($query);
 
 		if(!$resultado)
 		{
-			echo 'No se logro insertar la entidad: '.$BD->conexion->errno.':'.$BD->conexion->error;
+			echo 'No se logro insertar la entidad: '.$this->conexion->errno.':'.$this->conexion->error;
 			$retornable = FALSE;
 		}
 		else
 		{
-			$this->idEntidad = $BD->conexion->insert_id;
+			$this->idEntidad = $this->conexion->insert_id;
 			$retornable = $this -> idEntidad;
 			
 			$query = " INSERT INTO
@@ -74,11 +69,11 @@ class Entidad extends iTablaDB
 							($this->idEntidad,
 							'$this->telefonos')";
 							
-			$resultado = $BD->conexion->query($query);
+			$resultado = $this->conexion->query($query);
 			
 			if(!$resultado)
 			{
-				echo 'No se pudo insertar el Telefono: '.$BD->conexion->errno.':'.$BD->conexion->error;
+				echo 'No se pudo insertar el Telefono: '.$this->conexion->errno.':'.$this->conexion->error;
 				$retornable = FALSE;
 			}
 			
@@ -88,11 +83,11 @@ class Entidad extends iTablaDB
 							($this->idEntidad,
 							'$this->emails')";
 							
-			$resultado = $BD->conexion->query($query);
+			$resultado = $this->conexion->query($query);
 			
 			if(!$resultado)
 			{
-				echo 'No se pudo insertar el email: '.$BD->conexion->errno.':'.$BD->conexion->error;
+				echo 'No se pudo insertar el email: '.$this->conexion->errno.':'.$this->conexion->error;
 				$retornable = FALSE;
 			}
 			
@@ -112,7 +107,7 @@ class Entidad extends iTablaDB
 			$this->domicilios->insertar();
 		}
 
-		$BD->cerrar_conexion();
+		$this->cerrar_conexion();
 
 		return $retornable;
 	}
@@ -120,16 +115,12 @@ class Entidad extends iTablaDB
     public function eliminar(){}
     public function modificar(){}
 	
-	public static function recuperar($id)
+	public function recuperar($id)
 	{
-		require('bd_info.inc');
-		require_once('baseDatos.php');
 
-		$BD = new BaseDatos($hostdb, $userdb, $passdb, $db);
-
-		if(!$BD->conecta())
+		if(!$this->conecta())
 		{
-			die('SHIT HAPPENS: '.$BD->conexion->errno.':'.$BD->conexion->error);
+			die('SHIT HAPPENS: '.$this->conexion->errno.':'.$this->conexion->error);
 		}
 
 
@@ -141,19 +132,19 @@ class Entidad extends iTablaDB
 				  		$id = id_entidad";
 
 		//Ejecutar el query
-		$resultado = $BD->conexion->query($query);
+		$resultado = $this->conexion->query($query);
 
-		if($BD->conexion->errno)
+		if($this->conexion->errno)
 		{
-			echo 'FALLO '.$BD->conexion->errno.' : '.$BD->conexion->error;
+			echo 'FALLO '.$this->conexion->errno.' : '.$this->conexion->error;
 			//Cerrar la conexion
-			$BD->conexion -> close();
+			$this->conexion -> close();
 			return FALSE;
 		}
 		else
 		{
 			//Cerrar la conexion
-			$BD->cerrar_conexion();
+			$this->cerrar_conexion();
 
 			while ($fila = $resultado -> fetch_assoc())
 				$entidad[] = $fila;

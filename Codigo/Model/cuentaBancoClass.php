@@ -92,6 +92,6 @@ class CuentaBanco extends iTablaDB
 	}
     public function eliminar(){}
     public function modificar(){}
-	public static function recuperar($id){}
+	public function recuperar($id){}
 }
 ?>
