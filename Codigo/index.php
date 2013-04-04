@@ -9,7 +9,7 @@
     session_start();
     
     //verificamos que exista la sesion llama usuario y que no este vacia
-    if(isset($_SESSION['usuario']) && is_object($_SESSION['usuario'])){
+    if(isset($_SESSION['usuario'])){
 ?>
     <script language="javascript" type="text/javascript">
                 
