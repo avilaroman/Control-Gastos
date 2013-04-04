@@ -45,14 +45,9 @@ class Cliente extends Entidad
 	 */
 	public function crearCliente($idBase)
 	{
-		require('bd_info.inc');
-		require_once('baseDatos.php');
-
-		$BD = new BaseDatos($hostdb, $userdb, $passdb, $db);
-
-		if(!$BD->conecta())
+		if(!$this->conecta())
 		{
-			die('No se logro conectar la base de datos: '.$BD->conexion->errno.':'.$BD->conexion->error);
+			die('No se logro conectar la base de datos: '.$conexion->errno.':'.$conexion->error);
 		}
 
 
@@ -63,21 +58,21 @@ class Cliente extends Entidad
 						 $this->esPersonaFisica)";
 
 		//$resultado = $BD->consulta($query);
-		$resultado = $BD->conexion->query($query);
+		$resultado = $this->conexion->query($query);
 
 		if(!$resultado)
 		{
-			echo 'No se pudo insertar el cliente: '.$BD->conexion->errno.':'.$BD->conexion->error;
+			echo 'No se pudo insertar el cliente: '.$this->conexion->errno.':'.$this->conexion->error;
 			$retornable = FALSE;
 		}
 		else
 		{
-			$this->idCliente = $BD->conexion->insert_id;
+			$this->idCliente = $this->conexion->insert_id;
 			$retornable = $this->idCliente;
 		}
 		
-		$username = $BD->limpiarCadena($_REQUEST['username']);
-		$password = $BD->limpiarCadena($_REQUEST['password']);
+		//$username = $BD->limpiarCadena($_REQUEST['username']);
+		//$password = $BD->limpiarCadena($_REQUEST['password']);
 		
 		
 		
@@ -87,29 +82,24 @@ class Cliente extends Entidad
 						($this->idCliente,'$username', '$password')";
 		
 		//$resultado = $BD->consulta($query);
-		$resultado = $BD->conexion->query($query);
+		$resultado = $this->conexion->query($query);
 
 		if(!$resultado)
 		{
-			echo 'No se pudo crear la cuenta '.$BD->conexion->errno.':'.$BD->conexion->error;
+			echo 'No se pudo crear la cuenta '.$this->conexion->errno.':'.$this->conexion->error;
 			$retornable = FALSE;
 		}
 
-		$BD->cerrar_conexion();
+		$this->cerrar_conexion();
 
 		return $retornable;
 	}
 
 	public function recuperarCliente($username, $password)
 	{
-		require('bd_info.inc');
-		require_once('baseDatos.php');
-
-		$BD = new BaseDatos($hostdb, $userdb, $passdb, $db);
-
-		if(!$BD->conecta())
+		if(!$this->conecta())
 		{
-			die('No se pudo conectar la BD para recuperar informacion del cliente: '.$BD->conexion->errno.':'.$BD->conexion->error);
+			die('No se pudo conectar la BD para recuperar informacion del cliente: '.$this->conexion->errno.':'.$this->conexion->error);
 		}
 
 		
@@ -125,18 +115,18 @@ class Cliente extends Entidad
 		
 
 		//Ejecutar el query
-		$resultado = $BD->conexion->query($query);
-		if($BD->conexion->errno)
+		$resultado = $this->conexion->query($query);
+		if($this->conexion->errno)
 		{
-			echo 'FALLO la recuperacion de la cuenta con esas credenciales '.$BD->conexion->errno.' : '.$BD->conexion->error;
+			echo 'FALLO la recuperacion de la cuenta con esas credenciales '.$this->conexion->errno.' : '.$this->conexion->error;
 			//Cerrar la conexion
 			
-			$BD->cerrar_conexion();
+			$this->cerrar_conexion();
 			return FALSE;
 		}
 		else
 		{
-			$BD->cerrar_conexion();
+			$this->cerrar_conexion();
 
 			while ($fila = $resultado -> fetch_assoc())
 				$cliente[] = $fila;
@@ -154,14 +144,10 @@ class Cliente extends Entidad
 
 	private function reconstruirCliente($idCliente)
 	{
-		require('bd_info.inc');
-		require_once('baseDatos.php');
 
-		$BD = new BaseDatos($hostdb, $userdb, $passdb, $db);
-
-		if(!$BD->conecta())
+		if(!$this->conecta())
 		{
-			die('No se pudo conectar a la BD para reconstruir al cliente: '.$BD->conexion->errno.':'.$BD->conexion->error);
+			die('No se pudo conectar a la BD para reconstruir al cliente: '.$this->conexion->errno.':'.$this->conexion->error);
 		}
 
 
@@ -173,19 +159,19 @@ class Cliente extends Entidad
 				  		id_cliente = $idCliente";
 
 		//Ejecutar el query
-		$resultado = $BD->conexion->query($query);
+		$resultado = $this->conexion->query($query);
 
-		if($BD->conexion->errno)
+		if($this->conexion->errno)
 		{
-			echo 'Error obteiendo a el cliente '.$BD->conexion->errno.' : '.$BD->conexion->error;
+			echo 'Error obteiendo a el cliente '.$this->conexion->errno.' : '.$this->conexion->error;
 			//Cerrar la conexion
-			$BD->conexion -> close();
+			$this->cerrar_conexion();
 			return FALSE;
 		}
 		else
 		{
 			//Cerrar la conexion
-			$BD->cerrar_conexion();
+			$this->cerrar_conexion();
 
 			while ($fila = $resultado -> fetch_assoc())
 				$cliente[] = $fila;
