@@ -14,7 +14,9 @@ class ControladorCliente
 		{
 			die('No se definio que accion tomar');	
 		}
-		else switch ($_REQUEST['accion']) 
+		else{
+		    $_REQUEST = Cleaner::LimpiarTodo($_REQUEST);
+             switch ($_REQUEST['accion']) 
 		{
 			case 'insertar':
 				$nombre = $_REQUEST['nombre'];
@@ -36,6 +38,7 @@ class ControladorCliente
 				$usuario = 'groar*';
 				break;
 		}
+        }
 
 		include ('View/vista.php');
 

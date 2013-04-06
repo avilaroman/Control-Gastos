@@ -4,6 +4,7 @@
 require('Model/ContratoClass.php');
 require('Model/PagoClass.php');
 require('Model/GastoClass.php');
+require('Utils/Cleaner.php');
 class ControladorContrato{
 	public $model;
 
@@ -13,10 +14,13 @@ class ControladorContrato{
 
 	function ejecutar(){
 		if(!isset($_REQUEST['accion'])){
-			$usuarios = $this->model->error();//
-		}else switch ($_REQUEST['accion']){
+			$usuarios = $this->model->error();
+		}else{
+		      $_REQUEST = Cleaner::LimpiarTodo($_REQUEST);
+		     switch ($_REQUEST['accion']){
 
 			case 'crear':
+                
 				$nombre = $_REQUEST['nombre'];
 				$apellidoPat = $_REQUEST['apellidoPat'];
 				$apellidoMat = $_REQUEST['apellidoMat'];
@@ -42,19 +46,35 @@ class ControladorContrato{
 				$monto = $_REQUEST['monto'];
 				$fecha = $_REQUEST['fecha'];
 
-				$usuario = $this->model->realizarPago($monto,$fecha);
+				$usuario = $this->model->RealizarPago($monto,$fecha);
 
 				break;
 			case 'gasto':
-				$usuario = $this->model->realizarGasto($_REQUEST['costo'],$_REQUEST['precio'],$_REQUEST['comentario'],
+				$usuario = $this->model->RealizarGasto($_REQUEST['costo'],$_REQUEST['precio'],$_REQUEST['comentario'],
 					$_REQUEST['categoria'],$_REQUEST['cuenta_origen'],$_REQUEST['cuenta_destino'],$_REQUEST['comision']);
 				break;
+                
+            case 'consultar':
+                //posible if que indique si es pago o gasto
+                $usuario = $this->model->ConsultarPago();
+                $usuario = $this->model->ConsultarGasto();
+                break;
+            case 'modificar':
+                //if gasto o pago
+                $usuario = $this->model->ModificarPago();
+                $usuario = $this->model->ModificarGasto();
+                break;
+            case 'eliminar':
+                //if
+                $usuario = $this->model->EliminarPago();
+                $usuario = $this->model->EliminarGasto();
+                break;
 			
 			default:
 				echo 'Ola k ase?, ekivokandose o k ase? :v';
 				break;
 		}
-
+		}
 		include ('View/vista.php');
 	}
 }
