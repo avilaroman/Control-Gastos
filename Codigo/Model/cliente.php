@@ -15,8 +15,8 @@ require_once('entidad.php');
  */
 class Cliente extends Entidad
 {
-	public $idCliente;
-	public $esPersonaFisica;
+	private $idCliente;
+	private $esPersonaFisica;
 	
 	/**
 	 * @param string $nombre: nombre del cliente
@@ -29,6 +29,11 @@ class Cliente extends Entidad
 	{
 		parent::__construct($nombre, $apellidoPat, $apellidoMat, $RFC);
 		$this->esPersonaFisica = $esPersonaFisica;
+	}
+	
+	public function getIdCliente()
+	{
+		return $this->idCliente;
 	}
 	
 	/**
@@ -63,7 +68,7 @@ class Cliente extends Entidad
 		else
 		{
 			$this->idCliente = $this->conexion->insert_id;
-			$retornable = $this->idCliente;
+			$retornable = TRUE;
 		}
 		
 		$username = $this->limpiarCadena($_REQUEST['username']);

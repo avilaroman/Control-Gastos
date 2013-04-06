@@ -3,17 +3,17 @@
 require_once('iTablaDB.php');
 require_once('Model/DatosEntidades.php');
 
-class Entidad extends BaseDatos
+class Entidad extends iTablaDB
 {
-	public $nombre;
-	public $apellidoPat;
-	public $apellidoMat;
-	public $RFC;
-	public $telefonos;
-	public $cuentasBancarias;
-	public $emails;
-	public $domicilios;
-	public $idEntidad;
+	protected $nombre;
+	protected $apellidoPat;
+	protected $apellidoMat;
+	protected $RFC;
+	protected $telefonos;
+	protected $cuentasBancarias;
+	protected $emails;
+	protected $domicilios;
+	protected $idEntidad;
 
 	public function __construct($nombre, $apellidoPat, $apellidoMat, $RFC)
 	{
@@ -22,7 +22,35 @@ class Entidad extends BaseDatos
 		$this->apellidoMat 		= $apellidoMat;
 		$this->RFC 				= $RFC;
 	}
-
+	
+	public function getIdEntidad()
+	{
+		return $this->idEntidad;
+	}
+	
+	public function agregarTelefono($telefono)
+	{
+		$this->telefonos[] = $telefono;
+	}
+	
+	public function agregarEmail($email)
+	{
+		$this->emails[] = $email;
+	}
+	
+	public function agregarCuentaBancaria($cuentaBancaria)
+	{
+		$this->cuentasBancarias[] = $cuentaBancaria;
+	}
+	
+	public function agregarDomicilio($domicilio)
+	{
+		$this->domicilios[] = $domicilio;
+	}
+	/////////////////////////////////////////////
+	///    Implementaciones de iTablaDB        //
+	/////////////////////////////////////////////
+	
 	public function insertar()
 	{
 		if(!$this->conecta())
