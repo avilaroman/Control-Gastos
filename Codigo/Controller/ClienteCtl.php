@@ -20,7 +20,7 @@ class ControladorCliente
             switch ($_REQUEST['accion']) 
 			{
 				case 'insertar':
-					$this->InsertarCliente();
+					$usuario = $this->InsertarCliente();
 					break;
 	
 				default:
@@ -43,39 +43,51 @@ class ControladorCliente
 		$esPersonaFisica = $_REQUEST['esPersonaFisica'];
 			
 		$this->modelo = new Cliente($nombre, $apellidoPat, $apellidoMat, $RFC, $esPersonaFisica);
-					
 		$usuario = $this->modelo;
-		if(!$this->modelo->insertar())
+		if(!$usuario->insertar())
 		{
 			die('ERRORES CREANDO AL CLIENTE');
 		}
 		
-		$this->modelo->crearCliente($idCliente);
+		$usuario->crearCliente($usuario->getIdEntidad());
 		
 		if(isset($_REQUEST['telefono']))
 		{
-			$telefono = new Telefono($this->modelo->getIdEntidad(), $_REQUEST['telefono']);
-			$telefono->insertar();
+			$telefono = new Telefono($usuario->getIdEntidad(), $_REQUEST['telefono']);
+			
+			if($telefono->insertar())
+			{
+				$usuario->agregarTelefono($telefono);
+			}
 		}
 
 		if(isset($_REQUEST['email']))
 		{
-			$email = new Telefono($this->modelo->getIdEntidad(), $_REQUEST['email']);
-			$email->insertar();
+			$email = new Telefono($usuario->getIdEntidad(), $_REQUEST['email']);
+			
+			if($email->insertar())
+			{
+				$usuario->agregarEmail($email);
+			}
 		}
 		
 		if(isset($_REQUEST['direccion']))
 		{
-			$this->InsertarDireccion();
+			$this->InsertarDireccion($usuario);
 		}
 		
+		if(isset($_REQUEST['cuentaBancaria']))
+		{
+			$this->InsertarCuentaBancaria($usuario);
+		}
+		
+		return $usuario;		
 	}
 
-	private function InsertarDireccion()
+	private function InsertarDireccion($usuario)
 	{
 		//direccion es un arreglo
 		$tmp = $_REQUEST['direccion'];
-		Cleaner::LimpiarTodo($tmp);
 			
 			
 		$calle 			= $tmp['calle'];
@@ -86,8 +98,28 @@ class ControladorCliente
 		$estado 		= $tmp['estado'];
 		$municipio 		= $tmp['municipio'];
 		
-		$direccion = new Direccion($this->modelo->getIdEntidad(), $calle, $numInterior, $numExterior, $colonia, $codigoPostal, $estado, $municipio);
-		$direccion->insertar();
+		$direccion = new Direccion($usuario->getIdEntidad(), $calle, $numInterior, $numExterior, $colonia, $codigoPostal, $estado, $municipio);
+		
+		if($direccion->insertar())
+		{
+			$usuario->agregarDomicilio($direccion);
+		}
+	} 
+
+	private function InsertarCuentaBancaria($usuario)
+	{
+		//cuentaBancaria es un arreglo
+		$tmp = $_REQUEST['cuentaBancaria'];
+			
+		$nombreBanco 	= $tmp['nombreBanco'];
+		$numeroCuenta 	= $tmp['numeroCuenta'];
+		
+		$cuenta = new CuentaBanco($usuario->getIdEntidad(), $nombreBanco, $numeroCuenta);
+		
+		if($cuenta->insertar())
+		{
+			$usuario->agregarCuentaBancaria($cuenta);
+		}
 	} 
 }
 
