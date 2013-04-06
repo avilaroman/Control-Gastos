@@ -37,7 +37,7 @@ class Telefono extends iTablaDB
 		}
 		else
 		{
-			$this->id = $this->conexion->insert_id();
+			$this->id = $this->conexion->insert_id;
 			$retornable = TRUE;
 		}
 		
@@ -71,7 +71,7 @@ class CuentaBanco extends iTablaDB
 			die('DatosEntidades::CuentaBanco: '.$this->conexion->errno.':'.$this->conexion->error);
 		}
 
-		//$this->nombreBanco = $BD->limpiarCadena($this->nombreBanco);
+		//$this->nombreBanco = $this->limpiarCadena($this->nombreBanco);
 
 
 		$query = "	INSERT INTO 
@@ -79,18 +79,18 @@ class CuentaBanco extends iTablaDB
 					VALUES 
 						($this->idDuenio,
 						'$this->numeroCuenta')";
-		//$resultado = $BD->consulta($query);
-		$resultado = $BD->conexion->query($query);
+		//$resultado = $this->consulta($query);
+		$resultado = $this->conexion->query($query);
 
 		if(!$resultado)
 		{
-			echo 'DatosEntidades::CuentaBanco -> No se pudo insertar la cuenta bancaria: '.$BD->conexion->errno.':'.$BD->conexion->error;
+			echo 'DatosEntidades::CuentaBanco -> No se pudo insertar la cuenta bancaria: '.$this->conexion->errno.':'.$this->conexion->error;
 			$retornable = FALSE;
 		}
 		else
 		{
 			
-			$this->$id= $BD->conexion->insert_id;
+			$this->id = $this->conexion->insert_id;
 			
 			$query = "  SELECT 
 							id_banco
@@ -99,7 +99,7 @@ class CuentaBanco extends iTablaDB
 						WHERE
 							nombre LIKE '$this->nombreBanco'";
 							
-			$resultado = $BD->conexion->query($query);
+			$resultado = $this->conexion->query($query);
 							
 			while ($fila = $resultado -> fetch_assoc())
 				$banco[] = $fila;
@@ -113,11 +113,11 @@ class CuentaBanco extends iTablaDB
 							VALUES 
 								($this->id, $idBanco)";
 				
-				$resultado = $BD->conexion->query($query);
+				$resultado = $this->conexion->query($query);
 
 				if(!$resultado)
 				{
-					echo 'DatosEntidades::CuentaBanco -> No se pudo relacionar la cuenta del banco: '.$BD->conexion->errno.':'.$BD->conexion->error;
+					echo 'DatosEntidades::CuentaBanco -> No se pudo relacionar la cuenta del banco: '.$this->conexion->errno.':'.$this->conexion->error;
 					$retornable = FALSE;
 				}
 						
@@ -130,7 +130,7 @@ class CuentaBanco extends iTablaDB
 			
 		}
 
-		$BD->cerrar_conexion();
+		$this->cerrar_conexion();
 
 		return $retornable;
 	}
@@ -216,10 +216,10 @@ class Direccion extends iTablaDB
 			die('DatosEntidades::Direccion: '.$this->conexion->errno.':'.$this->conexion->error);
 		}
 
-		$this->calle 		= $BD->limpiarCadena($this->calle);
-		$this->colonia 		= $BD->limpiarCadena($this->colonia);
-		$this->estado 		= $BD->limpiarCadena($this->estado);
-		$this->municipio 	= $BD->limpiarCadena($this->municipio);
+		$this->calle 		= $this->limpiarCadena($this->calle);
+		$this->colonia 		= $this->limpiarCadena($this->colonia);
+		$this->estado 		= $this->limpiarCadena($this->estado);
+		$this->municipio 	= $this->limpiarCadena($this->municipio);
 
 
 		$query = "	INSERT INTO 
@@ -232,29 +232,28 @@ class Direccion extends iTablaDB
 						$this->codigoPostal,
 						'$this->estado',
 						'$this->municipio')";
-
-		//$resultado = $BD->consulta($query);
-		$resultado = $BD->conexion->query($query);
+		
+		//$resultado = $this->consulta($query);
+		$resultado = $this->conexion->query($query);
 
 		if(!$resultado)
 		{
-			echo 'DatosEntidades::Direccion -> Error al insertar la direccion: '.$BD->conexion->errno.':'.$BD->conexion->error;
+			echo 'DatosEntidades::Direccion -> Error al insertar la direccion: '.$this->conexion->errno.':'.$this->conexion->error;
 			$retornable = FALSE;
 		}
 		else
 		{
-			$this->id = $BD->conexion->insert_id;
+			$this->id = $this->conexion->insert_id;
 			
 			$query = " INSERT INTO
 							Entidad_has_Domicilio(Entidad_id_entidad, Domicilio_id_domicilio)
 						VALUES
-							($this->idDuenio, $$this->id)";
-			
-			$resultado = $BD->conexion->query($query);
+							($this->idDuenio, $this->id)";
+			$resultado = $this->conexion->query($query);
 			
 			if(!$resultado)
 			{
-				echo 'DatosEntidades::Direccion -> Error al relacionar una direccion con una entidad: '.$BD->conexion->errno.':'.$BD->conexion->error;
+				echo 'DatosEntidades::Direccion -> Error al relacionar una direccion con una entidad: '.$this->conexion->errno.':'.$this->conexion->error;
 				$retornable = FALSE;
 			}
 			else
@@ -264,7 +263,7 @@ class Direccion extends iTablaDB
 			
 		}
 
-		$BD->cerrar_conexion();
+		$this->cerrar_conexion();
 
 		return $retornable;
 	}
