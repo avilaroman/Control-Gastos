@@ -71,7 +71,6 @@ class ControladorCliente
 			}
 		}
 		
-		var_dump($_GET);
 		if(isset($_GET['direccion']))
 		{
 			$this->InsertarDireccion($usuario);
