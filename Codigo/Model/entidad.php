@@ -27,7 +27,30 @@ class Entidad extends iTablaDB
 	{
 		return $this->idEntidad;
 	}
-
+	
+	public function agregarTelefono($telefono)
+	{
+		$this->telefonos[] = $telefono;
+	}
+	
+	public function agregarEmail($email)
+	{
+		$this->emails[] = $email;
+	}
+	
+	public function agregarCuentaBancaria($cuentaBancaria)
+	{
+		$this->cuentasBancarias[] = $cuentaBancaria;
+	}
+	
+	public function agregarDomicilio($domicilio)
+	{
+		$this->domicilios[] = $domicilio;
+	}
+	/////////////////////////////////////////////
+	///    Implementaciones de iTablaDB        //
+	/////////////////////////////////////////////
+	
 	public function insertar()
 	{
 		if(!$this->conecta())
