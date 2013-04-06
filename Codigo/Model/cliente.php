@@ -23,15 +23,11 @@ class Cliente extends Entidad
 	 * @param string $apellidoPat: apellido paterno del cliente
 	 * @param string $apellidoMat: apellido materno del cliente
 	 * @param string $RFC: cadena de 13 caracteres con clave única de registro
-	 * @param array<string> $telefonos: multiples telefonos del cliente
-	 * @param array<object> $cuentasBancarias: múltiples cuentas bancarias
-	 * @param array<string> $emails: múltiples correos electronicos
-	 * @param array>object> $domicilios: sus direcciones de contacto
 	 * @param boolean $esPersonaFisica: FALSE para que sea persona moral 
 	 */
-	public function __construct($nombre = "", $apellidoPat= "", $apellidoMat= "", $RFC= "", $telefonos= "", $emails= "", $esPersonaFisica = TRUE)
+	public function __construct($nombre = "", $apellidoPat= "", $apellidoMat= "", $RFC= "", $esPersonaFisica = TRUE)
 	{
-		parent::__construct($nombre, $apellidoPat, $apellidoMat, $RFC, $telefonos, $emails);
+		parent::__construct($nombre, $apellidoPat, $apellidoMat, $RFC);
 		$this->esPersonaFisica = $esPersonaFisica;
 	}
 	
@@ -57,7 +53,6 @@ class Cliente extends Entidad
 						($this->idEntidad,
 						 $this->esPersonaFisica)";
 
-		//$resultado = $BD->consulta($query);
 		$resultado = $this->conexion->query($query);
 
 		if(!$resultado)
@@ -71,8 +66,8 @@ class Cliente extends Entidad
 			$retornable = $this->idCliente;
 		}
 		
-		//$username = $BD->limpiarCadena($_REQUEST['username']);
-		//$password = $BD->limpiarCadena($_REQUEST['password']);
+		$username = $this->limpiarCadena($_REQUEST['username']);
+		$password = $this->limpiarCadena($_REQUEST['password']);
 		
 		
 		
@@ -81,7 +76,6 @@ class Cliente extends Entidad
 					VALUES
 						($this->idCliente,'$username', '$password')";
 		
-		//$resultado = $BD->consulta($query);
 		$resultado = $this->conexion->query($query);
 
 		if(!$resultado)
@@ -164,13 +158,12 @@ class Cliente extends Entidad
 		if($this->conexion->errno)
 		{
 			echo 'Error obteiendo a el cliente '.$this->conexion->errno.' : '.$this->conexion->error;
-			//Cerrar la conexion
+
 			$this->cerrar_conexion();
 			return FALSE;
 		}
 		else
 		{
-			//Cerrar la conexion
 			$this->cerrar_conexion();
 
 			while ($fila = $resultado -> fetch_assoc())

@@ -21,11 +21,9 @@ class ControladorCliente
 				$apellidoPat = $_REQUEST['apellidoPat'];
 				$apellidoMat = $_REQUEST['apellidoMat'];
 				$RFC = $_REQUEST['RFC'];
-				$telefonos = $_REQUEST['telefonos'];
-				$emails = $_REQUEST['emails'];
 				$esPersonaFisica = $_REQUEST['esPersonaFisica'];
 				
-				$this->modelo = new Cliente($nombre, $apellidoPat, $apellidoMat, $RFC, $telefonos, $emails, $esPersonaFisica);
+				$this->modelo = new Cliente($nombre, $apellidoPat, $apellidoMat, $RFC, $esPersonaFisica);
 				
 				$usuario = $this->modelo;
 				$idBase = $this->modelo->insertar();
