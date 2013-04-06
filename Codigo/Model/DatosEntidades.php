@@ -1,0 +1,276 @@
+<?php
+
+require_once ('Model/iTablaDB.php');
+
+
+class Telefono extends iTablaDB
+{
+  	private $numero;
+	private $id_propietario;
+	
+	public function __construct($id_propietario, $numero)
+	{
+		$this->id_propietario = $id_propietario;
+		$this->numero = $numero;
+	}
+		
+   	public function insertar()
+   	{
+   		
+   		if(!$this->conecta())
+		{
+			die('DatosEntidades::Telefono: '.$this->conexion->errno.':'.$this->conexion->error);
+		}
+		
+		$query = " INSERT INTO
+						Telefono(Entidad_id_entidad, telefono)
+					VALUES
+						($this->id_propietario,
+						'$this->numero')";
+						
+		$resultado = $this->conexion->query($query);
+		
+		if(!$resultado)
+		{
+			echo 'DatosEntidades::Telefono -> No se pudo insertar el Telefono: '.$this->conexion->errno.':'.$this->conexion->error;
+			$retornable = FALSE;
+		}
+		else
+		{
+			$this->id = $this->conexion->insert_id();
+			$retornable = TRUE;
+		}
+		
+		$this->cerrar_conexion();
+		
+		return $retornable;
+   	}
+	
+    public function eliminar(){}
+    public function modificar(){}
+	public function recuperar($id){}
+}
+
+class CuentaBanco extends iTablaDB
+{
+	private $nombreBanco;
+	private $numeroCuenta;
+	private $idDuenio;
+	
+	public function __construct($idDuenio, $nombreBanco, $numeroCuenta)
+	{
+		$this->nombreBanco = $nombreBanco;
+		$this->numeroCuenta = $numeroCuenta;
+		$this->idDuenio = $idDuenio;
+	}
+	
+	public function insertar()
+	{
+		if(!$this->conecta())
+		{
+			die('DatosEntidades::CuentaBanco: '.$this->conexion->errno.':'.$this->conexion->error);
+		}
+
+		//$this->nombreBanco = $BD->limpiarCadena($this->nombreBanco);
+
+
+		$query = "	INSERT INTO 
+						Cuenta_Bancaria (Entidad_id_entidad,num_cuenta)
+					VALUES 
+						($this->idDuenio,
+						'$this->numeroCuenta')";
+		//$resultado = $BD->consulta($query);
+		$resultado = $BD->conexion->query($query);
+
+		if(!$resultado)
+		{
+			echo 'DatosEntidades::CuentaBanco -> No se pudo insertar la cuenta bancaria: '.$BD->conexion->errno.':'.$BD->conexion->error;
+			$retornable = FALSE;
+		}
+		else
+		{
+			
+			$this->$id= $BD->conexion->insert_id;
+			
+			$query = "  SELECT 
+							id_banco
+						FROM
+							Banco
+						WHERE
+							nombre LIKE '$this->nombreBanco'";
+							
+			$resultado = $BD->conexion->query($query);
+							
+			while ($fila = $resultado -> fetch_assoc())
+				$banco[] = $fila;
+			
+			if(isset($banco))
+			{
+				$idBanco = $banco[0]['id_banco'];
+				
+				$query = "	INSERT INTO 
+								Cuenta_Bancaria_has_Banco (Cuenta_Bancaria_id_cuenta_Bancaria, Banco_id_banco)
+							VALUES 
+								($this->id, $idBanco)";
+				
+				$resultado = $BD->conexion->query($query);
+
+				if(!$resultado)
+				{
+					echo 'DatosEntidades::CuentaBanco -> No se pudo relacionar la cuenta del banco: '.$BD->conexion->errno.':'.$BD->conexion->error;
+					$retornable = FALSE;
+				}
+						
+				$retornable = TRUE;
+			}
+			else
+			{
+				 $retornable = FALSE;
+			}
+			
+		}
+
+		$BD->cerrar_conexion();
+
+		return $retornable;
+	}
+    public function eliminar(){}
+    public function modificar(){}
+	public function recuperar($id){}
+}
+
+class Email extends iTablaDB
+{
+	private $email;
+	private $id_propietario;
+	
+	public function __construct($id_propietario, $email)
+	{
+		$this->id_propietario = $id_propietario;
+		$this->$email = $email;
+	}
+		
+   	public function insertar()
+   	{	
+   		if(!$this->conecta())
+		{
+			die('DatosEntidades::Email: '.$this->conexion->errno.':'.$this->conexion->error);
+		}
+		
+		$query = " INSERT INTO
+							Email(Entidad_id_entidad, email)
+						VALUES
+							($this->idEntidad,
+							'$this->email')";
+							
+		$resultado = $this->conexion->query($query);
+			
+		if(!$resultado)
+		{
+			echo 'DatosEntidades::Email -> No se pudo insertar el email: '.$this->conexion->errno.':'.$this->conexion->error;
+			$retornable = FALSE;
+		}
+		else
+		{
+			$this->id = $this->conexion->insert_id();
+			$retornable = TRUE;
+		}
+		
+		$this->cerrar_conexion();
+		
+		return $retornable;
+   	}
+	
+    public function eliminar(){}
+    public function modificar(){}
+	public function recuperar($id){}
+}
+
+class Direccion extends iTablaDB
+{
+	public $calle;
+	public $numInterior;
+	public $numExterior;
+	public $colonia;
+	public $codigoPostal;
+	public $estado;
+	public $municipio;
+	public $idDuenio;
+	
+	public function __construct($idDuenio, $calle, $numInterior, $numExterior, $colonia, $codigoPostal, $estado, $municipio)
+	{
+		$this->calle 		= $calle;
+		$this->numInterior 	= $numInterior;
+		$this->numExterior 	= $numExterior;
+		$this->colonia 		= $colonia;
+		$this->codigoPostal = $codigoPostal;
+		$this->estado 		= $estado;
+		$this->municipio 	= $municipio;
+		$this->idDuenio		= $idDuenio;
+	}
+	
+	public function insertar()
+	{
+		if(!$this->conecta())
+		{
+			die('DatosEntidades::Direccion: '.$this->conexion->errno.':'.$this->conexion->error);
+		}
+
+		$this->calle 		= $BD->limpiarCadena($this->calle);
+		$this->colonia 		= $BD->limpiarCadena($this->colonia);
+		$this->estado 		= $BD->limpiarCadena($this->estado);
+		$this->municipio 	= $BD->limpiarCadena($this->municipio);
+
+
+		$query = "	INSERT INTO 
+						Domicilio (calle, num_interior, num_exterior, colonia, codigo_postal, stado, municipio)
+					VALUES 
+						('$this->calle',
+						$this->numInterior,
+						$this->numExterior,
+						'$this->colonia',
+						$this->codigoPostal,
+						'$this->estado',
+						'$this->municipio')";
+
+		//$resultado = $BD->consulta($query);
+		$resultado = $BD->conexion->query($query);
+
+		if(!$resultado)
+		{
+			echo 'DatosEntidades::Direccion -> Error al insertar la direccion: '.$BD->conexion->errno.':'.$BD->conexion->error;
+			$retornable = FALSE;
+		}
+		else
+		{
+			$this->id = $BD->conexion->insert_id;
+			
+			$query = " INSERT INTO
+							Entidad_has_Domicilio(Entidad_id_entidad, Domicilio_id_domicilio)
+						VALUES
+							($this->idDuenio, $$this->id)";
+			
+			$resultado = $BD->conexion->query($query);
+			
+			if(!$resultado)
+			{
+				echo 'DatosEntidades::Direccion -> Error al relacionar una direccion con una entidad: '.$BD->conexion->errno.':'.$BD->conexion->error;
+				$retornable = FALSE;
+			}
+			else
+			{
+				$retornable = TRUE;
+			}
+			
+		}
+
+		$BD->cerrar_conexion();
+
+		return $retornable;
+	}
+	
+    public function eliminar(){}
+    public function modificar(){}
+	public function recuperar($id){}
+}
+?>
