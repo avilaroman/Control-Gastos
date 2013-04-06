@@ -9,15 +9,15 @@ class ControladorCliente
 	public function ejecutar()
 	{
 		//si no hya parametros, nomas listar los usuarios
-		if(!isset($_REQUEST['accion']) )
+		if(!isset($_GET['accion']) )
 		{
 			die('No se definio que accion tomar');	
 		}
 		else
 		{
-		    $_REQUEST = Cleaner::LimpiarTodo($_REQUEST);
+		    $_GET = Cleaner::LimpiarTodo($_GET);
 			
-            switch ($_REQUEST['accion']) 
+            switch ($_GET['accion']) 
 			{
 				case 'insertar':
 					$usuario = $this->InsertarCliente();
@@ -36,11 +36,11 @@ class ControladorCliente
 	
 	private function InsertarCliente()
 	{
-		$nombre = $_REQUEST['nombre'];
-		$apellidoPat = $_REQUEST['apellidoPat'];
-		$apellidoMat = $_REQUEST['apellidoMat'];
-		$RFC = $_REQUEST['RFC'];
-		$esPersonaFisica = $_REQUEST['esPersonaFisica'];
+		$nombre = $_GET['nombre'];
+		$apellidoPat = $_GET['apellidoPat'];
+		$apellidoMat = $_GET['apellidoMat'];
+		$RFC = $_GET['RFC'];
+		$esPersonaFisica = $_GET['esPersonaFisica'];
 			
 		$this->modelo = new Cliente($nombre, $apellidoPat, $apellidoMat, $RFC, $esPersonaFisica);
 		$usuario = $this->modelo;
@@ -51,9 +51,9 @@ class ControladorCliente
 		
 		$usuario->crearCliente($usuario->getIdEntidad());
 		
-		if(isset($_REQUEST['telefono']))
+		if(isset($_GET['telefono']))
 		{
-			$telefono = new Telefono($usuario->getIdEntidad(), $_REQUEST['telefono']);
+			$telefono = new Telefono($usuario->getIdEntidad(), $_GET['telefono']);
 			
 			if($telefono->insertar())
 			{
@@ -61,9 +61,9 @@ class ControladorCliente
 			}
 		}
 
-		if(isset($_REQUEST['email']))
+		if(isset($_GET['email']))
 		{
-			$email = new Telefono($usuario->getIdEntidad(), $_REQUEST['email']);
+			$email = new Telefono($usuario->getIdEntidad(), $_GET['email']);
 			
 			if($email->insertar())
 			{
@@ -71,12 +71,13 @@ class ControladorCliente
 			}
 		}
 		
-		if(isset($_REQUEST['direccion']))
+		var_dump($_GET);
+		if(isset($_GET['direccion']))
 		{
 			$this->InsertarDireccion($usuario);
 		}
 		
-		if(isset($_REQUEST['cuentaBancaria']))
+		if(isset($_GET['cuentaBancaria']))
 		{
 			$this->InsertarCuentaBancaria($usuario);
 		}
@@ -87,7 +88,7 @@ class ControladorCliente
 	private function InsertarDireccion($usuario)
 	{
 		//direccion es un arreglo
-		$tmp = $_REQUEST['direccion'];
+		$tmp = $_GET['direccion'];
 			
 			
 		$calle 			= $tmp['calle'];
@@ -109,7 +110,7 @@ class ControladorCliente
 	private function InsertarCuentaBancaria($usuario)
 	{
 		//cuentaBancaria es un arreglo
-		$tmp = $_REQUEST['cuentaBancaria'];
+		$tmp = $_GET['cuentaBancaria'];
 			
 		$nombreBanco 	= $tmp['nombreBanco'];
 		$numeroCuenta 	= $tmp['numeroCuenta'];
