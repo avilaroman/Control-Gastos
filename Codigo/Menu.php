@@ -1,8 +1,8 @@
 <?php
 
-include ('Controller/ClienteCtl.php');
-include ('Controller/ContratoCtl.php');
-include ('Controller/LoginCtl.php');
+include_once ('Controller/ClienteCtl.php');
+include_once ('Controller/ContratoCtl.php');
+include_once ('Controller/LoginCtl.php');
     
     if(isset($_REQUEST['uso']))
     {
@@ -29,7 +29,7 @@ include ('Controller/LoginCtl.php');
         
         echo 'Para clientes'.PHP_EOL.PHP_EOL;
         //Llamadas al controlador que se encarga de manejar al cliente
-        echo 'http://www.seguame.com/?uso=cliente&accion=insertar&nombre=Miguel&apellidoPat=Seguame&apellidoMat=Reyes&RFC=1234567890123&telefonos=36436418&nombreBanco=Santander&numeroCuenta=124a&emails=lol%40lol&calle=JesusUrueta&numInterior=1600&numExterior=1&colonia=Mirador&cp=4444&estado=Jalisco&municipio=gdl&esPersonaFisica=TRUE&username=lal&password=lal'.PHP_EOL;
+        echo 'http://www.seguame.com/?uso=cliente&accion=insertar&nombre=Foo&apellidoPat=Bar&apellidoMat=Baz&RFC=1234567890123&esPersonaFisica=TRUE&username=test&password=test&telefono=36436418&email=lol%40lol&direccion[calle]=ASDF&direccion[numInterior]=345&direccion[numExterior]=123&direccion[colonia]=Mirador&direccion[cp]=4444&direccion[estado]=Jalisco&direccion[municipio]=gdl$&cuentaBancaria[nombreBanco]=Santander&cuentaBancaria[numeroCuenta]=124a'.PHP_EOL;
         
         echo 'Para contrato'.PHP_EOL.PHP_EOL;
         //Controlador de Contrato
