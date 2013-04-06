@@ -61,13 +61,13 @@ class ControladorContrato{
                 break;
             case 'modificar':
                 //if gasto o pago
-                $usuario = $this->model->ModificarPago();
-                $usuario = $this->model->ModificarGasto();
+                $usuario = $this->model->ModificarPago($_REQUEST['campo'], $_REQUEST['valor'], $_REQUEST['id']);
+                //$usuario = $this->model->ModificarGasto($_REQUEST['campo'], $_REQUEST['valor'], $_REQUEST['id']);
                 break;
             case 'eliminar':
                 //if
-                $usuario = $this->model->EliminarPago();
-                $usuario = $this->model->EliminarGasto();
+                $usuario = $this->model->EliminarPago($_REQUEST['del']);
+                $usuario = $this->model->EliminarGasto($_REQUEST['del']);
                 break;
 			
 			default:
