@@ -1,8 +1,8 @@
 <?php
 
-include ('Controller/ClienteCtl.php');
-include ('Controller/ContratoCtl.php');
-include ('Controller/LoginCtl.php');
+include_once ('Controller/ClienteCtl.php');
+include_once ('Controller/ContratoCtl.php');
+include_once ('Controller/LoginCtl.php');
     
     if(isset($_REQUEST['uso']))
     {

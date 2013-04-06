@@ -1,5 +1,5 @@
 <?php
-require('Utils/Cleaner.php');
+require_once('Utils/Cleaner.php');
 
 class LoginCtl{
         
