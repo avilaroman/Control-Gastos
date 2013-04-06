@@ -7,7 +7,7 @@ class Cleaner{
     {
     	if(is_array($var))
 		{
-			Cleaner::LimpiarTodo($var);
+			return Cleaner::LimpiarTodo($var);
 		}
 		else
 		{
