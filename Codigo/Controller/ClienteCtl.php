@@ -28,14 +28,7 @@ class ControladorCliente
 				$usuario = $this->modelo;
 				$idBase = $this->modelo->insertar();
 				$this->modelo->crearCliente($idBase);
-				break;
 				
-			case 'consultar':
-				
-				$this->modelo = new Cliente();
-				$usuario = $this->modelo->recuperarCliente($_POST['username'], $_POST['password']);
-                if($usuario==FALSE)
-                    echo "Usuario y/o contraseña incorrectos ";
 				break;
 
 			default:
