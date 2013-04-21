@@ -1,9 +1,33 @@
+<!DOCTYPE html>
+<html lang="es">
+    <head>
+        <meta charset="UTF-8"/>
+        <title>Menu</title>
+        <script type="text/javascript"></script>
+        <noscript>Tu explorador no soporta javascript</noscript>
+    </head>
+    <body>
+        <a href="Utils/Logout.php">Cerrar sesion</a>
+    </body>
+    
+</html>
+
+
 <?php
 
 include_once ('Controller/ClienteCtl.php');
 include_once ('Controller/ContratoCtl.php');
 include_once ('Controller/LoginCtl.php');
-    
+//include_once ('Utils/Logout.php');
+session_start();
+if(isset($_SESSION['usuario'])){
+//imprimimos el usuario que ingreso al loguin
+//echo "Hola ".$_SESSION['usuario']->username."<br/>";
+        
+//imprimimos el nombre de la sesion de este usuario y su ID
+echo session_name()."=".session_id()."<br/>";
+}
+        
     if(isset($_REQUEST['uso']))
     {
         switch ($_REQUEST['uso']) 
