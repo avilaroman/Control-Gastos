@@ -5,6 +5,7 @@ require('Model/ContratoClass.php');
 require('Model/PagoClass.php');
 require('Model/GastoClass.php');
 require('Utils/Cleaner.php');
+require_once('View/html.html');
 class ControladorContrato{
 	public $model;
 

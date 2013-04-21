@@ -1,6 +1,7 @@
 <?php
 
 require('Model/cliente.php');
+require_once('View/html.html');
 
 class ControladorCliente
 {
