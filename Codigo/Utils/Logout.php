@@ -1,9 +1,9 @@
 <?php
     //iniciamos el objeto de session
     //el objeto de session tiene que estar presente para poder eliminarla
-    session_start();
-    
-    //damos de baja las sesiones iniciadas en el sitio
+    $session = session_status();
+    if($status == PHP_SESSION_ACTIVE){
+        //damos de baja las sesiones iniciadas en el sitio
     session_unset();
     
     //verificamos si existe cookies tras haber creado la sesion
@@ -18,6 +18,9 @@
     
     //destruimos la sesion del servidor
     session_destroy();
+    
+    }
+    
 ?>
 <script language="javascript" type="text/javascript">
     document.location.href="/Control-Gastos/Codigo/index.php";
