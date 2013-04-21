@@ -66,7 +66,7 @@ class Entidad extends iTablaDB
 
 		$query = "	INSERT INTO 
 						Entidad (nombre, apellido_paterno, apellido_materno, RFC)
-					VALUES 
+					VALUES
 						('$this->nombre',
 						'$this->apellidoPat',
 						'$this->apellidoMat',
@@ -134,6 +134,12 @@ class Entidad extends iTablaDB
 			
 			return $entidad;			
 		}
+	}
+	
+	
+	public function getName()
+	{
+		return $this->nombre;
 	}
 }
 ?>
