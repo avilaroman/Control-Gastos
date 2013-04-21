@@ -14,6 +14,5 @@ if(!isset($_SESSION['username']))
 }
 else {
 	echo "Bienvenido".$_SESSION['username'].PHP_EOL;
-	die();
 }
 ?>
