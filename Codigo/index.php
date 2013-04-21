@@ -10,16 +10,7 @@
     
     //verificamos que exista la sesion llama usuario y que no este vacia
     if(isset($_SESSION['username'])){
-?>
-    <script language="javascript" type="text/javascript">
-                
-                /*php por si mismo no puede redireccionarse a otra pagina
-                *asi que esta sentencia en js nos hace ese trabajo
-                */
-                document.location.href="Menu.php";
-                //Este formulario estará disponible cuando se comience a trabajar con la BD + HTML
-     </script>
-        <?php
+	header("Location: Menu.php");
     
 	}else{
 	    ?>

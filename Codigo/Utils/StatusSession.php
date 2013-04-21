@@ -6,11 +6,8 @@ if(!isset($_SESSION))
 
 if(!isset($_SESSION['username']))
 {
-?>
-	<script language="javascript" type="text/javascript">
-    	document.location.href="index.php";
-   </script>
-   <?php
+	header("Location: index.php");
+   	die();
 }
 else {
 	echo "Bienvenido".$_SESSION['username'].PHP_EOL;
