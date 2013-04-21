@@ -1,23 +1,9 @@
-<!DOCTYPE html>
-<html lang="es">
-    <head>
-        <meta charset="UTF-8"/>
-        <title>Menu</title>
-        <script type="text/javascript"></script>
-        <noscript>Tu explorador no soporta javascript</noscript>
-    </head>
-    <body>
-        <a href="Utils/Logout.php">Cerrar sesion</a>
-    </body>
-    
-</html>
-
-
 <?php
 
 include_once ('Controller/ClienteCtl.php');
 include_once ('Controller/ContratoCtl.php');
 include_once ('Controller/LoginCtl.php');
+require_once('View/html.html');
 //include_once ('Utils/Logout.php');
 
         
@@ -44,6 +30,7 @@ include_once ('Controller/LoginCtl.php');
     }
     else
     {
+        include ('Utils/StatusSession.php');
         echo 'Ejemplos de uso: '.PHP_EOL;
         
         echo 'Para clientes'.PHP_EOL.PHP_EOL;
@@ -53,6 +40,9 @@ include_once ('Controller/LoginCtl.php');
         echo 'Para contrato'.PHP_EOL.PHP_EOL;
         //Controlador de Contrato
         echo '?uso=contrato&accion=crear&nombre=Miguel&apellidoPat=Seguame&apellidoMat=Reyes&RFC=1234567890123&telefonos=36436418&nombreBanco=Santander&numeroCuenta=124a&emails=lol%40lol&calle=JesusUrueta&numInterior=1600&numExterior=1&colonia=Mirador&cp=4444&estado=Jalisco&municipio=gdl&idCuenta=1&fecha=hoy&periodo=masd&presupuesto=1212&plazos=TRUE&renovacion=2432&saldado=FALSE';
+        
+        echo 'Menu.php?uso=contrato&accion=modificar&campo=monto&valor=999&id=1';
     }
 
 ?>
+
