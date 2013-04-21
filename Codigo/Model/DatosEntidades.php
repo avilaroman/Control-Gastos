@@ -46,7 +46,36 @@ class Telefono extends iTablaDB
 		return $retornable;
    	}
 	
-    public function eliminar(){}
+    public function eliminar()
+    {
+    	if(!$this->conecta())
+		{
+			die('DatosEntidades::Telefono: '.$this->conexion->errno.':'.$this->conexion->error);
+		}
+		
+		$query = " DELETE FROM
+						Telefono
+					WHERE
+						id_telefono = $this->id
+					LIMIT
+						1";
+						
+		$resultado = $this->conexion->query($query);
+		
+		if(!$resultado)
+		{
+			echo 'DatosEntidades::Telefono -> No se pudo eliminar el Telefono: '.$this->conexion->errno.':'.$this->conexion->error;
+			$retornable = FALSE;
+		}
+		else
+		{
+			$retornable = TRUE;
+		}
+		
+		$this->cerrar_conexion();
+		
+		return $retornable;
+    }
     public function modificar(){}
 	public function recuperar($id){}
 }
@@ -134,7 +163,36 @@ class CuentaBanco extends iTablaDB
 
 		return $retornable;
 	}
-    public function eliminar(){}
+    public function eliminar()
+    {
+    	if(!$this->conecta())
+		{
+			die('DatosEntidades::CuentaBanco: '.$this->conexion->errno.':'.$this->conexion->error);
+		}
+		
+		$query = " DELETE FROM
+						Cuenta_Bancaria
+					WHERE
+						id_cuenta_Bancaria = $this->id
+					LIMIT
+						1";
+						
+		$resultado = $this->conexion->query($query);
+		
+		if(!$resultado)
+		{
+			echo 'DatosEntidades::CuentaBanco -> No se pudo eliminar la Cuenta Bancaria: '.$this->conexion->errno.':'.$this->conexion->error;
+			$retornable = FALSE;
+		}
+		else
+		{
+			$retornable = TRUE;
+		}
+		
+		$this->cerrar_conexion();
+		
+		return $retornable;
+    }
     public function modificar(){}
 	public function recuperar($id){}
 }
@@ -181,7 +239,36 @@ class Email extends iTablaDB
 		return $retornable;
    	}
 	
-    public function eliminar(){}
+    public function eliminar()
+    {
+    	if(!$this->conecta())
+		{
+			die('DatosEntidades::Email: '.$this->conexion->errno.':'.$this->conexion->error);
+		}
+		
+		$query = " DELETE FROM
+						Email
+					WHERE
+						id_email = $this->id
+					LIMIT
+						1";
+						
+		$resultado = $this->conexion->query($query);
+		
+		if(!$resultado)
+		{
+			echo 'DatosEntidades::Email -> No se pudo eliminar el Email: '.$this->conexion->errno.':'.$this->conexion->error;
+			$retornable = FALSE;
+		}
+		else
+		{
+			$retornable = TRUE;
+		}
+		
+		$this->cerrar_conexion();
+		
+		return $retornable;
+    }
     public function modificar(){}
 	public function recuperar($id){}
 }
@@ -268,7 +355,36 @@ class Direccion extends iTablaDB
 		return $retornable;
 	}
 	
-    public function eliminar(){}
+    public function eliminar()
+    {
+    	if(!$this->conecta())
+		{
+			die('DatosEntidades::Direccion: '.$this->conexion->errno.':'.$this->conexion->error);
+		}
+		
+		$query = " DELETE FROM
+						Domicilio
+					WHERE
+						id_domicilio = $this->id
+					LIMIT
+						1";
+						
+		$resultado = $this->conexion->query($query);
+		
+		if(!$resultado)
+		{
+			echo 'DatosEntidades::Direccion -> No se pudo eliminar la Direccion: '.$this->conexion->errno.':'.$this->conexion->error;
+			$retornable = FALSE;
+		}
+		else
+		{
+			$retornable = TRUE;
+		}
+		
+		$this->cerrar_conexion();
+		
+		return $retornable;
+    }
     public function modificar(){}
 	public function recuperar($id){}
 }
