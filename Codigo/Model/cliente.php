@@ -220,7 +220,7 @@ class Cliente extends Entidad
 				
 				parent::recuperar($cliente[0]['Entidad_id_entidad']);
 				
-				return $this;			
+				return TRUE;			
 			}
 		}
 		
