@@ -23,6 +23,11 @@ class Entidad extends iTablaDB
 		$this->RFC 				= $RFC;
 	}
 	
+	public function getName()
+	{
+		return $this->nombre;
+	}
+	
 	public function getIdEntidad()
 	{
 		return $this->idEntidad;
@@ -91,7 +96,7 @@ class Entidad extends iTablaDB
 	}
 
     public function eliminar(){}
-    public function modificar(){}
+    public function modificar($campo, $valor){}
 	
 	public function recuperar($id)
 	{
@@ -134,12 +139,6 @@ class Entidad extends iTablaDB
 			
 			return $entidad;			
 		}
-	}
-	
-	
-	public function getName()
-	{
-		return $this->nombre;
 	}
 }
 ?>

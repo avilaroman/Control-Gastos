@@ -9,7 +9,7 @@ abstract class iTablaDB extends BaseDatos
 	
     public abstract function insertar();
     public abstract function eliminar();
-    public abstract function modificar();
+    public abstract function modificar($campo, $valor);
 	public abstract function recuperar($id);
 }
 

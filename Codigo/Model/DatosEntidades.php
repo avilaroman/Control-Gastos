@@ -76,7 +76,7 @@ class Telefono extends iTablaDB
 		
 		return $retornable;
     }
-    public function modificar(){}
+    public function modificar($campo, $valor){}
 	public function recuperar($id){}
 }
 
@@ -193,7 +193,7 @@ class CuentaBanco extends iTablaDB
 		
 		return $retornable;
     }
-    public function modificar(){}
+    public function modificar($campo, $valor){}
 	public function recuperar($id){}
 }
 
@@ -269,7 +269,7 @@ class Email extends iTablaDB
 		
 		return $retornable;
     }
-    public function modificar(){}
+    public function modificar($campo, $valor){}
 	public function recuperar($id){}
 }
 
@@ -385,7 +385,7 @@ class Direccion extends iTablaDB
 		
 		return $retornable;
     }
-    public function modificar(){}
+    public function modificar($campo, $valor){}
 	public function recuperar($id){}
 }
 ?>
