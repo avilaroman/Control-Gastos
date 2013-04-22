@@ -21,7 +21,15 @@ class ControladorCliente
             switch ($_GET['accion']) 
 			{
 				case 'insertar':
-					$usuario = $this->InsertarCliente();
+					if($_SESSION['admin'])
+					{
+						$usuario = $this->InsertarCliente();
+					}
+					else
+					{
+						echo "No tienes poderes de super vaca";
+					}
+					
 					break;
 	
 				default:
