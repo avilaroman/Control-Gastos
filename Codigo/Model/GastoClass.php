@@ -55,7 +55,7 @@ class GastoClass extends iTablaDB{
 		$BD->cerrar_conexion();
 	}
     
-    function modificar($campo, $valor, $id){
+    function modificar($campo, $valor){
         $this->conecta();
         if(!$this->conecta())
         {
@@ -66,7 +66,7 @@ class GastoClass extends iTablaDB{
                     SET
                     $campo = '$valor'
                     WHERE
-                    id_gasto = '$id'";
+                    id_gasto = '$this->id'";
         $resultado = $this->conexion->query($query);
         
         if($this->conexion->errno)
@@ -84,7 +84,7 @@ class GastoClass extends iTablaDB{
         }
     }
     
-    function EliminarGasto($id){
+    function eliminar(){
          $this->conecta();
         if(!$this->conecta())
         {
@@ -93,7 +93,7 @@ class GastoClass extends iTablaDB{
         $query = "DELETE FROM
                     Gasto
                     WHERE
-                    id_gasto LIKE '$id'";
+                    id_gasto LIKE '$this->id'";
         $resultado = $this->conexion->query($query);
         
         if($this->conexion->errno)
@@ -142,11 +142,13 @@ class GastoClass extends iTablaDB{
         
     }
     
-    function insertar($costoG,$precioG,$comentarioG,
-            $categoriaG,$cuenta_origenG,$cuenta_destinoG,$comisionG){
+	//Ponerles los THIS y así
+    function insertar(){
         $model = new GastoClass($costoG,$precioG,$comentarioG,
             $categoriaG,$cuenta_origenG,$cuenta_destinoG,$comisionG);
     }
+	
+	public  function recuperar($id){}
     
 }
 ?>

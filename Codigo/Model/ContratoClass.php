@@ -71,7 +71,7 @@ class ContratoClass extends iTablaDB{
 	}	    
 	public function insertar(){}
     public function eliminar(){}
-    public function modificar(){}
+    public function modificar($campo, $valor){}
 	public function recuperar($id){}
 
 }
