@@ -133,6 +133,9 @@ class Cliente extends Entidad
 			if(isset($cliente))
 			{
 				$idCliente		= $cliente[0]['Cliente_id_cliente'];
+				
+				$_SESSION['admin'] = $cliente[0]['admin']; 
+				
 				return $this->reconstruirCliente($idCliente);
 			}
 			
