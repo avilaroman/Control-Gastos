@@ -43,6 +43,7 @@ CREATE  TABLE IF NOT EXISTS `Control_Gastos`.`Cuenta` (
   `Cliente_id_cliente` INT NOT NULL ,
   `nombre_usuario` VARCHAR(30) NOT NULL ,
   `clave_acceso` VARCHAR(45) NOT NULL ,
+  `admin` TINYINT(1) NOT NULL ,
   PRIMARY KEY (`id_cuenta`) ,
   INDEX `fk_Cuenta_Cliente1_idx` (`Cliente_id_cliente` ASC) ,
   CONSTRAINT `fk_Cuenta_Cliente1`
