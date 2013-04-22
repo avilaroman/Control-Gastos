@@ -1,5 +1,7 @@
 <?php
-class GastoClass{
+
+require_once ('Model/iTablaDB.php');
+class GastoClass extends iTablaDB{
 
 	private $costo;
 	private $precio;
@@ -52,5 +54,99 @@ class GastoClass{
 
 		$BD->cerrar_conexion();
 	}
+    
+    function modificar($campo, $valor, $id){
+        $this->conecta();
+        if(!$this->conecta())
+        {
+            die('SHIT HAPPENS: '.$this->conexion->errno.':'.$this->conexion->error);
+        }
+        $query = "UPDATE
+                    Gasto
+                    SET
+                    $campo = '$valor'
+                    WHERE
+                    id_gasto = '$id'";
+        $resultado = $this->conexion->query($query);
+        
+        if($this->conexion->errno)
+        {
+            echo 'Error modificando Gasto '.$this->conexion->errno.' : '.$this->conexion->error;
+            //Cerrar la conexion
+            $this->cerrar_conexion();
+            return FALSE;
+        }
+        else
+        {
+            //Cerrar la conexion
+            $this->cerrar_conexion();
+            printf ("Campo Modificado \n");    
+        }
+    }
+    
+    function EliminarGasto($id){
+         $this->conecta();
+        if(!$this->conecta())
+        {
+            die('SHIT HAPPENS: '.$this->conexion->errno.':'.$this->conexion->error);
+        }
+        $query = "DELETE FROM
+                    Gasto
+                    WHERE
+                    id_gasto LIKE '$id'";
+        $resultado = $this->conexion->query($query);
+        
+        if($this->conexion->errno)
+        {
+            echo 'Error eliminando Gasto '.$this->conexion->errno.' : '.$this->conexion->error;
+            //Cerrar la conexion
+            $this->cerrar_conexion();
+            return FALSE;
+        }
+        else
+        {
+            //Cerrar la conexion
+            $this->cerrar_conexion();
+            printf ("Gasto Eliminado \n");    
+        }
+    }
+    
+    function ConsultarGasto(){
+        $this->conecta();
+        if(!$this->conecta())
+        {
+            die('SHIT HAPPENS: '.$this->conexion->errno.':'.$this->conexion->error);
+        }
+        $query = "SELECT 
+                    *
+                 FROM
+                    Gasto";
+        $resultado = $this->conexion->query($query);
+        
+        if($this->conexion->errno)
+        {
+            echo 'Error consultando Gasto '.$this->conexion->errno.' : '.$this->conexion->error;
+            //Cerrar la conexion
+            $this->cerrar_conexion();
+            return FALSE;
+        }
+        else
+        {
+            //Cerrar la conexion
+            $this->cerrar_conexion();
+
+            while ($fila = $resultado -> fetch_assoc())
+            printf ("[%s|%s|%s|%s|%s|%s]\n", $fila["id_gasto"], $fila["costo"], $fila["precio"], $fila["comentario"], $fila["categoria"], $fila["comision"]);    
+        }
+        
+        
+    }
+    
+    function insertar($costoG,$precioG,$comentarioG,
+            $categoriaG,$cuenta_origenG,$cuenta_destinoG,$comisionG){
+        $model = new GastoClass($costoG,$precioG,$comentarioG,
+            $categoriaG,$cuenta_origenG,$cuenta_destinoG,$comisionG);
+    }
+    
 }
 ?>
