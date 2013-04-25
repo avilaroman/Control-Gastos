@@ -3,8 +3,12 @@ require_once('Utils/Cleaner.php');
 
 class LoginCtl{
         
-    function ejecutar(){
-        session_start();
+    function ejecutar()
+    {
+        if(!isset($_SESSION))
+		{
+			session_start();
+		}
         $modelo = new Cliente();
         $_POST = Cleaner::LimpiarTodo($_POST);
         $usuario = $modelo->recuperarCliente($_POST['username'], $_POST['password']);

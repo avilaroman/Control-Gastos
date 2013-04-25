@@ -19,7 +19,5 @@
     
     //destruimos la sesion del servidor
     session_destroy();
+	header("Location: ../index.php");
 ?>
-<script language="javascript" type="text/javascript">
-    document.location.href="/Control-Gastos/Codigo/index.php";
-</script>
