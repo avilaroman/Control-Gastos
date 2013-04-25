@@ -22,6 +22,9 @@ require_once('View/html.html');
             case 'login':
                 $controlador = new LoginCtl();
                 break;
+            case 'registrar':
+                $controlador = new RegisterCtl();
+                break;
             default:
                 die("'uso' invalido");
         }
