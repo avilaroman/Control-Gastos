@@ -32,7 +32,7 @@
                 </tr>
                 <tr>
                     
-                    <td colspan="5" align="middle"><input type="submit" name="uso" value="Login"/></td>
+                    <td colspan="5" align="middle"><input type="submit" name="uso" value="login"/></td>
                     <td colspan="5" align="middle"><input type="submit" name="registrar" value="Registrar"/></td>
                 </tr>
             </table>
