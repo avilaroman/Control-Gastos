@@ -8,7 +8,7 @@ abstract class BaseDatos
 	{
 		require('bd_info.inc');
 		
-		$this->conexion = new mysqli($host, $user, $pass, $db);
+		$this->conexion = new mysqli(DB_HOST, DB_USER, DB_PASS, DB_DATABASE);
 
 		if($this->conexion->errno)
 		{
