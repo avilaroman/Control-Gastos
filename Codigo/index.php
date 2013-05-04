@@ -20,22 +20,20 @@
     </head>
     
     <body>
-        <form action="Menu.php" method="post" name="login">
+        <form action="Menu.php" method="get" name="login">
             <table width="300" align="center">
                 <tr>
-                    <input type="hidden" name="uso" value="login">
-                    <input type="hidden" name="accion" value="consultar">
                     <td width="100"><label>Usuario: </label></td>
-                    <td width="200"><input type="text" width="200" name="username"/></td>
+                    <td width="200"><input type="text" width="200" name="username" required="required"/></td>
                 </tr>
                 <tr>
                     <td width="100"><label>Contrase&ntilde;a</label></td>
-                    <td width="200"><input type="password" width="200" name="password" /></td>
+                    <td width="200"><input type="password" width="200" name="password" required="required" /></td>
                 </tr>
                 <tr>
                     
-                    <td colspan="5" align="middle"><input type="submit" name="enviar" value="Enviar"/></td>
-                    <td colspan="5" align="middle"><input type="submit" name="Registrar" value="Registrar"/></td>
+                    <td colspan="5" align="middle"><input type="submit" name="uso" value="login"/></td>
+                    <td colspan="5" align="middle"><input type="submit" name="registrar" value="Registrar"/></td>
                 </tr>
             </table>
          </form>
