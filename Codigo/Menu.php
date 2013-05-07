@@ -12,7 +12,6 @@ require_once('View/html.html');
         switch ($_REQUEST['uso']) 
         {
             case 'cliente':
-				include ('Utils/StatusSession.php');
                 $controlador = new ControladorCliente();
                 break;
             case 'contrato':
