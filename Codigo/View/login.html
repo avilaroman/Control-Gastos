@@ -19,62 +19,61 @@
 		<div id="myModal" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
 			<div class="modal-header">
 		    	<!--<button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>-->
-		    	<h3 id="myModalLabel">Registro</h3>
+		    	<h3 id="myModalLabel">Registro de nuevo Cliente</h3>
 		  	</div>
-		  <div class="modal-body">
-			    <label>Usuario</label>
-				<input type="text" class="span3" placeholder="Ingrese Usuario..." required="required"/></br>
-				<label>Password</label>
-				<input type="text" class="span3" placeholder="Ingrese Contrasena..." required="required"/></br>
-				<label>Email</label>
-				<input type="email" class="span3" placeholder="Ingrese Email" required="required"/></br>
-		  </div>
-		  <div class="modal-footer">
-			    <button class="btn" data-dismiss="modal" aria-hidden="true">Close</button>
-			    <button class="btn btn-primary">Registrar</button>
-		  </div>
+		  <form action="Menu.php" method="post" name="cliente">
+			  <div class="modal-body">
+				    <label class="label">Usuario *</label>
+					<input type="text" class="span2" name="username" placeholder="Ingrese Usuario..." required="required"/><br>
+					<label class="label">Password *</label>
+					<input type="password" class="span2" name="password" placeholder="Ingrese Contrasena..." required="required"/><br>
+					<label class="label">Email *</label>
+					<input type="email" class="span2" name="email" placeholder="Ingrese Email" required="required"/><br>
+					<label class="label">Nombre(s) *</label>
+					<input type="text" class="span2" name="nombre" placeholder="Nombre..." required="required"/><br>
+					<label class="label">Apellido Paterno *</label>
+					<input type="text" class="span2" name="apellidoPat" placeholder="Apellido paterno..." required="required"/><br>
+					<label class="label">Apellido Materno *</label>
+					<input type="text" class="span2" name="apellidoMat" placeholder="Apellido materno..." required="required"/><br>
+					<label class="label">RFC *</label>
+					<input type="text" class="span2" name="RFC" placeholder="RFC..." required="required"/><br>
+					<label class="label">Telefono *</label>
+					<input type="tel" class="span2" name="telefono" placeholder="Telefono..." required="required"/><br>
+					
+					<label class="label">Es persona fisica</label>
+					<input type="checkbox" name="esPersonaFisica"/> <br>
+					
+					<label class="label-info">Direccion</label>
+					
+					<label class="label">Calle *</label>
+					<input type="text" class="span2" name="direccion[calle]" placeholder="Calle..." required="required"/><br>
+					<label class="label">Numero Interior *</label>
+					<input type="number" class="span2" name="direccion[numInterior]" placeholder="Numero Interior..." required="required"/><br>
+					<label class="label">Numero Exterior </label>
+					<input type="number" class="span2" name="direccion[numExterior]" placeholder="Numero Exterior..." /><br>
+					<label class="label">Colonia *</label>
+					<input type="text" class="span2" name="direccion[colonia]" placeholder="Colonia..." required="required"/><br>
+					<label class="label">C.P. *</label>
+					<input type="number" class="span2" name="direccion[cp]" placeholder="CP..." required="required"/><br>
+					<label class="label">Estado *</label>
+					<input type="text" class="span2" name="direccion[estado]" placeholder="Estado..." required="required"/><br>
+					<label class="label">Municipio *</label>
+					<input type="text" class="span2" name="direccion[municipio]" placeholder="Municipio..." required="required"/><br>
+					
+			  </div>
+			  <div class="modal-footer">
+				    <button class="btn" data-dismiss="modal" aria-hidden="true">Close</button>
+				    <input type="hidden" name="accion" value="insertar" />
+				    <button class="btn btn-primary" name="uso" value="cliente">Registrar</button>
+			  </div>
+		  </form>
 		</div>
-		<form class="well">
+		<form class="well" action="Menu.php" method="post" name="login">
 			<label>Usuario</label>
-			<input type="text" class="span3" placeholder="Ingrese Usuario..." required="required"/></br>
+			<input type="text" class="span3" placeholder="Ingrese Usuario..." name="username" required="required"/><br>
 			<label>Password</label>
-			<input type="text" class="span3" placeholder="Ingrese Contrasena..." required="required"/></br>
-			<button class="btn btn-primary">Log In</button>
-			<button class="btn">Limpiar</button>
+			<input type="text" class="span3" placeholder="Ingrese Contrasena..." name="password" required="required"/><br>
+			<button class="btn btn-primary" name="uso" value="login">Log In</button>
 		</form>
 	</body>
 </html>
-
-
-<!--<html lang="es">
-	<head>
-		<meta charset="utf-8" />
-		<!-- Always force latest IE rendering engine (even in intranet) & Chrome Frame
-		Remove this if you use the .htaccess 
-		<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
-		<title>Login Control de Gastos</title>
-		<meta name="viewport" content="width=device-width; initial-scale=1.0" />
-	</head>
-	<body>
-		<div>
-			<form action="Menu.php" method="post" name="login">
-            <table width="300" align="center">
-                <tr>
-                    <td width="100"><label>Usuario: </label></td>
-                    <td width="200"><input type="text" width="200" name="username" required="required"/></td>
-                </tr>
-                <tr>
-                    <td width="100"><label>Contrase&ntilde;a</label></td>
-                    <td width="200"><input type="password" width="200" name="password" required="required" /></td>
-                </tr>
-                <tr>
-                    
-                    <td colspan="5" align="middle"><input type="submit" name="uso" value="login"/></td>
-                    <td colspan="5" align="middle"><input type="submit" name="registrar" value="Registrar"/></td>
-                </tr>
-            </table>
-         </form>
-		</div>
-	</body>
-</html>
--->
