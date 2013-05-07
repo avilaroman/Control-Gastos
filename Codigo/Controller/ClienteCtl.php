@@ -1,7 +1,7 @@
 <?php
 
 require('Model/cliente.php');
-require_once('View/html.html');
+//require_once('View/html.html');
 
 class ControladorCliente
 {
@@ -24,6 +24,7 @@ class ControladorCliente
 					//if($_SESSION['admin'])
 					//{
 						$usuario = $this->InsertarCliente();
+						$_POST['uso'] = '';
 					//}
 					//else
 					//{
