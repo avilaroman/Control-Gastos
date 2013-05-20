@@ -22,7 +22,7 @@
 		    	<!--<button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>-->
 		    	<h3 id="myModalLabel">Registro de nuevo Cliente</h3>
 		  	</div>
-		  <form onLoad=llenarEstados() action="Menu.php" method="post" name="cliente">
+		  <form id="formulario" onload="llenarEstados()" action="Menu.php" method="post" name="cliente">
 			  <div class="modal-body">
 				    <label class="label">Usuario *</label>
 					<input type="text" class="span2" name="username" placeholder="Ingrese Usuario..." required="required"/><br>
@@ -57,10 +57,10 @@
 					<label class="label">C.P. *</label>
 					<input type="number" class="span2" name="direccion[cp]" placeholder="CP..." required="required"/><br>
 					<label class="label">Estado *</label>
-					<select type="text" class="span2" name="direccion[estado]" placeholder="Estado..." required="required">
+					<select id="selectEstados" type="text" class="span2" name="direccion[estado]" placeholder="Estado..." required="required">
 					</select><br>
 					<label class="label">Municipio *</label>
-					<select type="text" class="span2" name="direccion[municipio]" placeholder="Municipio..." required="required"/>
+					<select type="text" class="span2" name="direccion[municipio]" placeholder="Municipio..." required="required">
 					</select><br>
 			  </div>
 			  <div class="modal-footer">
