@@ -1,5 +1,5 @@
 <?php
-require_once('../Model/EstadosMunicipio.php');
+require_once('../Model/EstadoMunicipio.php');
 
 $Getter = new Localidades();
 
