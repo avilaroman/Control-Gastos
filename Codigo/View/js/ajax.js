@@ -9,7 +9,7 @@ function nuevoAjax(){
 			//Creacion del objeto AJAX para IE
 			xmlhttp = new ActiveXObject("Microsoft.XMLHTTP");
 		}
-		catch(e){
+		catch(E){
 			if(!xmlhttp && typeof XMLHttpRequest != 'undefined')
 				xmlhttp = new XMLHttpRequest();
 		}
