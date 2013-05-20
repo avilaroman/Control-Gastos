@@ -9,10 +9,11 @@
 		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
 		<link rel="stylesheet" type="text/css" href="View/css/bootstrap.css"/>
 	</head>
-	<body>
+	<body onload="llenarEstados()">
 		<script src="http://code.jquery.com/jquery.js"></script>
 		<script src="View/js/bootstrap.min.js"></script>
 		<script src="View/js/login.js"></script>
+		<script src="View/js/ajax.js"></script>
 		<!-- Button to trigger modal -->
 		<a href="#myModal" role="button" class="btn" data-toggle="modal">Registrar</a>
  
@@ -22,7 +23,7 @@
 		    	<!--<button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>-->
 		    	<h3 id="myModalLabel">Registro de nuevo Cliente</h3>
 		  	</div>
-		  <form id="formulario" onload="llenarEstados()" action="Menu.php" method="post" name="cliente">
+		  <form id="formulario"  action="Menu.php" method="post" name="cliente">
 			  <div class="modal-body">
 				    <label class="label">Usuario *</label>
 					<input type="text" class="span2" name="username" placeholder="Ingrese Usuario..." required="required"/><br>
