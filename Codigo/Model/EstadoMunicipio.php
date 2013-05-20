@@ -20,8 +20,9 @@ class Localidades extends BaseDatos
 		while ($fila = $resultado -> fetch_assoc())
 				$estados[] = $fila;	
 		
+		$this->cerrar_conexion();
+		
 		return $estados;
 	}
 }
-
 ?>
