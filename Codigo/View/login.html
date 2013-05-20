@@ -67,7 +67,7 @@
 			  <div class="modal-footer">
 				    <button class="btn" data-dismiss="modal" aria-hidden="true">Close</button>
 				    <input type="hidden" name="accion" value="insertar" />
-				    <button class="btn btn-primary" name="uso" value="cliente">Registrar</button>
+				    <button onclick="validaForm()" class="btn btn-primary" name="uso" value="cliente">Registrar</button>
 			  </div>
 		  </form>
 		</div>
@@ -76,7 +76,7 @@
 			<input id="user" type="text" class="span3" placeholder="Ingrese Usuario..." name="username" required="required"/><br>
 			<label>Password</label>
 			<input id="pass" type="text" class="span3" placeholder="Ingrese Contrasena..." name="password" required="required"/><br>
-			<button class="btn btn-primary" name="uso" value="login">Log In</button>
+			<button onclick="validaLogin()" class="btn btn-primary" name="uso" value="login">Log In</button>
 		</form>
 	</body>
 </html>
