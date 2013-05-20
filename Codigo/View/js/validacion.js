@@ -36,12 +36,12 @@ function validaForm(){
 	var input_Estado = document.getElementById('selectEstados');
 	var input_Municipio = document.getElementById('municipio');
 
-	if(!/^\w$/test(input_User.value) && !/^{graph}$/test(input_Pass.value)){
+	if(!/^\w$/.test(input_User.value) && !/^{graph}$/.test(input_Pass.value)){
 		var div = document.createElement('div');
 		div.setAttribute('class','error');
 		div.setAttribute('id','user_error');
 		var msg = document.createTextNode('Usuario o Contraseña Incorrecto');
-		div.appenChild(msg);
+		div.appendChild(msg);
 		form.insertBefore(div,input_User.nextSibling);
 	}
 	else{
@@ -50,12 +50,12 @@ function validaForm(){
 			form.removeChild(div_error);
 	}
 
-	if(!/^\w[@]$/test(input_Email.value)){
+	if(!/^\w[@]$/.test(input_Email.value)){
 		var div = document.createElement('div');
 		div.setAttribute('class','error');
 		div.setAttribute('id','email_error');
 		var msg = document.createTextNode('Email Incorrecto');
-		div.appenChild(msg);
+		div.appendChild(msg);
 		form.insertBefore(div,input_User.nextSibling);
 	}
 	else{
@@ -64,12 +64,12 @@ function validaForm(){
 			form.removeChild(div_error);
 	}
 
-	if(!/^{alpha}$/test(input_Nombre.value)){
+	if(!/^{alpha}$/.test(input_Nombre.value)){
 		var div = document.createElement('div');
 		div.setAttribute('class','error');
 		div.setAttribute('id','nombre_error');
 		var msg = document.createTextNode('Incorrecto');
-		div.appenChild(msg);
+		div.appendChild(msg);
 		form.insertBefore(div,input_Nombre.nextSibling);
 	}
 	else{
@@ -78,12 +78,12 @@ function validaForm(){
 			form.removeChild(div_error);
 	}
 
-	if(!/^{alpha}$/test(input_ApellidoM.value)){
+	if(!/^{alpha}$/.test(input_ApellidoM.value)){
 		var div = document.createElement('div');
 		div.setAttribute('class','error');
 		div.setAttribute('id','apellidoM_error');
 		var msg = document.createTextNode('Incorrecto');
-		div.appenChild(msg);
+		div.appendChild(msg);
 		form.insertBefore(div,input_ApellidoM.nextSibling);
 	}
 	else{
@@ -92,12 +92,12 @@ function validaForm(){
 			form.removeChild(div_error);
 	}
 
-	if(!/^{alpha}$/test(input_ApellidoP.value)){
+	if(!/^{alpha}$/.test(input_ApellidoP.value)){
 		var div = document.createElement('div');
 		div.setAttribute('class','error');
 		div.setAttribute('id','apellidoP_error');
 		var msg = document.createTextNode('Incorrecto');
-		div.appenChild(msg);
+		div.appendChild(msg);
 		form.insertBefore(div,input_ApellidoP.nextSibling);
 	}
 	else{
@@ -106,12 +106,12 @@ function validaForm(){
 			form.removeChild(div_error);
 	}
 
-	if(!/^{alpha}{4}\d{6}{alnum}{3}$/test(input_Rfc.value)){
+	if(!/^{alpha}{4}\d{6}{alnum}{3}$/.test(input_Rfc.value)){
 		var div = document.createElement('div');
 		div.setAttribute('class','error');
 		div.setAttribute('id','rfc_error');
 		var msg = document.createTextNode('Incorrecto');
-		div.appenChild(msg);
+		div.appendChild(msg);
 		form.insertBefore(div,input_Rfc.nextSibling);
 	}
 	else{
@@ -120,12 +120,12 @@ function validaForm(){
 			form.removeChild(div_error);
 	}
 
-	if(!/^\d{10}$/test(input_Tel.value)){
+	if(!/^\d{10}$/.test(input_Tel.value)){
 		var div = document.createElement('div');
 		div.setAttribute('class','error');
 		div.setAttribute('id','tel_error');
 		var msg = document.createTextNode('Incorrecto');
-		div.appenChild(msg);
+		div.appendChild(msg);
 		form.insertBefore(div,input_Tel.nextSibling);
 	}
 	else{
@@ -134,12 +134,12 @@ function validaForm(){
 			form.removeChild(div_error);
 	}
 
-	if(!/^{alpha}\s$/test(input_Calle.value)){
+	if(!/^{alpha}\s$/.test(input_Calle.value)){
 		var div = document.createElement('div');
 		div.setAttribute('class','error');
 		div.setAttribute('id','calle_error');
 		var msg = document.createTextNode('Incorrecto');
-		div.appenChild(msg);
+		div.appendChild(msg);
 		form.insertBefore(div,input_Calle.nextSibling);
 	}
 	else{
@@ -148,12 +148,12 @@ function validaForm(){
 			form.removeChild(div_error);
 	}
 
-	if(!/^\d$/test(input_NumInt.value)){
+	if(!/^\d$/.test(input_NumInt.value)){
 		var div = document.createElement('div');
 		div.setAttribute('class','error');
 		div.setAttribute('id','numint_error');
 		var msg = document.createTextNode('Incorrecto');
-		div.appenChild(msg);
+		div.appendChild(msg);
 		form.insertBefore(div,input_NumInt.nextSibling);
 	}
 	else{
@@ -162,12 +162,12 @@ function validaForm(){
 			form.removeChild(div_error);
 	}
 
-	if(!/^\d$/test(input_NumExt.value)){
+	if(!/^\d$/.test(input_NumExt.value)){
 		var div = document.createElement('div');
 		div.setAttribute('class','error');
 		div.setAttribute('id','numext_error');
 		var msg = document.createTextNode('Incorrecto');
-		div.appenChild(msg);
+		div.appendChild(msg);
 		form.insertBefore(div,input_NumExt.nextSibling);
 	}
 	else{
@@ -176,12 +176,12 @@ function validaForm(){
 			form.removeChild(div_error);
 	}
 
-	if(!/^{alpha}\s$/test(input_Colonia.value)){
+	if(!/^{alpha}\s$/.test(input_Colonia.value)){
 		var div = document.createElement('div');
 		div.setAttribute('class','error');
 		div.setAttribute('id','colonia_error');
 		var msg = document.createTextNode('Incorrecto');
-		div.appenChild(msg);
+		div.appendChild(msg);
 		form.insertBefore(div,input_Colonia.nextSibling);
 	}
 	else{
@@ -190,11 +190,11 @@ function validaForm(){
 			form.removeChild(div_error);
 	}
 
-	if(document.formulario.estado.selectedIndex == 0);
+	if(document.formulario.estado.selectedIndex == 0){
 		alert('Debe seleccionar un estado');
 	}
 
-	if(document.formulario.municipio.selectedIndex == 0);
+	if(document.formulario.municipio.selectedIndex == 0){
 		alert('Debe seleccionar un municipio');
 	}
 
