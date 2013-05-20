@@ -58,10 +58,10 @@
 					<label class="label">C.P. *</label>
 					<input id="cp" type="number" class="span2" name="direccion[cp]" placeholder="CP..." required="required"/><br>
 					<label class="label">Estado *</label>
-					<select id="selectEstados" type="text" class="span2" name="direccion[estado]" placeholder="Estado..." required="required">
+					<select id="selectEstados" type="text" class="span2" name="direccion[estado]" required="required" onchange="obtenerMunicipios(this)">
 					</select><br>
 					<label class="label">Municipio *</label>
-					<select id="municipio" type="text" class="span2" name="direccion[municipio]" placeholder="Municipio..." required="required">
+					<select id="selectMunicipios" type="text" class="span2" name="direccion[municipio]" required="required" >
 					</select><br>
 			  </div>
 			  <div class="modal-footer">
