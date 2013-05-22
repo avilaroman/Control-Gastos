@@ -1,8 +1,13 @@
 # Integrantes
 
 ESPARZA ZAMARRIPA, JOSE EDUARDO         neoraidenx@gmail.com
+
 SEGUAME REYES, MIGUEL			seguame@gmail.com
 
+# Sitio demo
+http://alanturing.cucei.udg.mx/cc409/gastosse/
+Administrador: admin/admin
+Cliente: test/test
 
 # Control de Gastos de Cuentas en un Despacho
 
