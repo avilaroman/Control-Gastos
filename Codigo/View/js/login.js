@@ -2,6 +2,8 @@ function llenarEstados(){
 	var ajax = nuevoAjax();
 	ajax.open('GET','Utils/GetEstados.php',true);
 	
+	
+	
 	ajax.onreadystatechange = function()
 	{
 		if(ajax.readyState == 4)
@@ -36,6 +38,13 @@ function obtenerMunicipios(select)
 	
 	var municipios = document.getElementById('selectMunicipios');
     municipios.options.length = 0;
+    
+    var defauult = document.createElement('option');
+	var texto = document.createTextNode('Selecciona un municipio...');
+	defauult.appendChild(texto);
+	defauult.setAttribute('value', -1);
+				
+	municipios.appendChild(defauult);
 	
 	if(seleccion > 0)
 	{
@@ -47,11 +56,12 @@ function obtenerMunicipios(select)
 			if(ajax.readyState == 4)
 			{
 				var response = eval(ajax.responseText);
-				for (estado in response){
+				
+				for (municipio in response){
 					var option = document.createElement('option');
-					var text = document.createTextNode(response[estado].nombre_municipio);
+					var text = document.createTextNode(response[municipio].nombre_municipio);
 					option.appendChild(text);
-					option.setAttribute('value',response[estado].id_municipio);
+					option.setAttribute('value',response[municipio].id_municipio);
 					
 					municipios.appendChild(option);
 				}
