@@ -8,6 +8,7 @@
 		<title>Login Control de Gastos</title>
 		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
 		<link rel="stylesheet" type="text/css" href="View/css/bootstrap.css"/>
+		<link rel="stylesheet" type="text/css" href="View/css/login.css"/>
 	</head>
 	<body onload="llenarEstados()">
 		<script src="http://code.jquery.com/jquery.js"></script>
@@ -26,43 +27,57 @@
 		  	</div>
 		  <form id="formulario"  action="Menu.php" method="post" name="cliente">
 			  <div class="modal-body">
-				    <label class="label">Usuario *</label>
-					<input id="username" type="text" class="span2" name="username" placeholder="Ingrese Usuario..." required="required"/><br>
-					<label class="label">Contraseña *</label>
-					<input id="passReg" type="password" class="span2" name="password" placeholder="Ingrese Contrasena..." required="required"/><br>
-					<label class="label">Email *</label>
-					<input id="email" type="email" class="span2" name="email" placeholder="Ingrese Email" required="required"/><br>
-					<label class="label">Nombre(s) *</label>
-					<input id="nombre" type="text" class="span2" name="nombre" placeholder="Nombre..." required="required"/><br>
-					<label class="label">Apellido Paterno *</label>
-					<input id="apellidoP" type="text" class="span2" name="apellidoPat" placeholder="Apellido paterno..." required="required"/><br>
-					<label class="label">Apellido Materno *</label>
-					<input id="apellidoM" type="text" class="span2" name="apellidoMat" placeholder="Apellido materno..." required="required"/><br>
-					<label class="label">RFC *</label>
-					<input id="rfc" type="text" class="span2" name="RFC" placeholder="RFC..." required="required"/><br>
-					<label class="label">Telefono *</label>
-					<input id="tel" type="tel" class="span2" name="telefono" placeholder="Telefono..." required="required"/><br>
+
+			  		<label class="alineado" for="username">Usuario *</label>
+					<input id="username" type="text" class="span2 alineado" name="username" placeholder="Ingrese Usuario..." required="required"/><br>
+				    
+					<label class="alineado" for="passReg">Contraseña *</label>
+					<input id="passReg" type="password" class="span2 alineado" name="password" placeholder="Ingrese Contrasena..." required="required"/><br>
 					
-					<label class="label">Es persona fisica</label>
+					<label class="alineado" for="email">Email *</label>
+					<input id="email" type="email" class="span2 alineado" name="email" placeholder="Ingrese Email" required="required"/><br>
+					
+					<label class="alineado" for="nombre">Nombre(s) *</label>
+					<input id="nombre" type="text" class="span2 alineado" name="nombre" placeholder="Nombre..." required="required"/><br>
+					
+					<label class="alineado" for="apellidoP">Apellido Paterno *</label>
+					<input id="apellidoP" type="text" class="span2 alineado" name="apellidoPat" placeholder="Apellido paterno..." required="required"/><br>
+					
+					<label class="alineado" for="apellidoM">Apellido Materno *</label>
+					<input id="apellidoM" type="text" class="span2 alineado" name="apellidoMat" placeholder="Apellido materno..." required="required"/><br>
+					
+					<label class="alineado" for="rfc">RFC *</label>
+					<input id="rfc" type="text" class="span2 alineado" name="RFC" placeholder="RFC..." required="required"/><br>
+					
+					<label class="alineado" for="tel">Telefono *</label>
+					<input id="tel" type="tel" class="span2 alineado" name="telefono" placeholder="Telefono..." required="required"/><br>
+					
+					<label class="alineado" for="persona">Es persona fisica</label>
 					<input id="persona" type="checkbox" name="esPersonaFisica"/> <br>
 					
-					<label class="label-info">Direccion</label>
+					<h4>Direccion</h4>
 					
-					<label class="label">Calle *</label>
-					<input id="calle" type="text" class="span2" name="direccion[calle]" placeholder="Calle..." required="required"/><br>
-					<label class="label">Numero Interior *</label>
-					<input id="numint" type="number" class="span2" name="direccion[numInterior]" placeholder="Numero Interior..." required="required"/><br>
-					<label class="label">Numero Exterior </label>
-					<input id="numext" type="number" class="span2" name="direccion[numExterior]" placeholder="Numero Exterior..." /><br>
-					<label class="label">Colonia *</label>
-					<input id="col" type="text" class="span2" name="direccion[colonia]" placeholder="Colonia..." required="required"/><br>
-					<label class="label">C.P. *</label>
-					<input id="cp" type="number" class="span2" name="direccion[cp]" placeholder="CP..." required="required"/><br>
-					<label class="label">Estado *</label>
-					<select id="selectEstados" type="text" class="span2" name="direccion[estado]" required="required" onchange="obtenerMunicipios(this)">
+					<label class="alineado" for="calle">Calle *</label>
+					<input id="calle" type="text" class="span2 alineado" name="direccion[calle]" placeholder="Calle..." required="required"/><br>
+					
+					<label class="alineado" for="numint">Numero Interior *</label>
+					<input id="numint" type="text" class="span2 alineado" name="direccion[numInterior]" placeholder="Numero Interior..." required="required"/><br>
+					
+					<label class="alineado" for="numext">Numero Exterior </label>
+					<input id="numext" type="text" class="span2 alineado" name="direccion[numExterior]" placeholder="Numero Exterior..." /><br>
+					
+					<label class="alineado" for="col">Colonia *</label>
+					<input id="col" type="text" class="span2 alineado" name="direccion[colonia]" placeholder="Colonia..." required="required"/><br>
+					
+					<label class="alineado" for="cp">C.P. *</label>
+					<input id="cp" type="text" class="span2 alineado" name="direccion[cp]" placeholder="CP..." required="required"/><br>
+					
+					<label class="alineado" for="selectEstados">Estado *</label>
+					<select id="selectEstados" type="text" class="span2 alineado seleccion" name="direccion[estado]" required="required" onchange="obtenerMunicipios(this)">
 					</select><br>
-					<label class="label">Municipio *</label>
-					<select id="selectMunicipios" type="text" class="span2" name="direccion[municipio]" required="required" >
+					
+					<label class="alineado" for="selectMunicipios">Municipio *</label>
+					<select id="selectMunicipios" type="text" class="span2 alineado seleccion" name="direccion[municipio]" required="required" >
 					</select><br>
 			  </div>
 			  <div class="modal-footer">
