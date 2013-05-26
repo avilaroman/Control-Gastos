@@ -9,7 +9,6 @@ function llenarEstados(){
 			var estados = document.getElementById('selectEstados');
 			var response = eval(ajax.responseText);
 			
-			
 			var defauult = document.createElement('option');
 			var texto = document.createTextNode('Selecciona un estado...');
 			defauult.appendChild(texto);
