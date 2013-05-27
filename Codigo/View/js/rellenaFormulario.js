@@ -16,7 +16,7 @@ function rellenaFormulario()
 			var response = ajax.responseText;
 			
 			//console.log(nombre);
-			console.log(response);
+			//console.log(response);
 			//for(valores in response)
 			//{
 				//nombre.setAttribute('value', response[valores].nombre);
