@@ -36,6 +36,11 @@ class Cliente extends Entidad
 		return $this->idCliente;
 	}
 	
+	public function getPersonaFisica()
+	{
+		return $this->esPersonaFisica;
+	}
+	
 	/**
 	 * Fase final de la creacion del usuario, despues de tener su informacion
 	 * personal relacionada con una entidad, se genera el relacion final. Debe 
@@ -79,8 +84,7 @@ class Cliente extends Entidad
 		$query = " INSERT INTO 
 						Cuenta(Cliente_id_cliente, nombre_usuario, clave_acceso)
 					VALUES
-						($this->idCliente,'$username', '$password')";
-		
+						($this->idCliente, '$username', '$password')";
 		$resultado = $this->conexion->query($query);
 
 		if(!$resultado)
@@ -187,8 +191,8 @@ class Cliente extends Entidad
 	
 	public function obtenerCliente($idCliente)
 	{
-		if($_SESSION['admin'])
-		{
+		//if($_SESSION['admin'] == 1)
+		//{
 			if(!$this->conecta())
 			{
 				die('No se pudo conectar a la BD para reconstruir al cliente: '.$this->conexion->errno.':'.$this->conexion->error);
@@ -225,10 +229,10 @@ class Cliente extends Entidad
 				
 				return TRUE;			
 			}
-		}
+		//}
 		
 		
-		return FALSE;
+		//return FALSE;
 	}
 }
 
