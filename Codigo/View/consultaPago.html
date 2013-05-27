@@ -2,9 +2,17 @@
 <html>
 <head>
 	<link rel="stylesheet" type="text/css" href="css/bootstrap.css"/>
-	<script src="http://code.jquery.com/jquery.js"></script>
-	<script src="js/bootstrap.min.js"></script>
-	<link rel="stylesheet" type="text/css" href="View/css/formularioUsuario.css"/>
+	<link rel="stylesheet" href="http://code.jquery.com/ui/1.10.3/themes/smoothness/jquery-ui.css" />
+  	<script src="http://code.jquery.com/jquery-1.9.1.js"></script>
+  	<script src="http://code.jquery.com/ui/1.10.3/jquery-ui.js"></script>
+  	<script src="js/bootstrap.min.js"></script>
+	<script>
+  $(function() {
+    $( "#datepicker" ).datepicker();
+    $( "#datepicker2" ).datepicker();
+  });
+  </script>
+	<link rel="stylesheet" type="text/css" href="css/formularioUsuario.css"/>
 </head>
 <body>
 	<div class="navbar">
@@ -129,10 +137,7 @@
 				<!--Body-->
 				<form class="form-inline">
 					<p class="text-left">Seleccione un rango:</p>
-					<label class="control-label">Inicio</label>
-					<input type="date"/>
-					<label class="control-label">Fin</label>
-					<input type="date"/>
+					<p>Inicio: <input type="text" id="datepicker" /> Fin: <input type="text" id="datepicker2" /></p>
 				</form>
 				<div>
 					<table class="table table-stripped">
