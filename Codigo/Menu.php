@@ -3,7 +3,7 @@
 include_once ('Controller/ClienteCtl.php');
 include_once ('Controller/ContratoCtl.php');
 include_once ('Controller/LoginCtl.php');
-require_once ('View/menu.html');
+
 //include_once ('Utils/Logout.php');
 
         
@@ -29,6 +29,7 @@ require_once ('View/menu.html');
         }
         
         $controlador->ejecutar();
+		require_once ('View/menu.html');
     }
     else
     {
