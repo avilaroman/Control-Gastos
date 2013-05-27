@@ -1,7 +1,7 @@
 <?php
 
-require_once('iTablaDB.php');
-require_once('Model/DatosEntidades.php');
+require('iTablaDB.php');
+require('DatosEntidades.php');
 
 class Entidad extends iTablaDB
 {
@@ -26,6 +26,41 @@ class Entidad extends iTablaDB
 	public function getName()
 	{
 		return $this->nombre;
+	}
+	
+	public function getApellidoPaterno()
+	{
+		return $this->apellidoPat;
+	}
+	
+	public function getApellidoMaterno()
+	{
+		return $this->apellidoMat;
+	}
+	
+	public function getRFC()
+	{
+		return $this->RFC;
+	}
+	
+	public function getTelefono()
+	{
+		return $this->telefonos;
+	}
+	
+	public function getCuentaBancaria()
+	{
+		return $this->cuentasBancarias;
+	}
+	
+	public function getEmail()
+	{
+		return $this->emails;
+	}
+	
+	public function getDomicilio()
+	{
+		return $this->domicilios;
 	}
 	
 	public function getIdEntidad()
