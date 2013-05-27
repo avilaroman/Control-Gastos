@@ -7,7 +7,6 @@ if(!isset($_SESSION))
 if(!isset($_SESSION['username']))
 {
 	header("Location: index.php");
-   	die();
 }
 else {
 	echo "Bienvenido".$_SESSION['username'].PHP_EOL;
