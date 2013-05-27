@@ -10,26 +10,26 @@ class ControladorCliente
 	public function ejecutar()
 	{
 		//si no hya parametros, nomas listar los usuarios
-		if(!isset($_POST['accion']) )
+		if(!isset($_REQUEST['accion']) )
 		{
 			die('No se definio que accion tomar');	
 		}
 		else
 		{
-		    $_POST = Cleaner::LimpiarTodo($_POST);
+		    $_REQUEST = Cleaner::LimpiarTodo($_REQUEST);
 			
-            switch ($_POST['accion']) 
+            switch ($_REQUEST['accion']) 
 			{
 				case 'insertar':
-					//if($_SESSION['admin'])
-					//{
+					if($_SESSION['admin'] == 1)
+					{
 						$usuario = $this->InsertarCliente();
-						$_POST['uso'] = '';
-					//}
-					//else
-					//{
-					//	echo "No tienes poderes de super vaca";
-					//}
+						$_REQUEST['uso'] = '';
+					}
+					else
+					{
+						echo "No tienes poderes de super vaca";
+					}
 					
 					break;
 	
@@ -46,11 +46,11 @@ class ControladorCliente
 	
 	private function InsertarCliente()
 	{
-		$nombre = $_POST['nombre'];
-		$apellidoPat = $_POST['apellidoPat'];
-		$apellidoMat = $_POST['apellidoMat'];
-		$RFC = $_POST['RFC'];
-		$esPersonaFisica = $_POST['esPersonaFisica'];
+		$nombre = $_REQUEST['nombre'];
+		$apellidoPat = $_REQUEST['apellidoPat'];
+		$apellidoMat = $_REQUEST['apellidoMat'];
+		$RFC = $_REQUEST['RFC'];
+		$esPersonaFisica = $_REQUEST['esPersonaFisica'];
 		
 		if(strcmp($esPersonaFisica, "on") == 0)
 		{
@@ -70,9 +70,9 @@ class ControladorCliente
 		
 		$usuario->crearCliente($usuario->getIdEntidad());
 		
-		if(isset($_POST['telefono']))
+		if(isset($_REQUEST['telefono']))
 		{
-			$telefono = new Telefono($usuario->getIdEntidad(), $_POST['telefono']);
+			$telefono = new Telefono($usuario->getIdEntidad(), $_REQUEST['telefono']);
 			
 			if($telefono->insertar())
 			{
@@ -80,9 +80,9 @@ class ControladorCliente
 			}
 		}
 
-		if(isset($_POST['email']))
+		if(isset($_REQUEST['email']))
 		{
-			$email = new Telefono($usuario->getIdEntidad(), $_POST['email']);
+			$email = new Telefono($usuario->getIdEntidad(), $_REQUEST['email']);
 			
 			if($email->insertar())
 			{
@@ -90,12 +90,12 @@ class ControladorCliente
 			}
 		}
 		
-		if(isset($_POST['direccion']))
+		if(isset($_REQUEST['direccion']))
 		{
 			$this->InsertarDireccion($usuario);
 		}
 		
-		if(isset($_POST['cuentaBancaria']))
+		if(isset($_REQUEST['cuentaBancaria']))
 		{
 			$this->InsertarCuentaBancaria($usuario);
 		}
@@ -106,7 +106,7 @@ class ControladorCliente
 	private function InsertarDireccion($usuario)
 	{
 		//direccion es un arreglo
-		$tmp = $_POST['direccion'];
+		$tmp = $_REQUEST['direccion'];
 			
 			
 		$calle 			= $tmp['calle'];
@@ -128,7 +128,7 @@ class ControladorCliente
 	private function InsertarCuentaBancaria($usuario)
 	{
 		//cuentaBancaria es un arreglo
-		$tmp = $_POST['cuentaBancaria'];
+		$tmp = $_REQUEST['cuentaBancaria'];
 			
 		$nombreBanco 	= $tmp['nombreBanco'];
 		$numeroCuenta 	= $tmp['numeroCuenta'];
