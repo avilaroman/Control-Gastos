@@ -8,13 +8,15 @@
      */
     
     //verificamos que exista la sesion llama usuario y que no este vacia
+    if(!isset($_SESSION))
+	{
+		session_start();
+	}
+    
     if(isset($_SESSION['username'])){
 	header("Location: View/Menu.php");
 	}else{
-		if(!isset($_SESSION))
-		{
-			session_start();
-		}
+		
 	    include ('View/login.html');
 	}
 ?>
