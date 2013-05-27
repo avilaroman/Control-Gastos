@@ -9,6 +9,11 @@ class ControladorCliente
 	
 	public function ejecutar()
 	{
+		if(!isset($_SESSION))
+		{
+			session_start();
+		}
+		
 		//si no hya parametros, nomas listar los usuarios
 		if(!isset($_REQUEST['accion']) )
 		{
@@ -21,7 +26,7 @@ class ControladorCliente
             switch ($_REQUEST['accion']) 
 			{
 				case 'insertar':
-					if($_SESSION['admin'] == 1)
+					if(isset($_SESSION['admin']) && $_SESSION['admin'] == 1)
 					{
 						$usuario = $this->InsertarCliente();
 						$_REQUEST['uso'] = '';
@@ -40,7 +45,8 @@ class ControladorCliente
 			}
         }
 
-		include ('View/vista.php');
+		if(isset($usuario))
+			include ('View/vista.php');
 
 	}
 	
