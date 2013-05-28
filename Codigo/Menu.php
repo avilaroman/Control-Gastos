@@ -5,7 +5,7 @@ include_once ('Controller/ContratoCtl.php');
 include_once ('Controller/LoginCtl.php');
 
 //include_once ('Utils/Logout.php');
-if((isset($_SESSION)))
+if((!isset($_SESSION)))
 {
 	session_start();
 }
@@ -33,12 +33,12 @@ if((isset($_SESSION)))
         }
         
         $controlador->ejecutar();
-		require_once ('View/menu.html');
+		
     }
     else
     {
         include ('Utils/StatusSession.php');
-        echo 'Ejemplos de uso: '.PHP_EOL;
+        /*echo 'Ejemplos de uso: '.PHP_EOL;
         
         echo 'Para clientes'.PHP_EOL.PHP_EOL;
         //Llamadas al controlador que se encarga de manejar al cliente
@@ -48,8 +48,10 @@ if((isset($_SESSION)))
         //Controlador de Contrato
         echo '?uso=contrato&accion=crear&nombre=Miguel&apellidoPat=Seguame&apellidoMat=Reyes&RFC=1234567890123&telefonos=36436418&nombreBanco=Santander&numeroCuenta=124a&emails=lol%40lol&calle=JesusUrueta&numInterior=1600&numExterior=1&colonia=Mirador&cp=4444&estado=Jalisco&municipio=gdl&idCuenta=1&fecha=hoy&periodo=masd&presupuesto=1212&plazos=TRUE&renovacion=2432&saldado=FALSE';
         
-        echo 'Menu.php?uso=contrato&accion=modificar&campo=monto&valor=999&id=1';
+        echo 'Menu.php?uso=contrato&accion=modificar&campo=monto&valor=999&id=1';*/
     }
+
+    require_once ('View/menu.html');
 
 ?>
 

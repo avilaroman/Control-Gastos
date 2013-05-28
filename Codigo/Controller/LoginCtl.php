@@ -6,7 +6,7 @@ class LoginCtl{
         
     function ejecutar()
     {
-        if((isset($_SESSION)))
+        if((!isset($_SESSION)))
 		{
 			session_start();
 		}

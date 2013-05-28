@@ -14,7 +14,7 @@
 	}
     
     if(isset($_SESSION['username'])){
-	header("Location: View/Menu.php");
+	header("Location: Menu.php");
 	}else{
 		
 	    include ('View/login.html');
