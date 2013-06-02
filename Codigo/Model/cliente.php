@@ -234,6 +234,45 @@ class Cliente extends Entidad
 		
 		//return FALSE;
 	}
+
+	public function obtenerClientes()
+	{
+			if(!$this->conecta())
+			{
+				die('No se pudo conectar a la BD para reconstruir al cliente: '.$this->conexion->errno.':'.$this->conexion->error);
+			}
+	
+	
+			$query = "SELECT
+							*
+					  FROM
+							Cliente";
+	
+			//Ejecutar el query
+			$resultado = $this->conexion->query($query);
+	
+			if($this->conexion->errno)
+			{
+				echo 'Error obteiendo a el cliente '.$this->conexion->errno.' : '.$this->conexion->error;
+	
+				$this->cerrar_conexion();
+				return FALSE;
+			}
+			else
+			{
+				$this->cerrar_conexion();
+	
+				while ($fila = $resultado -> fetch_assoc())
+					$cliente[] = $fila;
+				
+				$esPersonaFisica		= $cliente[0]['persona_fisica'];
+				
+				parent::recuperar($cliente[0]['Entidad_id_entidad']);
+				
+				return TRUE;			
+			}
+	}
+
 }
 
 ?>
