@@ -250,27 +250,13 @@ class Cliente extends Entidad
 	
 			//Ejecutar el query
 			$resultado = $this->conexion->query($query);
-	
-			if($this->conexion->errno)
-			{
-				echo 'Error obteiendo a el cliente '.$this->conexion->errno.' : '.$this->conexion->error;
-	
-				$this->cerrar_conexion();
-				return FALSE;
-			}
-			else
-			{
-				$this->cerrar_conexion();
-	
-				while ($fila = $resultado -> fetch_assoc())
-					$cliente[] = $fila;
+			
+			while ($fila = $resultado -> fetch_assoc())
+				$clientes[] = $fila;	
+		
+			$this->cerrar_conexion();
 				
-				$esPersonaFisica		= $cliente[0]['persona_fisica'];
-				
-				parent::recuperar($cliente[0]['Entidad_id_entidad']);
-				
-				return TRUE;			
-			}
+			return $clientes;
 	}
 
 }

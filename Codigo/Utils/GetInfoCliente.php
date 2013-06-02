@@ -6,7 +6,7 @@ $Getter = new Cliente();
 
 $clientes = $Getter->obtenerClientes();
 
-if($clientes==FALSE)
+if($clientes==null)
 {
 	logConsole('NO SACA LA INFO CORRECTAMENTE', $Getter, true);
 }
