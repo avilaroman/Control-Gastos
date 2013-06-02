@@ -26,15 +26,15 @@ class ControladorCliente
             switch ($_REQUEST['accion']) 
 			{
 				case 'insertar':
-					if(isset($_SESSION['admin']) && $_SESSION['admin'] == 1)
-					{
+					//if(isset($_SESSION['admin']) && $_SESSION['admin'] == 1)
+					//{
 						$usuario = $this->InsertarCliente();
 						$_REQUEST['uso'] = '';
-					}
-					else
-					{
-						echo "No tienes poderes de super vaca";
-					}
+					//}
+					//else
+					//{
+					//	echo "No tienes poderes de super vaca";
+					//}
 					
 					break;
 	
@@ -88,7 +88,7 @@ class ControladorCliente
 
 		if(isset($_REQUEST['email']))
 		{
-			$email = new Telefono($usuario->getIdEntidad(), $_REQUEST['email']);
+			$email = new Email($usuario->getIdEntidad(), $_REQUEST['email']);
 			
 			if($email->insertar())
 			{
