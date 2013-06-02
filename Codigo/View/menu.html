@@ -6,9 +6,12 @@
 	<script src="View/js/bootstrap.min.js"></script>
 	<link rel="stylesheet" type="text/css" href="View/css/formularioUsuario.css"/>
 	<script src="View/js/ajax.js"></script>
-	<script src="View/js/rellenaFormulario.js"></script>
 </head>
-<body onload="rellenaFormulario()">
+<body  onload=" llenarEstados(); clientes();">
+	<script src="View/js/login.js"></script>
+	<script src="View/js/ajax.js"></script>
+	<script src="View/js/rellenaFormulario.js"></script>
+	<script src="View/js/validacion.js"></script>
 	<div class="navbar">
  		 <div class="navbar-inner">
     		<div class="container">
@@ -64,7 +67,7 @@
 			<div class="modal-header">
 		    	<h3 id="myModalLabel">Modificar Cliente</h3>
 		  	</div>
-		  <form method="post">
+		  <form id="formulario" action="Menu.php" name="formulario" method="post">
 			  <div class="modal-body">
 
 			  		<label class="alineado" for="username">Usuario *</label>
@@ -121,7 +124,8 @@
 			  </div>
 			  <div class="modal-footer">
 				    <button class="btn" data-dismiss="modal" aria-hidden="true">Cerrar</button>
-				    <button class="btn btn-primary" >Cambiar</button>
+				    <input type="hidden" name="accion" value="insertar" />
+				    <button type="submit" onclick="validaForm()" class="btn btn-primary" name="uso" value="cliente" >Cambiar</button>
 			  </div>
 		  </form>
 		</div>
@@ -131,6 +135,7 @@
 			
 			<div class="hero-unit span10">
 				<!--Body-->
+				<select id="selectClientes" type="text"></select>
 			</div>
 
 

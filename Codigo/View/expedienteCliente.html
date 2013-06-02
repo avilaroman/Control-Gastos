@@ -4,9 +4,13 @@
 	<link rel="stylesheet" type="text/css" href="css/bootstrap.css"/>
 	<script src="http://code.jquery.com/jquery.js"></script>
 	<script src="js/bootstrap.min.js"></script>
-	<link rel="stylesheet" type="text/css" href="View/css/formularioUsuario.css"/>
+	<script src="../View/js/login.js"></script>
+	<script src="../View/js/ajax.js"></script>
+	<script src="../View/js/validacion.js"></script>
+	<link rel="stylesheet" type="text/css" href="../View/css/formularioUsuario.css"/>
 </head>
-<body>
+<body onload="clientes()">
+		
 	<div class="navbar">
  		 <div class="navbar-inner">
     		<div class="container">
@@ -132,6 +136,7 @@
 						<tr>
 							<th>Expediente</th>
 						</tr>
+						<select id="selectClientes" type="text"></select>
 					</thead>
 					<tbody>
 						<tr>

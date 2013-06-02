@@ -35,6 +35,7 @@ function validaForm(){
 	var input_CP = document.getElementById('cp');
 	var input_Estado = document.getElementById('selectEstados');
 	var input_Municipio = document.getElementById('selectMunicipios');
+	var flag = true;
 
 	//var input_User = $('#formulario #username');
 	//var input_Pass = $('#formulario #passReg');
@@ -61,7 +62,8 @@ function validaForm(){
 		div.setAttribute('id','user_error');
 		var msg = document.createTextNode('Usuario o Contraseña Incorrecto');
 		div.appendChild(msg);
-		$('Mensaje error').insertAfter($('#username'));
+		$('<div>Mensaje error</div>').insertAfter($('#username'));
+		flag=false;
 		//input_User.nextSibling.insertBefore(div,input_User.nextSibling);
 	}
 	else{
@@ -76,7 +78,8 @@ function validaForm(){
 		div.setAttribute('id','user_error');
 		var msg = document.createTextNode('Usuario o Contraseña Incorrecto');
 		div.appendChild(msg);
-		$('Mensaje error').insertAfter($('#passReg'));
+		$('<div>Mensaje error</div>').insertAfter($('#passReg'));
+		flag=false;
 	}
 	else{
 		var dir_error = document.getElementById('pass_error');
@@ -104,7 +107,8 @@ function validaForm(){
 		div.setAttribute('id','nombre_error');
 		var msg = document.createTextNode('Nombre Incorrecto');
 		div.appendChild(msg);
-		$('Mensaje error').insertAfter($('#nombre'));
+		$('<div>Mensaje error</div>').insertAfter($('#nombre'));
+		flag=false;
 	}
 	else{
 		var dir_error = document.getElementById('nombre_error');
@@ -118,7 +122,8 @@ function validaForm(){
 		div.setAttribute('id','apellidoM_error');
 		var msg = document.createTextNode('Incorrecto');
 		div.appendChild(msg);
-		$('Mensaje error').insertAfter($('#apellidoM'));
+		$('<div>Mensaje error</div>').insertAfter($('#apellidoM'));
+		flag=false;
 	}
 	else{
 		var dir_error = document.getElementById('apellidoM_error');
@@ -132,7 +137,8 @@ function validaForm(){
 		div.setAttribute('id','apellidoP_error');
 		var msg = document.createTextNode('Incorrecto');
 		div.appendChild(msg);
-		$('Mensaje error').insertAfter($('#apellidoP'));
+		$('<div>Mensaje error</div>').insertAfter($('#apellidoP'));
+		flag=false;
 	}
 	else{
 		var dir_error = document.getElementById('apellidoM_error');
@@ -146,7 +152,8 @@ function validaForm(){
 		div.setAttribute('id','rfc_error');
 		var msg = document.createTextNode('Incorrecto');
 		div.appendChild(msg);
-		$('Mensaje error').insertAfter($('#rfc'));
+		$('<div>Mensaje error</div>').insertAfter($('#rfc'));
+		flag=false;
 	}
 	else{
 		var dir_error = document.getElementById('rfc_error');
@@ -160,7 +167,8 @@ function validaForm(){
 		div.setAttribute('id','tel_error');
 		var msg = document.createTextNode('Incorrecto');
 		div.appendChild(msg);
-		$('Mensaje error').insertAfter($('#tel'));
+		$('<div>Mensaje error</div>').insertAfter($('#tel'));
+		flag=false;
 	}
 	else{
 		var dir_error = document.getElementById('tel_error');
@@ -174,7 +182,8 @@ function validaForm(){
 		div.setAttribute('id','calle_error');
 		var msg = document.createTextNode('Incorrecto');
 		div.appendChild(msg);
-		$('Mensaje error').insertAfter($('#calle'));
+		$('<div>Mensaje error</div>').insertAfter($('#calle'));
+		flag=false;
 	}
 	else{
 		var dir_error = document.getElementById('calle_error');
@@ -188,7 +197,8 @@ function validaForm(){
 		div.setAttribute('id','numint_error');
 		var msg = document.createTextNode('Incorrecto');
 		div.appendChild(msg);
-		$('Mensaje error').insertAfter($('#numint'));
+		$('<div>Mensaje error</div>').insertAfter($('#numint'));
+		flag=false;
 	}
 	else{
 		var dir_error = document.getElementById('numint_error');
@@ -202,7 +212,8 @@ function validaForm(){
 		div.setAttribute('id','numext_error');
 		var msg = document.createTextNode('Incorrecto');
 		div.appendChild(msg);
-		$('Mensaje error').insertAfter($('#numext'));
+		$('<div>Mensaje error</div>').insertAfter($('#numext'));
+		flag=false;
 	}
 	else{
 		var dir_error = document.getElementById('numext_error');
@@ -216,7 +227,8 @@ function validaForm(){
 		div.setAttribute('id','colonia_error');
 		var msg = document.createTextNode('Incorrecto');
 		div.appendChild(msg);
-		$('Mensaje error').insertAfter($('#col'));
+		$('<div>Mensaje error</div>').insertAfter($('#col'));
+		flag=false;
 	}
 	else{
 		var dir_error = document.getElementById('colonia_error');
@@ -228,6 +240,9 @@ function validaForm(){
 		alert('Debe seleccionar un estado');
 	}
 
+	if(flag == false){
+		return 0;
+	}
 	//if(form.selectMunicipios.selectedIndex == 0){
 	//	alert('Debe seleccionar un municipio');
 	//}

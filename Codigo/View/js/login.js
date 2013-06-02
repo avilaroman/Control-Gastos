@@ -32,6 +32,35 @@ function llenarEstados(){
 	ajax.send(null);
 }
 
+function clientes(){
+	var ajax = nuevoAjax();
+	ajax.open('GET','Utils/GetInfoCliente.php',true);
+
+	ajax.onreadystatechange = function(){
+		if(ajax.readyState == 4){
+			var clientes = document.getElementById('selectClientes');
+			var response = eval(ajax.responseText);
+
+			var elemento = document.createElement('option');
+			var texto = document.createTextNode('selecciona Cliente...');
+			elemento.appendChild(texto);
+			elemento.setAttribute('value', -1);
+			clientes.appendChild(elemento);
+
+			for(cliente in response){
+				var option = document.createElement('option');
+				var text = document.createTextNode(response[cliente].nombre);
+				option.appendChild(text);
+				option.setAttribute('value', response[cliente].id_entidad);
+				clientes.appendChild(option);
+			}
+
+		}
+	}
+
+
+}
+
 function obtenerMunicipios(select)
 {
 	var seleccion = select.selectedIndex;
