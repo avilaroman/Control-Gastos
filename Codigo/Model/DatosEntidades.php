@@ -218,7 +218,7 @@ class Email extends iTablaDB
 		$query = " INSERT INTO
 							Email(Entidad_id_entidad, email)
 						VALUES
-							($this->idEntidad,
+							($this->id_propietario,
 							'$this->email')";
 							
 		$resultado = $this->conexion->query($query);
@@ -230,7 +230,7 @@ class Email extends iTablaDB
 		}
 		else
 		{
-			$this->id = $this->conexion->insert_id();
+			$this->id = $this->conexion->insert_id;
 			$retornable = TRUE;
 		}
 		
@@ -294,6 +294,11 @@ class Direccion extends iTablaDB
 		$this->estado 		= $estado;
 		$this->municipio 	= $municipio;
 		$this->idDuenio		= $idDuenio;
+		
+		if($this->numExterior == '')
+		{
+			$this->numExterior = 0;
+		}
 	}
 	
 	public function insertar()
