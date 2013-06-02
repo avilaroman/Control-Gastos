@@ -29,6 +29,7 @@ class ControladorCliente
 					//if(isset($_SESSION['admin']) && $_SESSION['admin'] == 1)
 					//{
 						$usuario = $this->InsertarCliente();
+						$this->enviarEmail();
 						$_REQUEST['uso'] = '';
 					//}
 					//else
@@ -146,6 +147,24 @@ class ControladorCliente
 			$usuario->agregarCuentaBancaria($cuenta);
 		}
 	} 
+	
+	private function enviarEmail()
+	{
+		//require('Utils/phpmailer/class.phpmailer.php');
+		
+		$para = $_REQUEST['email'];
+		$asunto = 'probando mail';
+		$mensaje = 'Esta es una prueba desde un servidor local';
+		$headers = 'From: seguame@gastos.com';
+		
+		if ( mail($para,$asunto,$mensaje,$headers) )
+		{
+			echo 'Se mando el correo';
+		}
+		else {
+			echo 'Hubo algun error al enviar el correo';
+		}
+	}
 }
 
 ?>
