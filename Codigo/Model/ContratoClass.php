@@ -69,6 +69,10 @@ class ContratoClass extends iTablaDB{
 		return $retornable;
 
 	}	    
+
+    function RealizarPago(){
+        
+    }
 	public function insertar(){}
     public function eliminar(){}
     public function modificar($campo, $valor){}
