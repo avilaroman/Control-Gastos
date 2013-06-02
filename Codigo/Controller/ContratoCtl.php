@@ -21,7 +21,11 @@ class ControladorContrato{
 		     switch ($_REQUEST['accion']){
 
 			case 'crear':
-                $usuario = $this->crearContrato();				
+                if(isset($_SESSION['admin']) && $_SESSION['admin'] == 1)
+                $usuario = $this->crearContrato();
+                else{
+                    echo "Shit happened or u t not Admin";
+                }
 				break;
 			case 'pago':
 				$usuario = $this->realizarPago();
@@ -57,6 +61,8 @@ class ControladorContrato{
 	}
 
     private function crearContrato(){
+        
+                //if admin se ingresa id manual, else...
                 
                 $entidad = new Cliente();
                 if($entidad->obtenerCliente($_REQUEST['idCliente'])){
