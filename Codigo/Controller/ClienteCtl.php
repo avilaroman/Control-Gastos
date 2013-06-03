@@ -192,10 +192,10 @@ class ControladorCliente
 		
 		if ( mail($para,$asunto,$mensaje,$headers) )
 		{
-			echo 'Se mando el correo';
+			//echo 'Se mando el correo';
 		}
 		else {
-			echo 'Hubo algun error al enviar el correo';
+			//echo 'Hubo algun error al enviar el correo';
 		}
 	}
 }
