@@ -148,7 +148,7 @@ class Cliente extends Entidad
 		}
 	}
 
-	private function reconstruirCliente($idCliente)
+	public function reconstruirCliente($idCliente)
 	{
 
 		if(!$this->conecta())
@@ -224,10 +224,10 @@ class Cliente extends Entidad
 					$cliente[] = $fila;
 				
 				$esPersonaFisica		= $cliente[0]['persona_fisica'];
-				
+
 				parent::recuperar($cliente[0]['Entidad_id_entidad']);
 				
-				return TRUE;			
+				return $cliente;			
 			}
 		//}
 		
@@ -257,6 +257,53 @@ class Cliente extends Entidad
 			$this->cerrar_conexion();
 				
 			return $clientes;
+	}
+
+	public function obtenerEntidad($idCliente){
+		if(!$this->conecta())
+		{
+			die('No se pudo conectar la BD para recuperar informacion del cliente: '.$this->conexion->errno.':'.$this->conexion->error);
+		}
+
+		
+		$query = "SELECT
+						*
+				  FROM
+						Cuenta
+				  WHERE
+				  		Cliente_id_cliente = $idCliente";
+				  		
+		
+
+		//Ejecutar el query
+		$resultado = $this->conexion->query($query);
+		if($this->conexion->errno)
+		{
+			echo 'FALLO la recuperacion de la cuenta con esas credenciales '.$this->conexion->errno.' : '.$this->conexion->error;
+			//Cerrar la conexion
+			
+			$this->cerrar_conexion();
+			return FALSE;
+		}
+		else
+		{
+			$this->cerrar_conexion();
+
+			while ($fila = $resultado -> fetch_assoc())
+				$cliente[] = $fila;
+			
+			if(isset($cliente))
+			{
+				$idCliente		= $cliente[0]['Cliente_id_cliente'];
+				
+				$_SESSION['admin'] = $cliente[0]['admin']; 
+				
+				return $this->reconstruirCliente($idCliente);
+			}
+			
+			return FALSE;
+			
+		}
 	}
 
 }
