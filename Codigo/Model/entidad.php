@@ -70,22 +70,22 @@ class Entidad extends iTablaDB
 	
 	public function agregarTelefono($telefono)
 	{
-		$this->telefonos[] = $telefono;
+		$this->telefonos = $telefono;
 	}
 	
 	public function agregarEmail($email)
 	{
-		$this->emails[] = $email;
+		$this->emails = $email;
 	}
 	
 	public function agregarCuentaBancaria($cuentaBancaria)
 	{
-		$this->cuentasBancarias[] = $cuentaBancaria;
+		$this->cuentasBancarias = $cuentaBancaria;
 	}
 	
 	public function agregarDomicilio($domicilio)
 	{
-		$this->domicilios[] = $domicilio;
+		$this->domicilios = $domicilio;
 	}
 	/////////////////////////////////////////////
 	///    Implementaciones de iTablaDB        //
