@@ -1,10 +1,12 @@
 <?php
 require('../Model/cliente.php');
-require_once('DebugerPHP.php');
+//require_once('DebugerPHP.php');
 
 $Getter = new Cliente();
 
 $clientes = $Getter->obtenerClientes();
+
+//logConsole('$clientes var', $clientes, true);
 
 if($clientes==null)
 {

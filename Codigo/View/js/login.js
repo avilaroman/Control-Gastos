@@ -1,6 +1,6 @@
 function llenarEstados(){
 	var ajax = nuevoAjax();
-	ajax.open('GET','Utils/GetEstados.php',true);
+	ajax.open('GET','../Utils/GetEstados.php',true);
 	
 	
 	
@@ -32,35 +32,6 @@ function llenarEstados(){
 	ajax.send(null);
 }
 
-function clientes(){
-	var ajax = nuevoAjax();
-	ajax.open('GET','Utils/GetInfoCliente.php',true);
-
-	ajax.onreadystatechange = function(){
-		if(ajax.readyState == 4){
-			var clientes = document.getElementById('selectClientes');
-			var response = eval(ajax.responseText);
-
-			var elemento = document.createElement('option');
-			var texto = document.createTextNode('selecciona Cliente...');
-			elemento.appendChild(texto);
-			elemento.setAttribute('value', -1);
-			clientes.appendChild(elemento);
-
-			for(cliente in response){
-				var option = document.createElement('option');
-				var text = document.createTextNode(response[cliente].nombre);
-				option.appendChild(text);
-				option.setAttribute('value', response[cliente].id_entidad);
-				clientes.appendChild(option);
-			}
-
-		}
-	}
-
-
-}
-
 function obtenerMunicipios(select)
 {
 	var seleccion = select.selectedIndex;
@@ -78,7 +49,7 @@ function obtenerMunicipios(select)
 	if(seleccion > 0)
 	{
 		var ajax = nuevoAjax();
-		ajax.open('GET','Utils/GetMunicipios.php?idEstado='+seleccion,true);
+		ajax.open('GET','../Utils/GetMunicipios.php?idEstado='+seleccion,true);
 		
 		ajax.onreadystatechange = function()
 		{
@@ -94,6 +65,72 @@ function obtenerMunicipios(select)
 					
 					municipios.appendChild(option);
 				}
+			}
+		}
+		
+		ajax.send(null);
+	}
+}
+
+function clientes(){
+	var ajax = nuevoAjax();
+	ajax.open('GET','../Utils/GetInfoCliente.php',true);
+
+	ajax.onreadystatechange = function(){
+		if(ajax.readyState == 4){
+			var clientes = document.getElementById('selectClientes');
+			var response = eval(ajax.responseText);
+
+			var elemento = document.createElement('option');
+			var texto = document.createTextNode('selecciona Cliente...');
+			elemento.appendChild(texto);
+			elemento.setAttribute('value', -1);
+			clientes.appendChild(elemento);
+
+			for(cliente in response){
+				var option = document.createElement('option');
+				var text = document.createTextNode(response[cliente].id_cliente);
+				option.appendChild(text);
+				option.setAttribute('value', response[cliente].id_cliente);
+				clientes.appendChild(option);
+			}
+
+		}
+	}
+
+	ajax.send(null);
+}
+
+function obtenerDatos(select)
+{
+	var seleccion = select.selectedIndex;
+	var valor = select.value;
+	console.log(valor);
+	
+	if(seleccion > 0)
+	{
+		var ajax = nuevoAjax();
+		ajax.open('GET','../Utils/GetInfoEntidad.php?idCliente='+valor,true);
+		
+		ajax.onreadystatechange = function()
+		{
+			if(ajax.readyState == 4)
+			{
+				var response = eval(ajax.responseText);
+				
+				var nombre = document.createElement('div');
+    			var name = document.createTextNode(response.nombre);
+    			var apPat = document.createElement('div');
+    			var lastP = document.createTextNode(response.apellido_paterno);
+    			var apMat = document.createElement('div');
+    			var lastM = document.createTextNode(response.apellido_materno);
+    			var rfc = document.createElement('div');
+    			var rfcText = document.createTextNode(response.RFC);
+
+    			nombre.appendChild(name);
+    			apPat.appendChild(lastP);
+    			apMat.appendChild(lastM);
+    			rfc.appendChild(rfcText);
 			}
 		}
 		

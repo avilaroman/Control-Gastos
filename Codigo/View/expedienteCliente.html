@@ -1,16 +1,18 @@
 <!DOCTYPE HTML>
 <html>
 <head>
-	<link rel="stylesheet" type="text/css" href="css/bootstrap.css"/>
+	<link rel="stylesheet" type="text/css" href="../View/css/bootstrap.css"/>
 	<script src="http://code.jquery.com/jquery.js"></script>
-	<script src="js/bootstrap.min.js"></script>
+	<script src="../View/js/bootstrap.min.js"></script>
+	<link rel="stylesheet" type="text/css" href="../View/css/formularioUsuario.css"/>
+	<script src="../View/js/ajax.js"></script>
 	<script src="../View/js/login.js"></script>
 	<script src="../View/js/ajax.js"></script>
+	<script src="../View/js/rellenaFormulario.js"></script>
 	<script src="../View/js/validacion.js"></script>
-	<link rel="stylesheet" type="text/css" href="../View/css/formularioUsuario.css"/>
 </head>
-<body onload="clientes()">
-		
+<body  onload="llenarEstados(); clientes();">
+
 	<div class="navbar">
  		 <div class="navbar-inner">
     		<div class="container">
@@ -33,8 +35,8 @@
 						<a class="dropdown-toggle" data-toggle="dropdown" href="#">Consultas<b class="caret"></b></a>
     					<ul class="dropdown-menu">
     		 			 <!-- links -->
-    		 				<li><a href="../View/consultaPago.html">Movimientos</a></li>
-							<li><a href="../View/estadoCuenta.html">Estado de cuenta</a></li>
+    		 				<li><a href="View/consultaPago.html">Movimientos</a></li>
+							<li><a href="View/estadoCuenta.html">Estado de cuenta</a></li>
    						</ul>
    					</li>
 					<li class="dropdown">
@@ -49,23 +51,24 @@
 						<a class="dropdown-toggle" data-toggle="dropdown" href="#">Expedientes<b class="caret"></b></a>
     					<ul class="dropdown-menu">
     		 			 <!-- links -->
-    		 				<li><a href="../View/expedienteCliente.html">Cliente</a></li>
-						  	<li><a href="../View/expedienteContrato.html">Contrato</a></li>
+    		 				<li><a href="View/expedienteCliente.html">Cliente</a></li>
+						  	<li><a href="View/expedienteContrato.html">Contrato</a></li>
    						</ul>
    					</li>
 				</ul>
   		    </div>
   			</div>
  		 </div>
- 		 <a href="../Utils/Logout.php" >Cerrar sesion</a>
+ 		 
+ 		 <a href="Utils/Logout.php" >Cerrar sesion</a>
 	</div>
 
-	<!-- Modal -->
+		<!-- Modal -->
 		<div id="modalmodificador" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
 			<div class="modal-header">
 		    	<h3 id="myModalLabel">Modificar Cliente</h3>
 		  	</div>
-		  <form method="post">
+		  <form id="formulario" action="Menu.php" name="formulario" method="post">
 			  <div class="modal-body">
 
 			  		<label class="alineado" for="username">Usuario *</label>
@@ -122,7 +125,8 @@
 			  </div>
 			  <div class="modal-footer">
 				    <button class="btn" data-dismiss="modal" aria-hidden="true">Cerrar</button>
-				    <button class="btn btn-primary" >Cambiar</button>
+				    <input type="hidden" name="accion" value="insertar" />
+				    <button type="submit" onclick="validaForm()" class="btn btn-primary" name="uso" value="cliente" >Cambiar</button>
 			  </div>
 		  </form>
 		</div>
@@ -136,48 +140,13 @@
 						<tr>
 							<th>Expediente</th>
 						</tr>
-						<select id="selectClientes" type="text"></select>
+						<select id="selectClientes" type="text" onchange="obtenerDatos(this)"></select>
 					</thead>
-					<tbody>
+					<tbody id="datosClientes">
 						<tr>
 							<th>Datos Generales</th>
 						</tr>
-						<tr>
-							<td>
-								<div class="span3">Nombre:</div>
-								<div class="span8">Name</div>
-							</td>
-						</tr>
-						<tr>
-							<td>
-								<div class="span3">Apellidos:</div>
-								<div class="span8">Name</div>
-							</td>
-						</tr>
-						<tr>
-							<td>
-								<div class="span3">No. Cliente:</div>
-								<div class="span8">12345</div>
-							</td>
-						</tr>
-						<tr>
-							<td>
-								<div class="span3">Tipo Persona:</div>
-								<div class="span8">Fisica</div>
-							</td>
-						</tr>
-						<tr>
-							<td>
-								<div class="span3">Colonia:</div>
-								<div class="span8">Name</div>
-							</td>
-						</tr>
-						<tr>
-							<td>
-								<div class="span3">RFC:</div>
-								<div class="span8">Name1234</div>
-							</td>
-						</tr>
+						
 
 					</tbody>
 				</table>
@@ -189,12 +158,9 @@
 
 	</div>
 
-
+		
+	
 	
 
-
 </body>
-
-
-
 </html>
