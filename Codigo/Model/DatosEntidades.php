@@ -13,6 +13,11 @@ class Telefono extends iTablaDB
 		$this->id_propietario = $id_propietario;
 		$this->numero = $numero;
 	}
+	
+	public function getNumero()
+	{
+		return $this->numero;
+	}
 		
    	public function insertar()
    	{
@@ -77,7 +82,49 @@ class Telefono extends iTablaDB
 		return $retornable;
     }
     public function modificar($campo, $valor){}
-	public function recuperar($id){}
+	
+	public function recuperar($id)
+	{
+		if(!$this->conecta())
+		{
+			die('SHIT HAPPENS: '.$this->conexion->errno.':'.$this->conexion->error);
+		}
+
+
+		$query = "SELECT
+						*
+				  FROM
+						Telefono
+				  WHERE
+				  		$id = Entidad_id_entidad";
+
+		//Ejecutar el query
+		$resultado = $this->conexion->query($query);
+
+		if($this->conexion->errno)
+		{
+			echo 'FALLO '.$this->conexion->errno.' : '.$this->conexion->error;
+			
+			$this->conexion -> close();
+			return FALSE;
+		}
+		else
+		{
+			$this->cerrar_conexion();
+
+			while ($fila = $resultado -> fetch_assoc())
+				$telefono[] = $fila;
+			
+			if(isset($telefono))
+			{
+				$this->numero 			= $telefono[0]['telefono'];
+				$this->id_propietario	= $telefono[0]['Entidad_id_entidad'];
+				
+				return TRUE;	
+			}
+			return FALSE;
+		}
+	}
 }
 
 class CuentaBanco extends iTablaDB
@@ -91,6 +138,16 @@ class CuentaBanco extends iTablaDB
 		$this->nombreBanco = $nombreBanco;
 		$this->numeroCuenta = $numeroCuenta;
 		$this->idDuenio = $idDuenio;
+	}
+	
+	public function getNombreBanco()
+	{
+		return $this->nombreBanco;
+	}
+	
+	public function getNumeroDeCuenta()
+	{
+		return $this->numeroCuenta;
 	}
 	
 	public function insertar()
@@ -205,7 +262,12 @@ class Email extends iTablaDB
 	public function __construct($id_propietario, $email)
 	{
 		$this->id_propietario = $id_propietario;
-		$this->$email = $email;
+		$this->email = $email;
+	}
+	
+	public function getEmail()
+	{
+		return $this->email;
 	}
 		
    	public function insertar()
@@ -219,8 +281,7 @@ class Email extends iTablaDB
 							Email(Entidad_id_entidad, email)
 						VALUES
 							($this->id_propietario,
-							'$this->email')";
-							
+							'$this->email')";				
 		$resultado = $this->conexion->query($query);
 			
 		if(!$resultado)
@@ -235,7 +296,6 @@ class Email extends iTablaDB
 		}
 		
 		$this->cerrar_conexion();
-		
 		return $retornable;
    	}
 	
@@ -270,19 +330,61 @@ class Email extends iTablaDB
 		return $retornable;
     }
     public function modificar($campo, $valor){}
-	public function recuperar($id){}
+	public function recuperar($id)
+	{
+		if(!$this->conecta())
+		{
+			die('SHIT HAPPENS: '.$this->conexion->errno.':'.$this->conexion->error);
+		}
+
+
+		$query = "SELECT
+						*
+				  FROM
+						Email
+				  WHERE
+				  		$id = Entidad_id_entidad";
+
+		//Ejecutar el query
+		$resultado = $this->conexion->query($query);
+
+		if($this->conexion->errno)
+		{
+			echo 'FALLO '.$this->conexion->errno.' : '.$this->conexion->error;
+			
+			$this->conexion -> close();
+			return FALSE;
+		}
+		else
+		{
+			$this->cerrar_conexion();
+
+			while ($fila = $resultado -> fetch_assoc())
+				$email[] = $fila;
+			
+			if(isset($email))
+			{
+				$this->email 			= $email[0]['email'];
+				$this->id_propietario	= $email[0]['Entidad_id_entidad'];
+				return TRUE;	
+			}
+			
+			return FALSE;
+					
+		}
+	}
 }
 
 class Direccion extends iTablaDB
 {
-	public $calle;
-	public $numInterior;
-	public $numExterior;
-	public $colonia;
-	public $codigoPostal;
-	public $estado;
-	public $municipio;
-	public $idDuenio;
+	private $calle;
+	private $numInterior;
+	private $numExterior;
+	private $colonia;
+	private $codigoPostal;
+	private $estado;
+	private $municipio;
+	private $idDuenio;
 	
 	public function __construct($idDuenio, $calle, $numInterior, $numExterior, $colonia, $codigoPostal, $estado, $municipio)
 	{
@@ -299,6 +401,48 @@ class Direccion extends iTablaDB
 		{
 			$this->numExterior = 0;
 		}
+	}
+	
+	public function getCalle()
+	{
+		return $this->calle;
+	}
+	
+	public function getNumInterior()
+	{
+		return $this->numInterior;
+	}
+	
+	public function getNumExterior()
+	{
+		if($this->numExterior != 0)
+		{
+			return "-".$this->numExterior;
+		}
+		else 
+		{
+			return "";
+		}
+	}
+	
+	public function getColonia()
+	{
+		return $this->colonia;
+	}
+	
+	public function getCodigoPostal()
+	{
+		return $this->codigoPostal;
+	}
+	
+	public function getEstado()
+	{
+		return $this->estado;
+	}
+	
+	public function getMunicipio()
+	{
+		return $this->municipio;
 	}
 	
 	public function insertar()
@@ -391,6 +535,56 @@ class Direccion extends iTablaDB
 		return $retornable;
     }
     public function modificar($campo, $valor){}
-	public function recuperar($id){}
+	
+	public function recuperar($id)
+	{
+		if(!$this->conecta())
+		{
+			die('SHIT HAPPENS: '.$this->conexion->errno.':'.$this->conexion->error);
+		}
+
+
+		$query = "SELECT
+						*
+				  FROM
+						Domicilio
+				  WHERE
+				  		id_domicilio = (SELECT Domicilio_id_domicilio FROM Entidad_has_Domicilio WHERE $id = Entidad_id_entidad)";
+				  		
+
+		//Ejecutar el query
+		$resultado = $this->conexion->query($query);
+
+		if($this->conexion->errno)
+		{
+			echo 'FALLO '.$this->conexion->errno.' : '.$this->conexion->error;
+			
+			$this->conexion -> close();
+			return FALSE;
+		}
+		else
+		{
+			$this->cerrar_conexion();
+
+			while ($fila = $resultado -> fetch_assoc())
+				$domiclio[] = $fila;
+			
+			if(isset($domiclio))
+			{
+				$this->calle			= $domiclio[0]['calle'];
+				$this->numInterior		= $domiclio[0]['num_interior'];
+				$this->numExterior		= $domiclio[0]['num_exterior'];
+				$this->colonia			= $domiclio[0]['colonia'];
+				$this->codigoPostal		= $domiclio[0]['codigo_postal'];
+				$this->estado			= $domiclio[0]['stado'];
+				$this->municipio		= $domiclio[0]['municipio'];
+				$this->idDuenio			= $id;
+				return TRUE;	
+			}
+			
+			return FALSE;
+					
+		}
+	}
 }
 ?>

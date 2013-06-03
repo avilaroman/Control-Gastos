@@ -28,7 +28,7 @@ class ControladorCliente
 				case 'insertar':
 					//if(isset($_SESSION['admin']) && $_SESSION['admin'] == 1)
 					//{
-						$usuario = $this->InsertarCliente();
+						$modelo = $this->InsertarCliente();
 						$this->enviarEmail();
 						$_REQUEST['uso'] = '';
 					//}
@@ -45,9 +45,10 @@ class ControladorCliente
 					break;
 			}
         }
-
-		if(isset($usuario))
-			include ('View/vista.php');
+		
+		//Ya no se requiere mostrar el contenido del usuario, confio en que ya sirve :v
+		//if(isset($usuario))
+		//	include ('View/vista.php');
 
 	}
 	
@@ -107,6 +108,8 @@ class ControladorCliente
 			$this->InsertarCuentaBancaria($usuario);
 		}
 		
+		$this->modelo = $usuario;
+		
 		return $usuario;		
 	}
 
@@ -151,18 +154,48 @@ class ControladorCliente
 	private function enviarEmail()
 	{
 		//require('Utils/phpmailer/class.phpmailer.php');
+		$username = $_REQUEST['username'];
+		$password = $_REQUEST['password'];
+		$nombre = $this->modelo->getName()." ";
+		$nombre .= $this->modelo->getApellidoPaterno()." ";
+		$nombre .= $this->modelo->getApellidoMaterno();
+		$telefono = $this->modelo->getTelefono()->getNumero();
+		$direccion = $this->modelo->getDomicilio()->getCalle(). " #";
+		$direccion .= $this->modelo->getDomicilio()->getNumInterior();
+		$direccion .= $this->modelo->getDomicilio()->getNumExterior();
+		$cp = $this->modelo->getDomicilio()->getCodigoPostal();
 		
 		$para = $_REQUEST['email'];
-		$asunto = 'probando mail';
-		$mensaje = 'Esta es una prueba desde un servidor local';
-		$headers = 'From: seguame@gastos.com';
+		$asunto = 'Bienvenido al Gestor de Gastos personal';
+		$mensaje = "
+					<html>
+					<head></head>
+					<body>
+					
+					<h1 style=\"color: red\">ola k ase, kalifikandonoz o k ase</h1>
+					<h3 style=\"color: blue\">Bienvenido</h3>
+					Se te da acceso a la pagina de <a href=\"http://alanturing.cucei.udg.mx/cc409/gastosse/index.php\"> Control de Gastos </a> <br> <br>
+					
+					<strong>username: </strong> $username <br>
+					<strong>password: </strong>$password <br>
+					
+					<strong>Nombre:</strong>\t $nombre <br>
+					<strong>Telefono:</strong>\t $telefono <br>
+					<strong>Direccion:</strong>\t $direccion <br>
+					<strong>Codigo Postal:</strong>\t $cp <br>
+					</body>
+					</html>	
+					";
+		$headers  = 'From: administracion@gastos.com'."\r\n";
+		$headers .= 'MIME-Version: 1.0' . "\r\n";
+		$headers .= 'Content-type: text/html; charset=iso-8859-1' . "\r\n";
 		
 		if ( mail($para,$asunto,$mensaje,$headers) )
 		{
-			echo 'Se mando el correo';
+			//echo 'Se mando el correo';
 		}
 		else {
-			echo 'Hubo algun error al enviar el correo';
+			//echo 'Hubo algun error al enviar el correo';
 		}
 	}
 }
