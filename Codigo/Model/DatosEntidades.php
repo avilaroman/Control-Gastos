@@ -13,6 +13,11 @@ class Telefono extends iTablaDB
 		$this->id_propietario = $id_propietario;
 		$this->numero = $numero;
 	}
+	
+	public function getNumero()
+	{
+		return $this->numero;
+	}
 		
    	public function insertar()
    	{
@@ -91,6 +96,16 @@ class CuentaBanco extends iTablaDB
 		$this->nombreBanco = $nombreBanco;
 		$this->numeroCuenta = $numeroCuenta;
 		$this->idDuenio = $idDuenio;
+	}
+	
+	public function getNombreBanco()
+	{
+		return $this->nombreBanco;
+	}
+	
+	public function getNumeroDeCuenta()
+	{
+		return $this->numeroCuenta;
 	}
 	
 	public function insertar()
@@ -207,6 +222,11 @@ class Email extends iTablaDB
 		$this->id_propietario = $id_propietario;
 		$this->$email = $email;
 	}
+	
+	public function getEmail()
+	{
+		return $this->email;
+	}
 		
    	public function insertar()
    	{	
@@ -275,14 +295,14 @@ class Email extends iTablaDB
 
 class Direccion extends iTablaDB
 {
-	public $calle;
-	public $numInterior;
-	public $numExterior;
-	public $colonia;
-	public $codigoPostal;
-	public $estado;
-	public $municipio;
-	public $idDuenio;
+	private $calle;
+	private $numInterior;
+	private $numExterior;
+	private $colonia;
+	private $codigoPostal;
+	private $estado;
+	private $municipio;
+	private $idDuenio;
 	
 	public function __construct($idDuenio, $calle, $numInterior, $numExterior, $colonia, $codigoPostal, $estado, $municipio)
 	{
@@ -299,6 +319,48 @@ class Direccion extends iTablaDB
 		{
 			$this->numExterior = 0;
 		}
+	}
+	
+	public function getCalle()
+	{
+		return $this->calle;
+	}
+	
+	public function getNumInterior()
+	{
+		return $this->numInterior;
+	}
+	
+	public function getNumExterior()
+	{
+		if($this->numExterior != 0)
+		{
+			return "-".$this->numExterior;
+		}
+		else 
+		{
+			return "";
+		}
+	}
+	
+	public function getColonia()
+	{
+		return $this->colonia;
+	}
+	
+	public function getCodigoPostal()
+	{
+		return $this->codigoPostal;
+	}
+	
+	public function getEstado()
+	{
+		return $this->estado;
+	}
+	
+	public function getMunicipio()
+	{
+		return $this->municipio;
 	}
 	
 	public function insertar()
