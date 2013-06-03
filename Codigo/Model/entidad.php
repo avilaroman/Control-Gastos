@@ -172,6 +172,27 @@ class Entidad extends iTablaDB
 			$this->RFC 				= $entidad[0]['RFC'];
 			$this->idEntidad		= $entidad[0]['id_entidad'];
 			
+			$telefono = new Telefono(0, 0);
+			
+			if($telefono->recuperar($this->idEntidad))
+			{
+				$this->agregarTelefono($telefono);
+			}
+			
+			$email = new Email(0," ");
+			
+			if($email->recuperar($this->idEntidad))
+			{
+				$this->agregarEmail($email);
+			}
+			
+			$domicilio = new Direccion(0," ", 0,0," ", 0, " ", " ");
+			
+			if($domicilio->recuperar($this->idEntidad))
+			{
+				$this->agregarDomicilio($domicilio);
+			}
+			
 			return $entidad;			
 		}
 	}
