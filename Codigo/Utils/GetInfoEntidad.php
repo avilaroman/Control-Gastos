@@ -18,7 +18,7 @@ else
 					 'telefono' => $usuario->getTelefono(),
 					 'personaFisica' => $usuario->getPersonaFisica(),
 					 'email' => $usuario->getEmail()
-	);	
+	);
 	echo json_encode($arreglo);
 }
 
