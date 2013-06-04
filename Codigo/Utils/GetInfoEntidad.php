@@ -11,14 +11,14 @@ if($entidad==FALSE)
 }
 else 
 {
-	$arreglo = array('nombre' => $usuario->getName(),
+	$arreglo = array(array('nombre' => $usuario->getName(),
 					 'apellidoP' => $usuario->getApellidoPaterno(),
 					 'apellidoM' => $usuario->getApellidoMaterno(),
 					 'rfc' => $usuario->getRFC(),
-					 'telefono' => $usuario->getTelefono(),
-					 'personaFisica' => $usuario->getPersonaFisica(),
-					 'email' => $usuario->getEmail()
-	);	
+					 //'telefono' => $usuario->getTelefono()->,
+					 //'personaFisica' => $usuario->getPersonaFisica(),
+					 //'email' => $usuario->getEmail()
+	));	
 	echo json_encode($arreglo);
 }
 
