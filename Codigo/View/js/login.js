@@ -120,17 +120,30 @@ function obtenerDatos(select)
 				
 				var nombre = document.createElement('div');
     			var name = document.createTextNode(response.nombre);
+    			console.log(name);
+    			nombre.appendChild(name);
+    			nombre.setAttribute('id','nombre');
+    			nombre.setAttribute('class','span8');
+    			$(nombre).insertAfter($('#datosClientes'));
     			var apPat = document.createElement('div');
     			var lastP = document.createTextNode(response.apellido_paterno);
+    			apPat.appendChild(lastP);
+    			apPat.setAttribute('id','apPat');
+    			apPat.setAttribute('class','span8');
+    			$(apPat).insertAfter($('#datosClientes'));
     			var apMat = document.createElement('div');
     			var lastM = document.createTextNode(response.apellido_materno);
+    			apMat.appendChild(lastM);
+    			apMat.setAttribute('id','apMat');
+    			apMat.setAttribute('class','span8');
+    			$(apMat).insertAfter($('#datosClientes'));
     			var rfc = document.createElement('div');
     			var rfcText = document.createTextNode(response.RFC);
-
-    			nombre.appendChild(name);
-    			apPat.appendChild(lastP);
-    			apMat.appendChild(lastM);
     			rfc.appendChild(rfcText);
+    			rfc.setAttribute('id','rfc');
+    			rfc.setAttribute('class','span8');
+    			$(rfc).insertAfter($('#datosClientes'));
+
 			}
 		}
 		
