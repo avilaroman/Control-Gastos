@@ -117,32 +117,35 @@ function obtenerDatos(select)
 			if(ajax.readyState == 4)
 			{
 				var response = eval(ajax.responseText);
-				
-				var nombre = document.createElement('div');
-    			var name = document.createTextNode(response[0].nombre);
-    			console.log(name);
-    			nombre.appendChild(name);
-    			nombre.setAttribute('id','nombre');
-    			nombre.setAttribute('class','span8');
-    			$(nombre).insertAfter($('#datosClientes'));
-    			var apPat = document.createElement('div');
-    			var lastP = document.createTextNode(response[0].apellidoP);
-    			apPat.appendChild(lastP);
-    			apPat.setAttribute('id','apPat');
-    			apPat.setAttribute('class','span8');
-    			$(apPat).insertAfter($('#datosClientes'));
-    			var apMat = document.createElement('div');
-    			var lastM = document.createTextNode(response[0].apellidoM);
-    			apMat.appendChild(lastM);
-    			apMat.setAttribute('id','apMat');
-    			apMat.setAttribute('class','span8');
-    			$(apMat).insertAfter($('#datosClientes'));
+				var form = document.getElementById('datosClientes');
+				/*var namae = document.getElementById('nombreDatos');
+				if(typeof(namae) == 'object' && namae!=null)
+					form.removeChild(namae);*/
     			var rfc = document.createElement('div');
     			var rfcText = document.createTextNode(response[0].rfc);
     			rfc.appendChild(rfcText);
     			rfc.setAttribute('id','rfc');
     			rfc.setAttribute('class','span8');
-    			$(rfc).insertAfter($('#datosClientes'));
+    			$(rfc).insertAfter($('#datosTitulo'));
+				var apMat = document.createElement('div');
+    			var lastM = document.createTextNode(response[0].apellidoM);
+    			apMat.appendChild(lastM);
+    			apMat.setAttribute('id','apMat');
+    			apMat.setAttribute('class','span8');
+    			$(apMat).insertAfter($('#datosTitulo'));
+    			var apPat = document.createElement('div');
+    			var lastP = document.createTextNode(response[0].apellidoP);
+    			apPat.appendChild(lastP);
+    			apPat.setAttribute('id','apPat');
+    			apPat.setAttribute('class','span8');
+    			$(apPat).insertAfter($('#datosTitulo'));
+    			var nombre = document.createElement('div');
+    			var name = document.createTextNode(response[0].nombre);
+    			console.log(name);
+    			nombre.appendChild(name);
+    			nombre.setAttribute('id','nombreDatos');
+    			nombre.setAttribute('class','span8');
+    			$(nombre).insertAfter($('#datosTitulo'));
 
 			}
 		}
