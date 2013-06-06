@@ -7,7 +7,7 @@
 	<link rel="stylesheet" type="text/css" href="View/css/formularioUsuario.css"/>
 	<script src="View/js/ajax.js"></script>
 </head>
-<body  onload=" llenarEstados(); clientes();">
+<body onload=" llenarEstados(); llenarEstadosAlta(); clientes();">
 	<script src="View/js/login.js"></script>
 	<script src="View/js/ajax.js"></script>
 	<script src="View/js/rellenaFormulario.js"></script>
@@ -24,7 +24,7 @@
    		   </a>
  
    		   <!-- Be sure to leave the brand out there if you want it shown -->
-  		    <a class="brand" href="#">Control Gastos</a>
+  		    <a class="brand" href="#" onclick="home()">Control Gastos</a>
  
  		     <!-- Everything you want hidden at 940px or less, place within here -->
   		    <div class="nav-collapse collapse">
@@ -54,6 +54,14 @@
 						  	<li><a href="View/expedienteContrato.html">Contrato</a></li>
    						</ul>
    					</li>
+   					<li class="dropdown">
+						<a class="dropdown-toggle" data-toggle="dropdown" href="#">Acciones<b class="caret"></b></a>
+    					<ul class="dropdown-menu">
+    		 			 <!-- links -->
+    		 				<li><a href="#modalAltaCliente" data-toggle="modal">Alta Cliente</a></li>
+						  	<li><a href="#modalAltaContrato">Añadir Contrato</a></li>
+   						</ul>
+   					</li>
 				</ul>
   		    </div>
   			</div>
@@ -67,7 +75,7 @@
 			<div class="modal-header">
 		    	<h3 id="myModalLabel">Modificar Cliente</h3>
 		  	</div>
-		  <form id="formulario" action="Menu.php" name="formulario" method="post">
+		  <form id="formularioMod" action="Menu.php" name="formularioMod" method="post">
 			  <div class="modal-body">
 
 			  		<label class="alineado" for="username">Usuario *</label>
@@ -130,6 +138,83 @@
 		  </form>
 		</div>
 	
+		<!-- Modal Alta Cliente-->
+		<div id="modalAltaCliente" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+			<div class="modal-header">
+		    	<h3 id="myModalLabel">Alta Cliente</h3>
+		  	</div>
+		  <form id="formularioAlta" action="Menu.php" name="formularioAlta" method="post">
+			  <div class="modal-body">
+
+			  		<label class="alineado" for="username">Usuario *</label>
+					<input id="username" type="text" class="span2 alineado" name="username" placeholder="Ingrese Usuario..." required="required"/><br>
+				    
+					<label class="alineado" for="passReg">Contraseña *</label>
+					<input id="passReg" type="password" class="span2 alineado" name="password" placeholder="Ingrese Contrasena..." required="required"/><br>
+					
+					<label class="alineado" for="email">Email *</label>
+					<input id="email" type="email" class="span2 alineado" name="email" placeholder="Ingrese Email" required="required"/><br>
+					
+					<label class="alineado" for="nombre">Nombre(s) *</label>
+					<input id="nombre" type="text" class="span2 alineado" name="nombre" placeholder="Nombre..." required="required"/><br>
+					
+					<label class="alineado" for="apellidoP">Apellido Paterno *</label>
+					<input id="apellidoP" type="text" class="span2 alineado" name="apellidoPat" placeholder="Apellido paterno..." required="required"/><br>
+					
+					<label class="alineado" for="apellidoM">Apellido Materno *</label>
+					<input id="apellidoM" type="text" class="span2 alineado" name="apellidoMat" placeholder="Apellido materno..." required="required"/><br>
+					
+					<label class="alineado" for="rfc">RFC *</label>
+					<input id="rfc" type="text" class="span2 alineado" name="RFC" placeholder="RFC..." required="required"/><br>
+					
+					<label class="alineado" for="tel">Telefono *</label>
+					<input id="tel" type="tel" class="span2 alineado" name="telefono" placeholder="Telefono..." required="required"/><br>
+					
+					<label class="alineado" for="persona">Es persona fisica</label>
+					<input id="persona" type="checkbox" name="esPersonaFisica"/> <br>
+					
+					<h4>Direccion</h4>
+					
+					<label class="alineado" for="calle">Calle *</label>
+					<input id="calle" type="text" class="span2 alineado" name="direccion[calle]" placeholder="Calle..." required="required"/><br>
+					
+					<label class="alineado" for="numint">Numero Interior *</label>
+					<input id="numint" type="text" class="span2 alineado" name="direccion[numInterior]" placeholder="Numero Interior..." required="required"/><br>
+					
+					<label class="alineado" for="numext">Numero Exterior </label>
+					<input id="numext" type="text" class="span2 alineado" name="direccion[numExterior]" placeholder="Numero Exterior..." /><br>
+					
+					<label class="alineado" for="col">Colonia *</label>
+					<input id="col" type="text" class="span2 alineado" name="direccion[colonia]" placeholder="Colonia..." required="required"/><br>
+					
+					<label class="alineado" for="cp">C.P. *</label>
+					<input id="cp" type="text" class="span2 alineado" name="direccion[cp]" placeholder="CP..." required="required"/><br>
+					
+					<label class="alineado" for="selectEstados">Estado *</label>
+					<select id="selectEstados2" type="text" class="span2 alineado seleccion" name="direccion[estado]" required="required" onchange="obtenerMunicipiosAlta(this)">
+					</select><br>
+					
+					<label class="alineado" for="selectMunicipios">Municipio *</label>
+					<select id="selectMunicipios2" type="text" class="span2 alineado seleccion" name="direccion[municipio]" required="required" >
+					</select><br>
+
+					<h4>Cuenta Bancaria</h4>
+
+					<label class="alineado" for="col">Banco *</label>
+					<input id="cuentaBanco" type="text" class="span2 alineado" name="cuentaBancaria[nombreBanco]" placeholder="Cuenta Bancaria..." required="required"/><br>
+
+					<label class="alineado" for="col">Numero Cuenta *</label>
+					<input id="cuentaNumero" type="text" class="span2 alineado" name="cuentaBancaria[numeroCuenta]" placeholder="Numero Cuenta..." required="required"/><br>
+
+
+			  </div>
+			  <div class="modal-footer">
+				    <button class="btn" data-dismiss="modal" aria-hidden="true">Cerrar</button>
+				    <input type="hidden" name="accion" value="insertar" />
+				    <button type="submit" onclick="validaForm()" class="btn btn-primary" name="uso" value="cliente" >Alta</button>
+			  </div>
+		  </form>
+		</div>
 	<div class="container-fluid">
 		<div class="row-fluid">
 			
