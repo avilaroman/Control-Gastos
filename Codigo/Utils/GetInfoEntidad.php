@@ -15,9 +15,10 @@ else
 					 'apellidoP' => $usuario->getApellidoPaterno(),
 					 'apellidoM' => $usuario->getApellidoMaterno(),
 					 'rfc' => $usuario->getRFC(),
-					 //'telefono' => $usuario->getTelefono(),
-					 //'personaFisica' => $usuario->getPersonaFisica(),
-					 //'email' => $usuario->getEmail()
+					 'telefono' => $usuario->getTelefono()->getNumero(),
+					 'personaFisica' => $usuario->getPersonaFisica(),
+					 'email' => $usuario->getEmail()->getEmail(),
+					 'cuentaBanco' => $usuario->getCuentaBancaria()
 	));
 	echo json_encode($arreglo);
 }
