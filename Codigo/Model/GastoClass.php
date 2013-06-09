@@ -10,8 +10,9 @@ class GastoClass extends iTablaDB{
 	private $cuenta_origen;
 	private $cuenta_destino;
 	private $comision;
+	private $id_contrato;
 
-	function __construct($costoG,$precioG,$comentarioG,
+	function __construct($id_contrato, $costoG,$precioG,$comentarioG,
 			$categoriaG,$cuenta_origenG,$cuenta_destinoG,$comisionG){
 		$this->costo=$costoG;
 		$this->precio=$precioG;
@@ -20,6 +21,8 @@ class GastoClass extends iTablaDB{
 		$this->cuenta_origen=$cuenta_origenG;
 		$this->cuenta_destino=$cuenta_destinoG;
 		$this->comision=$comisionG;
+		
+		$this->id_contrato = $id_contrato;
 	}
 
 	function gasto(){
