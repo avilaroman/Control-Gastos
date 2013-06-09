@@ -26,11 +26,21 @@ class ControladorCliente
             switch ($_REQUEST['accion']) 
 			{
 				case 'insertar':
-					//if(isset($_SESSION['admin']) && $_SESSION['admin'] == 1)
+					if(isset($_SESSION['admin']) && $_SESSION['admin'] == 1){
+						if(isset$_POST['name'] && !isset($_POST['exito'])){
+							$modelo = $this->InsertarCliente();
+							$this->enviarEmail();
+							$_REQUEST['uso'] = '';	
+						}
+						elseif(isset($_POST['exito'])){
+							//llamar vista exito
+						}
+						elseif(empty($_POST)){
+							//llamar vista formulario
+						}
+					}
 					//{
-						$modelo = $this->InsertarCliente();
-						$this->enviarEmail();
-						$_REQUEST['uso'] = '';
+						
 					//}
 					//else
 					//{

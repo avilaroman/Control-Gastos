@@ -18,7 +18,8 @@ function validaLogin(){
 	}
 }
 
-function validaForm(){
+function validaForm(index){
+	if(index==1){
 	form = document.getElementById('formulario');
 	var input_User = document.getElementById('username');
 	var input_Pass = document.getElementById('passReg');
@@ -36,6 +37,26 @@ function validaForm(){
 	var input_Estado = document.getElementById('selectEstados');
 	var input_Municipio = document.getElementById('selectMunicipios');
 	var flag = true;
+	}
+	else{
+	form = document.getElementById('formularioAlta');
+	var input_User = document.getElementById('username2');
+	var input_Pass = document.getElementById('passReg2');
+	var input_Email = document.getElementById('email2');
+	var input_Nombre = document.getElementById('nombre2');
+	var input_ApellidoP = document.getElementById('apellidoP');
+	var input_ApellidoM = document.getElementById('apellidoM');
+	var input_Rfc = document.getElementById('rfc');
+	var input_Tel = document.getElementById('tel');
+	var input_Calle = document.getElementById('calle');
+	var input_NumInt = document.getElementById('numint');
+	var input_NumExt = document.getElementById('numext');
+	var input_Colonia = document.getElementById('col');
+	var input_CP = document.getElementById('cp');
+	var input_Estado = document.getElementById('selectEstados');
+	var input_Municipio = document.getElementById('selectMunicipios');
+	var flag = true;
+	}
 
 	//var input_User = $('#formulario #username');
 	//var input_Pass = $('#formulario #passReg');
@@ -101,13 +122,13 @@ function validaForm(){
 			form.removeChild(div_error);
 	}*/
 
-	if(!/^[a-zA-Z]+$/.test(input_Nombre.value)){
+	if(!/^[a-zA-Z\s]+$/.test(input_Nombre.value)){
 		var div = document.createElement('div');
 		div.setAttribute('class','error');
 		div.setAttribute('id','nombre_error');
 		var msg = document.createTextNode('Nombre Incorrecto');
 		div.appendChild(msg);
-		$('<div>Mensaje error</div>').insertAfter($('#nombre'));
+		$('<div>Error: Campo nombre solo acepta valores A-Z a-z</div>').insertAfter($('#nombre'));
 		flag=false;
 	}
 	else{
@@ -116,13 +137,13 @@ function validaForm(){
 			form.removeChild(div_error);
 	}
 
-	if(!/^[a-zA-Z]+$/.test(input_ApellidoM.value)){
+	if(!/^[a-zA-Z\s]+$/.test(input_ApellidoM.value)){
 		var div = document.createElement('div');
 		div.setAttribute('class','error');
 		div.setAttribute('id','apellidoM_error');
 		var msg = document.createTextNode('Incorrecto');
 		div.appendChild(msg);
-		$('<div>Mensaje error</div>').insertAfter($('#apellidoM'));
+		$('<div>Error: Campo apellido solo acepta valores A-Z a-z</div>').insertAfter($('#apellidoM'));
 		flag=false;
 	}
 	else{
@@ -131,13 +152,13 @@ function validaForm(){
 			form.removeChild(div_error);
 	}
 
-	if(!/^[a-zA-Z]+$/.test(input_ApellidoP.value)){
+	if(!/^[a-zA-Z\s]+$/.test(input_ApellidoP.value)){
 		var div = document.createElement('div');
 		div.setAttribute('class','error');
 		div.setAttribute('id','apellidoP_error');
 		var msg = document.createTextNode('Incorrecto');
 		div.appendChild(msg);
-		$('<div>Mensaje error</div>').insertAfter($('#apellidoP'));
+		$('<div>Error: Campo apellido solo acepta valores A-Z a-z</div>').insertAfter($('#apellidoP'));
 		flag=false;
 	}
 	else{
@@ -152,7 +173,7 @@ function validaForm(){
 		div.setAttribute('id','rfc_error');
 		var msg = document.createTextNode('Incorrecto');
 		div.appendChild(msg);
-		$('<div>Mensaje error</div>').insertAfter($('#rfc'));
+		$('<div>Error: RFC 4 letras 6 digitos 3 letras</div>').insertAfter($('#rfc'));
 		flag=false;
 	}
 	else{
@@ -167,7 +188,7 @@ function validaForm(){
 		div.setAttribute('id','tel_error');
 		var msg = document.createTextNode('Incorrecto');
 		div.appendChild(msg);
-		$('<div>Mensaje error</div>').insertAfter($('#tel'));
+		$('<div>Error: Solo 10 digitos</div>').insertAfter($('#tel'));
 		flag=false;
 	}
 	else{
@@ -182,7 +203,7 @@ function validaForm(){
 		div.setAttribute('id','calle_error');
 		var msg = document.createTextNode('Incorrecto');
 		div.appendChild(msg);
-		$('<div>Mensaje error</div>').insertAfter($('#calle'));
+		$('<div>Error: Solo acepta letras</div>').insertAfter($('#calle'));
 		flag=false;
 	}
 	else{
@@ -197,7 +218,7 @@ function validaForm(){
 		div.setAttribute('id','numint_error');
 		var msg = document.createTextNode('Incorrecto');
 		div.appendChild(msg);
-		$('<div>Mensaje error</div>').insertAfter($('#numint'));
+		$('<div>Error: Solo acepta numeros</div>').insertAfter($('#numint'));
 		flag=false;
 	}
 	else{
@@ -212,7 +233,7 @@ function validaForm(){
 		div.setAttribute('id','numext_error');
 		var msg = document.createTextNode('Incorrecto');
 		div.appendChild(msg);
-		$('<div>Mensaje error</div>').insertAfter($('#numext'));
+		$('<div>Error: Solo acepta numeros</div>').insertAfter($('#numext'));
 		flag=false;
 	}
 	else{
@@ -227,17 +248,13 @@ function validaForm(){
 		div.setAttribute('id','colonia_error');
 		var msg = document.createTextNode('Incorrecto');
 		div.appendChild(msg);
-		$('<div>Mensaje error</div>').insertAfter($('#col'));
+		$('<div>Error: Solo acepta letras</div>').insertAfter($('#col'));
 		flag=false;
 	}
 	else{
 		var dir_error = document.getElementById('colonia_error');
 		if(typeof(div_error) == 'object')
 			form.removeChild(div_error);
-	}
-
-	if(form.selectEstados.selectedIndex == 0){
-		alert('Debe seleccionar un estado');
 	}
 
 	if(flag == false){

@@ -1,5 +1,5 @@
 <?php
-require('../Model/cliente.php');
+require('localhost/Control-Gastos/Model/cliente.php');
 //require_once('DebugerPHP.php');
 
 if(!isset($_SESSION))
