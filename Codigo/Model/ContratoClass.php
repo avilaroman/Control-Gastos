@@ -13,8 +13,8 @@ class ContratoClass extends iTablaDB{
 	private $renovacion;
 	private $saldado;
 
-	function crear($idC,$idEn,$fechaC,$periodoC,$presupuestoC,$plazosC,$renovacionC,$saldadoC){
-		$this->idCuenta=$idC;
+	function __construct(/*$idC,*/$idEn,$fechaC,$periodoC,$presupuestoC,$plazosC,$renovacionC,$saldadoC){
+		//$this->idCuenta=$idC;
 		$this->idEnt=$idEn;
 		$this->fecha=$fechaC;
 		$this->periodo=$periodoC;
@@ -22,22 +22,19 @@ class ContratoClass extends iTablaDB{
 		$this->plazos=$plazosC;
 		$this->renovacion=$renovacionC;
 		$this->saldado=$saldadoC;
+	}
 
-		
-		require('bd_info.inc');
+	public function insertar(){	
 
-		$BD = new BaseDatos($hostdb, $userdb, $passdb, $db);
-
-		if(!$BD->conecta())
+		if(!$this->conecta())
 		{
-			die('SHIT HAPPENS: '.$BD->conexion->errno.':'.$BD->conexion->error);
+			die('Contrato::insertar: '.$this->conexion->errno.':'.$this->conexion->error);
 		}
 
 		$query = "INSERT INTO
-			Contrato(Cuenta_id_cuenta,Entidad_id_contacto,fecha_contrato,periodo_fiscal,presupuesto,plazos,renovacion,saldado)
+			Contrato(Entidad_id_contacto,fecha_contrato,periodo_fiscal,presupuesto,plazos,renovacion,saldado)
 			VALUES 
-			($this->idCuenta,
-			$this->idEnt,
+			($this->idEnt,
 			'$this->fecha',
 			'$this->periodo',
 			'$this->presupuesto',
@@ -45,35 +42,27 @@ class ContratoClass extends iTablaDB{
 			'$this->renovacion',
 			'$this->saldado')
 					";
-		$resultado = $BD->conexion->query($query);
+		$resultado = $this->conexion->query($query);
+		
 		if(!$resultado)
 		{
-			echo 'SHIT HAPPENS: '.$BD->conexion->errno.':'.$BD->conexion->error;
-			$retornable = FALSE;
+			echo 'Contrato::insertar::No se logró insertar el contrato: '.$BD->conexion->errno.':'.$BD->conexion->error;
+			$insertado = FALSE;
 		}
 		else{
-			$this->id = $BD->conexion->insert_id;
-			$retornable = $this->id;
+			$this->idCuenta = $this->conexion->insert_id;
+			$insertado = TRUE;
 		}
 
-		$query = "INSERT INTO
-			Contrato_has_Asunto(Contrato_id_contrato)
-			VALUES
-			('this->id')";
-
-		$resultado = $BD->conexion->query($query);
-
-
+		
 		$BD->cerrar_conexion();
 
-		return $retornable;
-
+		return $insertado;
 	}	    
 
     function RealizarPago(){
         
     }
-	public function insertar(){}
     public function eliminar(){}
     public function modificar($campo, $valor){}
 	public function recuperar($id){}
