@@ -257,10 +257,6 @@ function validaForm(index){
 			form.removeChild(div_error);
 	}
 
-	if(form.selectEstados.selectedIndex == 0){
-		alert('Debe seleccionar un estado');
-	}
-
 	if(flag == false){
 		return 0;
 	}
