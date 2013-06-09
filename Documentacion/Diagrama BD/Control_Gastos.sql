@@ -665,7 +665,7 @@ INSERT INTO `municipios` (`id_municipio`, `nombre_municipio`, `estado`) VALUES
 (266, '', 8),
 (267, '', 8),
 (268, '', 8),
-(269, '', 8),
+(269, 'Distrito Federal', 9),
 (270, 'CANATLAN', 10),
 (271, 'CANELAS', 10),
 (272, 'CONETO DE COMONFORT', 10),
