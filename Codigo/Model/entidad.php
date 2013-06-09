@@ -130,8 +130,42 @@ class Entidad extends iTablaDB
 		return $retornable;
 	}
 
-    public function eliminar(){}
-    public function modificar($campo, $valor){}
+    public function eliminar()
+    {
+    	//No implementado porque venderemos despues esta info al FBI
+    }
+	
+	
+    public function modificar($campo, $valor)
+    {
+    	if(!$this->conecta())
+		{
+			die('SHIT HAPPENS: '.$this->conexion->errno.':'.$this->conexion->error);
+		}
+
+		$query = "	UPDATE  
+						Entidad
+					SET
+						$campo = $valor
+					WHERE
+						id_entidad = $this->idEntidad";
+
+		$resultado = $this->conexion->query($query);
+
+		if(!$resultado)
+		{
+			echo "No se logro modificar el $campo de la entidad: ".$this->conexion->errno.':'.$this->conexion->error;
+			$exito = FALSE;
+		}
+		else
+		{
+			$exito = TRUE;
+		}
+
+		$this->cerrar_conexion();
+
+		return $exito;
+    }
 	
 	public function recuperar($id)
 	{

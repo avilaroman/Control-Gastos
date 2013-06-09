@@ -81,7 +81,36 @@ class Telefono extends iTablaDB
 		
 		return $retornable;
     }
-    public function modificar($campo, $valor){}
+    public function modificar($campo, $valor)
+    {
+    	if(!$this->conecta())
+		{
+			die('SHIT HAPPENS: '.$this->conexion->errno.':'.$this->conexion->error);
+		}
+
+		$query = "	UPDATE  
+						Telefono
+					SET
+						$campo = $valor
+					WHERE
+						id_telefono = $this->id";
+
+		$resultado = $this->conexion->query($query);
+
+		if(!$resultado)
+		{
+			echo "No se logro modificar el $campo del telefono: ".$this->conexion->errno.':'.$this->conexion->error;
+			$exito = FALSE;
+		}
+		else
+		{
+			$exito = TRUE;
+		}
+
+		$this->cerrar_conexion();
+
+		return $exito;
+    }
 	
 	public function recuperar($id)
 	{
@@ -250,7 +279,8 @@ class CuentaBanco extends iTablaDB
 		
 		return $retornable;
     }
-    public function modificar($campo, $valor){}
+    public function modificar($campo, $valor)
+    {}
 	public function recuperar($id){}
 }
 
@@ -329,7 +359,36 @@ class Email extends iTablaDB
 		
 		return $retornable;
     }
-    public function modificar($campo, $valor){}
+    public function modificar($campo, $valor)
+    {
+    	if(!$this->conecta())
+		{
+			die('SHIT HAPPENS: '.$this->conexion->errno.':'.$this->conexion->error);
+		}
+
+		$query = "	UPDATE  
+						Email
+					SET
+						$campo = $valor
+					WHERE
+						id_email = $this->id";
+
+		$resultado = $this->conexion->query($query);
+
+		if(!$resultado)
+		{
+			echo "No se logro modificar el $campo del Email: ".$this->conexion->errno.':'.$this->conexion->error;
+			$exito = FALSE;
+		}
+		else
+		{
+			$exito = TRUE;
+		}
+
+		$this->cerrar_conexion();
+
+		return $exito;
+    }
 	public function recuperar($id)
 	{
 		if(!$this->conecta())
@@ -534,7 +593,36 @@ class Direccion extends iTablaDB
 		
 		return $retornable;
     }
-    public function modificar($campo, $valor){}
+    public function modificar($campo, $valor)
+    {
+    	if(!$this->conecta())
+		{
+			die('SHIT HAPPENS: '.$this->conexion->errno.':'.$this->conexion->error);
+		}
+
+		$query = "	UPDATE  
+						Domicilio
+					SET
+						$campo = $valor
+					WHERE
+						id_domicilio = $this->id";
+
+		$resultado = $this->conexion->query($query);
+
+		if(!$resultado)
+		{
+			echo "No se logro modificar el $campo del Domicilio: ".$this->conexion->errno.':'.$this->conexion->error;
+			$exito = FALSE;
+		}
+		else
+		{
+			$exito = TRUE;
+		}
+
+		$this->cerrar_conexion();
+
+		return $exito;
+    }
 	
 	public function recuperar($id)
 	{
