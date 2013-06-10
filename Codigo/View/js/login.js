@@ -352,8 +352,8 @@ function obtenerDatosMod(select)
 			{
 				var response = eval(ajax.responseText);
 				var form = document.getElementById('formularioMod');
-				/*var usuario = document.getElementById('username');
-				var pass = document.getElementById('passReg');*/
+				var usuario = document.getElementById('username');
+				var pass = document.getElementById('passReg');
 				var email = document.getElementById('email');
 				var nombre = document.getElementById('nombre');
 				var apPat = document.getElementById('apellidoP');
@@ -370,7 +370,9 @@ function obtenerDatosMod(select)
 				var municipio = document.getElementById('selectMunicipios');
 				var evt = document.createEvent("HTMLEvents");
 				evt.initEvent("change",true,true);
-
+				
+				$(usuario).val(response[0].usuario);
+				$(pass).val(response[0].password);
 				$(nombre).val(response[0].nombre);
 				$(apPat).val(response[0].apellidoP);
 				$(apMat).val(response[0].apellidoM);
