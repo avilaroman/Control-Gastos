@@ -148,7 +148,7 @@ class Telefono extends iTablaDB
 			{
 				$this->numero 			= $telefono[0]['telefono'];
 				$this->id_propietario	= $telefono[0]['Entidad_id_entidad'];
-				
+				$this->id 				= $telefono[0]['id_telefono'];
 				return TRUE;	
 			}
 			return FALSE;
@@ -281,7 +281,59 @@ class CuentaBanco extends iTablaDB
     }
     public function modificar($campo, $valor)
     {}
-	public function recuperar($id){}
+	
+	public function recuperar($id)
+	{
+		if(!$this->conecta())
+		{
+			die('SHIT HAPPENS: '.$this->conexion->errno.':'.$this->conexion->error);
+		}
+
+
+		$query = "SELECT
+						*
+				  FROM
+						Cuenta_Bancaria
+				  WHERE
+				  		Entidad_id_entidad = $id";
+
+		//Ejecutar el query
+		$resultado = $this->conexion->query($query);
+
+		if($this->conexion->errno)
+		{
+			echo 'FALLO '.$this->conexion->errno.' : '.$this->conexion->error;
+			
+			$this->conexion -> close();
+			return FALSE;
+		}
+		else
+		{
+			
+
+			while ($fila = $resultado -> fetch_assoc())
+				$cuenta[] = $fila;
+			
+			if(isset($cuenta))
+			{
+				$this->numeroCuenta 	= $cuenta[0]['num_cuenta'];
+				$this->id				= $cuenta[0]['id_cuenta_Bancaria'];
+				
+				$query = "SELECT
+							*
+				  		  FROM
+							Cuenta_Bancaria
+				  		  WHERE
+				  			Entidad_id_entidad = $id";
+				return TRUE;	
+			}
+			
+			$this->cerrar_conexion();
+			
+			return FALSE;
+					
+		}
+	}
 }
 
 class Email extends iTablaDB
@@ -425,6 +477,7 @@ class Email extends iTablaDB
 			{
 				$this->email 			= $email[0]['email'];
 				$this->id_propietario	= $email[0]['Entidad_id_entidad'];
+				$this->id 				= $email[0]['id_email'];
 				return TRUE;	
 			}
 			
@@ -667,6 +720,7 @@ class Direccion extends iTablaDB
 				$this->estado			= $domiclio[0]['stado'];
 				$this->municipio		= $domiclio[0]['municipio'];
 				$this->idDuenio			= $id;
+				$this->id				= $domiclio[0]['id_domicilio'];
 				return TRUE;	
 			}
 			
