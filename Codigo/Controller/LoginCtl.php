@@ -12,9 +12,9 @@ class LoginCtl{
 		}
         $modelo = new Cliente();
         $_REQUEST = Cleaner::LimpiarTodo($_REQUEST);
-        $usuario = $modelo->recuperarCliente($_REQUEST['username'], $_REQUEST['password']);
+        $exito = $modelo->recuperarCliente($_REQUEST['username'], $_REQUEST['password']);
         
-        if($usuario==FALSE)
+        if($exito==FALSE)
 		{
             echo "Usuario y/o contraseña incorrectos ";
 			//logConsole("ERROR inicio sesion", $usuario);
@@ -23,11 +23,9 @@ class LoginCtl{
 		{
 			$_SESSION['USERNAME'] = $_REQUEST['username'];
 			$_SESSION['PASSWORD'] = $_REQUEST['password'];
-			$_SESSION['username']=$modelo->getName();
+			$_SESSION['username']= $modelo->getName();
 			$_SESSION['id'] = $modelo->getIdCliente();
 			
-			//var_dump($modelo);
-			//logConsole("SESSION", $_SESSION, true);
             require_once ('View/menu.html');
 		}
             
