@@ -320,12 +320,24 @@ class CuentaBanco extends iTablaDB
 				$this->id				= $cuenta[0]['id_cuenta_Bancaria'];
 				
 				$query = "SELECT
-							*
+							nombre
 				  		  FROM
-							Cuenta_Bancaria
+							Banco
 				  		  WHERE
-				  			Entidad_id_entidad = $id";
-				return TRUE;	
+				  			id_banco = (SELECT Banco_id_banco FROM Cuenta_Bancaria_has_Banco WHERE Cuenta_Bancaria_id_cuenta_Bancaria = $this->id)";
+							
+				while ($fila = $resultado -> fetch_assoc())
+					$cuenta2[] = $fila;			
+				
+				if(isset($cuenta2))
+				{
+					$this->nombreBanco	= $cuenta2[0]['nombre'];
+					$this->cerrar_conexion();
+					return TRUE;
+				}
+				
+				$this->cerrar_conexion();
+				return FALSE;	
 			}
 			
 			$this->cerrar_conexion();
