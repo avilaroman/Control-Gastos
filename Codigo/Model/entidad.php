@@ -146,7 +146,7 @@ class Entidad extends iTablaDB
 		$query = "	UPDATE  
 						Entidad
 					SET
-						$campo = $valor
+						$campo = '$valor'
 					WHERE
 						id_entidad = $this->idEntidad";
 

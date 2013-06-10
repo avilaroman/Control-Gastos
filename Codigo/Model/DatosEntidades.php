@@ -91,7 +91,7 @@ class Telefono extends iTablaDB
 		$query = "	UPDATE  
 						Telefono
 					SET
-						$campo = $valor
+						$campo = '$valor'
 					WHERE
 						id_telefono = $this->id";
 
@@ -328,15 +328,14 @@ class CuentaBanco extends iTablaDB
 							
 				while ($fila = $resultado -> fetch_assoc())
 					$cuenta2[] = $fila;			
-				
+				$this->cerrar_conexion();
 				if(isset($cuenta2))
 				{
 					$this->nombreBanco	= $cuenta2[0]['nombre'];
-					$this->cerrar_conexion();
+					
 					return TRUE;
 				}
 				
-				$this->cerrar_conexion();
 				return FALSE;	
 			}
 			
@@ -433,7 +432,7 @@ class Email extends iTablaDB
 		$query = "	UPDATE  
 						Email
 					SET
-						$campo = $valor
+						$campo = '$valor'
 					WHERE
 						id_email = $this->id";
 
@@ -668,7 +667,7 @@ class Direccion extends iTablaDB
 		$query = "	UPDATE  
 						Domicilio
 					SET
-						$campo = $valor
+						$campo = '$valor'
 					WHERE
 						id_domicilio = $this->id";
 
