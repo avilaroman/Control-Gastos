@@ -2,6 +2,7 @@
 
 require('Model/cliente.php');
 //require_once('View/html.html');
+//require_once('Utils/DebugerPHP.php');
 
 class ControladorCliente
 {
@@ -39,12 +40,16 @@ class ControladorCliente
 							//llamar vista formulario
 						}
 					}
+					break;
 				case 'modificar':
 					if(isset($_SESSION['admin']) && $_SESSION['admin'] == 1){
-						if(isset($_POST['name']) && !isset($_POST['exito'])){
-							$modelo = $this->modificarCliente();
+						//if(isset($_POST['name']) && !isset($_POST['exito'])){
+							$this->modelo = new Cliente();
+							$this->modelo->reconstruirCliente($_POST['seleccionado']);
+							
+							$this->modificarCliente();
 							$_REQUEST['uso'] = 'modificar';
-						}
+						//}
 					}
 					//{
 						
@@ -217,21 +222,23 @@ class ControladorCliente
 	}
 
 	private function modificarCliente(){
+		
 		if(isset($_SESSION['admin']) && $_SESSION['admin'] == 1){
 			
-			$modelo->modificar('nombre',$_POST['nombre']);
-			$modelo->modificar('apellido_paterno',$_POST['apellidoPat']);
-			$modelo->modificar('apellido_materno',$_POST['apellidoMat']);
-			$modelo->modificar('RFC',$_POST['rfc']);
-			$modelo->getTelefono()->modificar('telefono',$_POST['telefono']);
-			$modelo->getDomicilio()->modificar('calle',$_POST['direccion[calle]']);
-			$modelo->getDomicilio()->modificar('num_interior',$_POST['direccion[numInterior]']);
-			$modelo->getDomicilio()->modificar('num_enterior',$_POST['direccion[numExterior]']);
-			$modelo->getDomicilio()->modificar('colonia',$_POST['direccion[colonia]']);
-			$modelo->getDomicilio()->modificar('codigo_postal',$_POST['direccion[codigo_postal]']);
-			$modelo->getDomicilio()->modificar('stado',$_POST['direccion[estado]']);
-			$modelo->getDomicilio()->modificar('municipio',$_POST['direccion[municipio]']);
-
+			$tmp = $_POST['direccion'];
+			
+			$this->modelo->modificar('nombre',$_POST['nombre']);
+			$this->modelo->modificar('apellido_paterno',$_POST['apellidoPat']);
+			$this->modelo->modificar('apellido_materno',$_POST['apellidoMat']);
+			$this->modelo->modificar('RFC',$_POST['RFC']);
+			$this->modelo->getTelefono()->modificar('telefono',$_POST['telefono']);
+			$this->modelo->getDomicilio()->modificar('calle',$tmp['calle']);
+			$this->modelo->getDomicilio()->modificar('num_interior',$tmp['numInterior']);
+			$this->modelo->getDomicilio()->modificar('num_exterior',$tmp['numExterior']);
+			$this->modelo->getDomicilio()->modificar('colonia',$tmp['colonia']);
+			$this->modelo->getDomicilio()->modificar('codigo_postal',$tmp['cp']);
+			$this->modelo->getDomicilio()->modificar('stado',$tmp['estado']);
+			$this->modelo->getDomicilio()->modificar('municipio',$tmp['municipio']);
 		}
 	}
 }
