@@ -307,8 +307,21 @@ CREATE  TABLE IF NOT EXISTS `cc409_gastosse`.`Banco` (
   `id_banco` INT NOT NULL AUTO_INCREMENT ,
   `nombre` VARCHAR(45) NOT NULL ,
   PRIMARY KEY (`id_banco`) )
-ENGINE = InnoDB;
+ENGINE = MyISAM;
 
+--
+-- Volcar la base de datos para la tabla `Banco`
+--
+
+INSERT INTO `Banco` (`id_banco`, `nombre`) VALUES
+(1, 'Bancomer'),
+(2, 'Banamex'),
+(3, 'Santander'),
+(4, 'Banorte'),
+(5, 'Banco Azteca'),
+(6, 'Escocha banc');
+
+-- --------------------------------------------------------
 
 -- -----------------------------------------------------
 -- Table `cc409_gastosse`.`Cuenta_Bancaria_has_Banco`
@@ -330,6 +343,7 @@ CREATE  TABLE IF NOT EXISTS `cc409_gastosse`.`Cuenta_Bancaria_has_Banco` (
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
 ENGINE = InnoDB;
+
 
 -- -----------------------------------------------------
 -- Table `cc409_gastosse`.`Estados
