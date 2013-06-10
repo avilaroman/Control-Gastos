@@ -1,6 +1,7 @@
 <?php
 
 require('Model/cliente.php');
+require('Model/CuentasClass.php');
 //require_once('View/html.html');
 //require_once('Utils/DebugerPHP.php');
 
@@ -28,17 +29,17 @@ class ControladorCliente
 			{
 				case 'insertar':
 					if(isset($_SESSION['admin']) && $_SESSION['admin'] == 1){
-						if(isset ($_POST['name']) && !isset($_POST['exito'])){
+						//if(isset ($_POST['name']) && !isset($_POST['exito'])){
 							$modelo = $this->InsertarCliente();
 							$this->enviarEmail();
 							$_REQUEST['uso'] = '';	
-						}
-						elseif(isset($_POST['exito'])){
+						//}
+						//elseif(isset($_POST['exito'])){
 							//llamar vista exito
-						}
-						elseif(empty($_POST)){
+						//}
+						//elseif(empty($_POST)){
 							//llamar vista formulario
-						}
+						//}
 					}
 					break;
 				case 'modificar':
@@ -224,7 +225,11 @@ class ControladorCliente
 	private function modificarCliente(){
 		
 		if(isset($_SESSION['admin']) && $_SESSION['admin'] == 1){
+			$cuenta = new Cuentas();
+			$cuenta->recuperar($_POST['seleccionado']);
 			
+			$cuenta->modificar('nombre_usuario', $_POST['username']);
+			$cuenta->modificar('clave_acceso', $_POST['password']);
 			$tmp = $_POST['direccion'];
 			
 			$this->modelo->modificar('nombre',$_POST['nombre']);
