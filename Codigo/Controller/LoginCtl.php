@@ -28,6 +28,7 @@ class LoginCtl{
 			
 			//var_dump($modelo);
 			//logConsole("SESSION", $_SESSION, true);
+            require_once ('View/menu.html');
 		}
             
     }

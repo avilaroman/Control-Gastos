@@ -27,7 +27,7 @@ class ControladorCliente
 			{
 				case 'insertar':
 					if(isset($_SESSION['admin']) && $_SESSION['admin'] == 1){
-						if(isset$_POST['name'] && !isset($_POST['exito'])){
+						if(isset ($_POST['name']) && !isset($_POST['exito'])){
 							$modelo = $this->InsertarCliente();
 							$this->enviarEmail();
 							$_REQUEST['uso'] = '';	
@@ -37,6 +37,13 @@ class ControladorCliente
 						}
 						elseif(empty($_POST)){
 							//llamar vista formulario
+						}
+					}
+				case 'modificar':
+					if(isset($_SESSION['admin']) && $_SESSION['admin'] == 1){
+						if(isset($_POST['name']) && !isset($_POST['exito'])){
+							$modelo = $this->modificarCliente();
+							$_REQUEST['uso'] = 'modificar';
 						}
 					}
 					//{
@@ -206,6 +213,25 @@ class ControladorCliente
 		}
 		else {
 			//echo 'Hubo algun error al enviar el correo';
+		}
+	}
+
+	private function modificarCliente(){
+		if(isset($_SESSION['admin']) && $_SESSION['admin'] == 1){
+			
+			$modelo->modificar('nombre',$_POST['nombre']);
+			$modelo->modificar('apellido_paterno',$_POST['apellidoPat']);
+			$modelo->modificar('apellido_materno',$_POST['apellidoMat']);
+			$modelo->modificar('RFC',$_POST['rfc']);
+			$modelo->getTelefono()->modificar('telefono',$_POST['telefono']);
+			$modelo->getDomicilio()->modificar('calle',$_POST['direccion[calle]']);
+			$modelo->getDomicilio()->modificar('num_interior',$_POST['direccion[numInterior]']);
+			$modelo->getDomicilio()->modificar('num_enterior',$_POST['direccion[numExterior]']);
+			$modelo->getDomicilio()->modificar('colonia',$_POST['direccion[colonia]']);
+			$modelo->getDomicilio()->modificar('codigo_postal',$_POST['direccion[codigo_postal]']);
+			$modelo->getDomicilio()->modificar('stado',$_POST['direccion[estado]']);
+			$modelo->getDomicilio()->modificar('municipio',$_POST['direccion[municipio]']);
+
 		}
 	}
 }

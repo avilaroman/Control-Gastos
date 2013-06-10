@@ -7,10 +7,9 @@
 	<link rel="stylesheet" type="text/css" href="View/css/formularioUsuario.css"/>
 	<script src="View/js/ajax.js"></script>
 </head>
-<body onload=" llenarEstados(); llenarEstadosAlta(); clientes();">
+<body onload=" llenarEstados(); llenarClientes(); clientes();">
 	<script src="View/js/login.js"></script>
 	<script src="View/js/ajax.js"></script>
-	<script src="View/js/rellenaFormulario.js"></script>
 	<script src="View/js/validacion.js"></script>
 	<div class="navbar">
  		 <div class="navbar-inner">
@@ -78,6 +77,9 @@
 		  <form id="formularioMod" action="Menu.php" name="formularioMod" method="post">
 			  <div class="modal-body">
 
+			  		<label class="alineado" for="modCliente">Cliente ID *</label>
+					<select id="selectClientes" class="span2 alineado" type="text" onchange="obtenerDatosMod(this)"></select><br>
+
 			  		<label class="alineado" for="username">Usuario *</label>
 					<input id="username" type="text" class="span2 alineado" name="username" placeholder="Ingrese Usuario..." required="required"/><br>
 				    
@@ -132,7 +134,7 @@
 			  </div>
 			  <div class="modal-footer">
 				    <button class="btn" data-dismiss="modal" aria-hidden="true">Cerrar</button>
-				    <input type="hidden" name="accion" value="insertar" />
+				    <input type="hidden" name="accion" value="modificar" />
 				    <button type="submit" onclick="validaForm()" class="btn btn-primary" name="uso" value="cliente" >Cambiar</button>
 			  </div>
 		  </form>
@@ -191,7 +193,7 @@
 					<input id="cp" type="text" class="span2 alineado" name="direccion[cp]" placeholder="CP..." required="required"/><br>
 					
 					<label class="alineado" for="selectEstados">Estado *</label>
-					<select id="selectEstados2" type="text" class="span2 alineado seleccion" name="direccion[estado]" required="required" onchange="obtenerMunicipiosAlta(this)">
+					<select id="selectEstados2" type="text" class="span2 alineado seleccion" name="direccion[estado]" required="required" onchange="obtenerMunicipios(this)">
 					</select><br>
 					
 					<label class="alineado" for="selectMunicipios">Municipio *</label>
