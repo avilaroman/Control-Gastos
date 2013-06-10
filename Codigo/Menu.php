@@ -51,7 +51,7 @@ if((!isset($_SESSION)))
         echo 'Menu.php?uso=contrato&accion=modificar&campo=monto&valor=999&id=1';*/
     }
 
-    require_once ('View/menu.html');
+ require_once ('View/menu.html');
 
 ?>
 
