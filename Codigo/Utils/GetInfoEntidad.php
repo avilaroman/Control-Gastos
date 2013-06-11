@@ -1,25 +1,33 @@
 <?php
-require('../Model/cliente.php');
+require('../Model/CuentasClass.php');
 //require_once('DebugerPHP.php');
 
-$usuario = new Cliente();
-$entidad = $usuario->obtenerCliente($_GET['idCliente']);
+$cuenta = new Cuentas();
+$cuenta = $cuenta->recuperarCliente($_GET['idCliente']);
 
-if($entidad==FALSE)
+if($cuenta==null)
 {
 	logConsole('NO SACA LA INFO CORRECTAMENTE', $usuario, true);
 }
 else 
 {
-	$domicilio = $usuario->getDomicilio();
-	$arreglo = array(array('nombre' => $usuario->getName(),
-					 'apellidoP' => $usuario->getApellidoPaterno(),
-					 'apellidoM' => $usuario->getApellidoMaterno(),
-					 'rfc' => $usuario->getRFC(),
-					 'telefono' => $usuario->getTelefono()->getNumero(),
-					 'personaFisica' => $usuario->getPersonaFisica(),
-					 'email' => $usuario->getEmail()->getEmail(),
-					 'cuentaBanco' => $usuario->getCuentaBancaria(),
+	$domicilio = $cuenta['domicilios'];
+	$telefono = $cuenta['telefonos'];
+	$cuentaBancaria = $cuenta['cuentasBancarias'];
+	$email = $cuenta['emails'];
+	
+	$arreglo = array(
+					array(
+					 'usuario' => $cuenta['nombre_usuario'],
+					 'password' => $cuenta['clave_acceso'],
+					 'nombre' => $cuenta['nombre'],
+					 'apellidoP' => $cuenta['apellidoPat'],
+					 'apellidoM' => $cuenta['apellidoMat'],
+					 'rfc' => $cuenta['RFC'],
+					 'telefono' => $telefono->getNumero(),
+					 'personaFisica' => $cuenta['esPersonaFisica'],
+					 'email' => $email->getEmail(),
+					 //'cuentaBanco' => $cuentaBancaria->getCuentaBancaria(),
 					 'calle' => $domicilio->getCalle(),
 					 'numInt' => $domicilio->getNumInterior(),
 					 'numExt' => $domicilio->getNumExterior(),

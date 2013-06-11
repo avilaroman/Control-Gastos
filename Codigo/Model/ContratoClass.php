@@ -4,7 +4,7 @@ require_once 'Model/iTablaDB.php';
 require_once 'Model/baseDatos.php';
 require_once 'Model/entidad.php';
 
-class ContratoClass extends iTablaDB{
+class Contrato extends iTablaDB{
 	private $idCuenta;
 	private $idEnt;
 	private $fecha;
@@ -13,8 +13,8 @@ class ContratoClass extends iTablaDB{
 	private $renovacion;
 	private $saldado;
 
-	function __construct(/*$idC,*/$idEn,$fechaC,$periodoC,$presupuestoC,$plazosC,$renovacionC,$saldadoC){
-		//$this->idCuenta=$idC;
+	function __construct($idC="",$idEn="",$fechaC="",$periodoC="",$presupuestoC="",$plazosC="",$renovacionC="",$saldadoC=""){
+		$this->idCuenta=$idC;
 		$this->idEnt=$idEn;
 		$this->fecha=$fechaC;
 		$this->periodo=$periodoC;
@@ -32,9 +32,10 @@ class ContratoClass extends iTablaDB{
 		}
 
 		$query = "INSERT INTO
-			Contrato(Entidad_id_contacto,fecha_contrato,periodo_fiscal,presupuesto,plazos,renovacion,saldado)
+			Contrato(Cuenta_id_cuenta, Entidad_id_contacto,fecha_contrato,periodo_fiscal,presupuesto,plazos,renovacion,saldado)
 			VALUES 
-			($this->idEnt,
+			($this->idCuenta,
+			 $this->idEnt,
 			'$this->fecha',
 			'$this->periodo',
 			'$this->presupuesto',
@@ -46,16 +47,15 @@ class ContratoClass extends iTablaDB{
 		
 		if(!$resultado)
 		{
-			echo 'Contrato::insertar::No se logró insertar el contrato: '.$BD->conexion->errno.':'.$BD->conexion->error;
+			echo 'Contrato::insertar::No se logró insertar el contrato: '.$this->conexion->errno.':'.$this->conexion->error;
 			$insertado = FALSE;
 		}
 		else{
-			$this->idCuenta = $this->conexion->insert_id;
+			$this->id = $this->conexion->insert_id;
 			$insertado = TRUE;
 		}
 
-		
-		$BD->cerrar_conexion();
+		$this->cerrar_conexion();
 
 		return $insertado;
 	}	    
@@ -65,7 +65,57 @@ class ContratoClass extends iTablaDB{
     }
     public function eliminar(){}
     public function modificar($campo, $valor){}
-	public function recuperar($id){}
+	
+	public function recuperar($id)
+	{
+		if(!$this->conecta())
+		{
+			die('SHIT HAPPENS: '.$this->conexion->errno.':'.$this->conexion->error);
+		}
+
+
+		$query = "SELECT
+						*
+				  FROM
+						Contrato
+				  WHERE
+				  		id_contrato = $id";
+
+		//Ejecutar el query
+		$resultado = $this->conexion->query($query);
+
+		if($this->conexion->errno)
+		{
+			echo 'FALLO '.$this->conexion->errno.' : '.$this->conexion->error;
+			
+			$this->conexion -> close();
+			return FALSE;
+		}
+		else
+		{
+			$this->cerrar_conexion();
+
+			while ($fila = $resultado -> fetch_assoc())
+				$contrato[] = $fila;
+			
+			if(isset($contrato))
+			{
+				$this->id 			= $contrato[0]['id_contrato'];
+				$this->idCuenta		= $contrato[0]['Cuenta_id_cuenta'];
+				$this->idEnt		= $contrato[0]['Entidad_id_contacto'];
+				$this->fecha		= $contrato[0]['fecha_contrato'];
+				$this->periodo		= $contrato[0]['periodo_fiscal'];
+				$this->presupuesto	= $contrato[0]['presupuesto'];
+				$this->plazos		= $contrato[0]['plazos'];
+				$this->renovacion	= $contrato[0]['renovacion'];
+				$this->saldado		= $contrato[0]['saldado'];
+				return TRUE;	
+			}
+			
+			return FALSE;
+					
+		}
+	}
 
 }
 ?>

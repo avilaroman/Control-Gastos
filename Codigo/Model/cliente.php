@@ -181,7 +181,8 @@ class Cliente extends Entidad
 			while ($fila = $resultado -> fetch_assoc())
 				$cliente[] = $fila;
 			
-			$esPersonaFisica		= $cliente[0]['persona_fisica'];
+			$this->esPersonaFisica		= $cliente[0]['persona_fisica'];
+			$this->idCliente			= $idCliente;
 			
 			parent::recuperar($cliente[0]['Entidad_id_entidad']);
 			
@@ -223,8 +224,8 @@ class Cliente extends Entidad
 				while ($fila = $resultado -> fetch_assoc())
 					$cliente[] = $fila;
 				
-				$esPersonaFisica		= $cliente[0]['persona_fisica'];
-
+				$this->esPersonaFisica		= $cliente[0]['persona_fisica'];
+				$this->idCliente			= $idCliente;
 				parent::recuperar($cliente[0]['Entidad_id_entidad']);
 				
 				return $cliente;			

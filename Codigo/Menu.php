@@ -28,7 +28,10 @@ if((!isset($_SESSION)))
             case 'registrar':
                 $controlador = new RegisterCtl();
                 break;
-                
+            default:
+				 include ('Utils/StatusSession.php');
+				require_once ('View/menu.html');  
+				break;
         }
         
         $controlador->ejecutar();
