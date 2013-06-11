@@ -56,7 +56,7 @@ class ControladorContrato{
 
     private function crearContrato()
     {
-        $cuenta = new Cuenta();
+        $cuenta = new Cuentas();
 		
         $usuario = $cuenta->recuperarCliente($_POST['idCliente']);
         $idEnt_Cont = $_POST['idEntidad'];
