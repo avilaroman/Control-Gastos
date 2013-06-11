@@ -67,6 +67,7 @@ CREATE  TABLE IF NOT EXISTS `cc409_gastosse`.`Contrato` (
   `plazos` TINYINT(1) NOT NULL ,
   `renovacion` VARCHAR(45) NULL ,
   `saldado` TINYINT(1) NOT NULL ,
+  `asunto` VARCHAR(255) NOT NULL ,
   PRIMARY KEY (`id_contrato`) ,
   INDEX `fk_Contrato_Cuenta1_idx` (`Cuenta_id_cuenta` ASC) ,
   INDEX `fk_Contrato_Entidad1_idx` (`Entidad_id_contacto` ASC) ,
@@ -200,17 +201,6 @@ CREATE  TABLE IF NOT EXISTS `cc409_gastosse`.`Pago` (
     ON UPDATE NO ACTION)
 ENGINE = InnoDB;
 
-
--- -----------------------------------------------------
--- Table `cc409_gastosse`.`Asunto`
--- -----------------------------------------------------
-CREATE  TABLE IF NOT EXISTS `cc409_gastosse`.`Asunto` (
-  `id_asunto` INT NOT NULL AUTO_INCREMENT ,
-  `asunto` VARCHAR(255) NOT NULL ,
-  PRIMARY KEY (`id_asunto`) )
-ENGINE = InnoDB;
-
-
 -- -----------------------------------------------------
 -- Table `cc409_gastosse`.`Gasto_has_Modo_Pago`
 -- -----------------------------------------------------
@@ -250,29 +240,6 @@ CREATE  TABLE IF NOT EXISTS `cc409_gastosse`.`Pago_has_Modo` (
   CONSTRAINT `fk_Pago_has_Modo_Modo1`
     FOREIGN KEY (`Modo_id_modo_pago` )
     REFERENCES `cc409_gastosse`.`Modo` (`id_modo_pago` )
-    ON DELETE NO ACTION
-    ON UPDATE NO ACTION)
-ENGINE = InnoDB;
-
-
--- -----------------------------------------------------
--- Table `cc409_gastosse`.`Contrato_has_Asunto`
--- -----------------------------------------------------
-CREATE  TABLE IF NOT EXISTS `cc409_gastosse`.`Contrato_has_Asunto` (
-  `Contrato_id_contrato` INT NOT NULL ,
-  `Asunto_id_asunto` INT NOT NULL ,
-  `presupuestado` TINYINT(1) NOT NULL ,
-  PRIMARY KEY (`Contrato_id_contrato`, `Asunto_id_asunto`) ,
-  INDEX `fk_Contrato_has_Asunto_Asunto1_idx` (`Asunto_id_asunto` ASC) ,
-  INDEX `fk_Contrato_has_Asunto_Contrato1_idx` (`Contrato_id_contrato` ASC) ,
-  CONSTRAINT `fk_Contrato_has_Asunto_Contrato1`
-    FOREIGN KEY (`Contrato_id_contrato` )
-    REFERENCES `cc409_gastosse`.`Contrato` (`id_contrato` )
-    ON DELETE NO ACTION
-    ON UPDATE NO ACTION,
-  CONSTRAINT `fk_Contrato_has_Asunto_Asunto1`
-    FOREIGN KEY (`Asunto_id_asunto` )
-    REFERENCES `cc409_gastosse`.`Asunto` (`id_asunto` )
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
 ENGINE = InnoDB;
