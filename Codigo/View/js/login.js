@@ -183,6 +183,10 @@ function clientes(){
 	ajax.onreadystatechange = function(){
 		if(ajax.readyState == 4){
 			var clientes = document.getElementById('selectClientes');
+			var clientesCon = document.getElementById('selectClientesCon');
+			var clientesModCon = document.getElementById('selectClientesModCon');
+			var clientesEnt = document.getElementById('selectClientesEnt');
+			var clientesEntModCon = document.getElementById('selectClientesEntModCon');
 			var response = eval(ajax.responseText);
 
 			var elemento = document.createElement('option');
@@ -191,12 +195,30 @@ function clientes(){
 			elemento.setAttribute('value', -1);
 			clientes.appendChild(elemento);
 
+			var elementoCon = elemento.cloneNode(true);
+			clientesCon.appendChild(elementoCon);
+			var elementoEnt = elementoCon.cloneNode(true);
+			clientesEnt.appendChild(elementoEnt);
+			var elementoModCon = elementoEnt.cloneNode(true);
+			clientesModCon.appendChild(elementoModCon);
+			var elementoEntModCon = elementoModCon.cloneNode(true);
+			clientesEntModCon.appendChild(elementoEntModCon);
+
 			for(cliente in response){
 				var option = document.createElement('option');
 				var text = document.createTextNode(response[cliente].id_cliente);
 				option.appendChild(text);
 				option.setAttribute('value', response[cliente].id_cliente);
 				clientes.appendChild(option);
+
+				var optionCon = option.cloneNode(true);
+				clientesCon.appendChild(optionCon);
+				var optionEnt = optionCon.cloneNode(true);
+				clientesEnt.appendChild(optionEnt);
+				var optionModCon = optionEnt.cloneNode(true);
+				clientesModCon.appendChild(optionModCon);
+				var optionEntModCon = optionModCon.cloneNode(true);
+				clientesEntModCon.appendChild(optionEntModCon);
 			}
 
 		}
@@ -510,25 +532,70 @@ function llenarClientes(){
 	{
 		if(ajax.readyState == 4)
 		{
-			var lista = document.getElementById('selectClientes');
+			var listaCtl = document.getElementById('selectClientes');
+			var ctlCon = document.getElementById('selectClientesCon');
 			var response = eval(ajax.responseText);
 			
 			var defauult = document.createElement('option');
 			var texto = document.createTextNode('Selecciona un cliente...');
 			defauult.appendChild(texto);
 			defauult.setAttribute('value', -1);
-			lista.appendChild(defauult);
-			
-			for (lista in response){
-				var option = document.createElement('option');
-				var text = document.createTextNode(response[lista].cliente);
-				option.appendChild(text);
-				option.setAttribute('value',response[lista].id_cliente);
-				lista.appendChild(option);
+			listaCtl.appendChild(defauult);
+			var opCtl = defauult.cloneNode(true);
+			ctlCon.appendChild(opCtl);
 
+			
+			for (cont in response){
+				if(cont==0)
+					continue;
+				console.log(cont);
+				var option = document.createElement('option');
+				var text = document.createTextNode(response[cont].cliente);
+				option.appendChild(text);
+				option.setAttribute('value',response[cont].id_cliente);
+				listaCtl.appendChild(option);
+				var opCtlx = option.cloneNode(true);
+			    ctlCon.appendChild(opCtlx);
 			}
 		}
 	}
 	
 	ajax.send(null);
 }
+
+/*function llenarClientesCon(){
+	var ajax2 = nuevoAjax();
+	var url = window.location.pathname.split('/');
+	if(url[3] == 'View')
+		ajax2.open('GET','../Utils/GetListaCtl.php',true);
+	else
+		ajax2.open('GET','../Codigo/Utils/GetListaCtl.php',true);
+	
+	
+	
+	ajax2.onreadystatechange = function()
+	{
+		if(ajax2.readyState == 4)
+		{
+			var ctlCon = document.getElementById('selectClientesCon');
+			var response2 = eval(ajax2.responseText);
+			
+			var defauult2 = document.createElement('option');
+			var texto2 = document.createTextNode('Selecciona un cliente...');
+			defauult2.appendChild(texto2);
+			defauult2.setAttribute('value', -1);
+			ctlCon.appendChild(defauult2);
+			
+			for (lista2 in response2){
+				var option2 = document.createElement('option');
+				var text2 = document.createTextNode(response2[lista2].cliente);
+				option2.appendChild(text2);
+				option2.setAttribute('value',response2[lista2].id_cliente);
+				ctlCon.appendChild(option2);
+
+			}
+		}
+	}
+	
+	ajax2.send(null);
+}*/
