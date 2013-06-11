@@ -3,6 +3,8 @@
 require_once 'Model/iTablaDB.php';
 require_once 'Model/baseDatos.php';
 require_once 'Model/entidad.php';
+require_once 'Model/PagoClass.php';
+require_once 'Model/GastoClass.php';
 
 class Contrato extends iTablaDB{
 	private $idCuenta;
@@ -61,11 +63,10 @@ class Contrato extends iTablaDB{
 		$this->cerrar_conexion();
 
 		return $insertado;
-	}	    
-
-    function RealizarPago(){
-        
-    }
+	}
+	
+	
+	
     public function eliminar(){}
     public function modificar($campo, $valor)
     {
@@ -146,6 +147,106 @@ class Contrato extends iTablaDB{
 			}
 			
 			return FALSE;
+					
+		}
+	}
+	
+	public function obtenerTodosLosPagos()
+	{
+		if(!$this->conecta())
+		{
+			die('SHIT HAPPENS: '.$this->conexion->errno.':'.$this->conexion->error);
+		}
+		
+		$query = "SELECT
+					id_pago
+				  FROM
+				  	Pago
+				  WHERE
+				  	Contrato_id_contrato = $this->id";
+					
+		$resultado = $this->conexion->query($query);
+		
+		if($this->conexion->errno)
+		{
+			echo 'FALLO al obtener pagos del contrato'.$this->conexion->errno.' : '.$this->conexion->error;
+			
+			$this->conexion -> close();
+			return null;
+		}
+		else
+		{
+			$this->cerrar_conexion();
+
+			while ($fila = $resultado -> fetch_assoc())
+				$resultados[] = $fila;
+			
+			if(isset($resultados))
+			{
+				$tam = count($resultados);
+			
+				for($i = 0; $i < $tam; $i++)
+				{
+					$pago = new Pago();
+					$pago->recuperar($resultado[$i]['id_pago']);
+					$pagos[] = $pago;
+				}
+
+				
+				return $pagos;	
+			}
+			
+			return null;
+					
+		}
+	}
+	
+	public function obtenerTodosLosGastos()
+	{
+		if(!$this->conecta())
+		{
+			die('SHIT HAPPENS: '.$this->conexion->errno.':'.$this->conexion->error);
+		}
+		
+		$query = "SELECT
+					id_gasto
+				  FROM
+				  	Gasto
+				  WHERE
+				  	Contrato_id_contrato = $this->id";
+					
+		$resultado = $this->conexion->query($query);
+		
+		if($this->conexion->errno)
+		{
+			echo 'FALLO al obtener gastos del contrato'.$this->conexion->errno.' : '.$this->conexion->error;
+			
+			$this->conexion -> close();
+			return null;
+		}
+		else
+		{
+			$this->cerrar_conexion();
+
+			while ($fila = $resultado -> fetch_assoc())
+				$resultados[] = $fila;
+			
+			if(isset($resultados))
+			{
+				$tam = count($resultados);
+			
+				for($i = 0; $i < $tam; $i++)
+				{
+					$gasto = new Gasto();
+					$gasto->recuperar($resultado[$i]['id_gasto']);
+					$gastos[] = $gasto;
+				}
+
+				
+				return $gastos;	
+			}
+			
+			return null;
 					
 		}
 	}
