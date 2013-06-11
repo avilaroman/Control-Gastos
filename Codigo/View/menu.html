@@ -68,6 +68,7 @@
     		 			 <!-- links -->
     		 				<li><a href="#modalAltaCliente" data-toggle="modal">Alta Cliente</a></li>
 						  	<li><a href="#modalAltaContrato" data-toggle="modal">Añadir Contrato</a></li>
+						  	<li><a href="#modalPago" data-toggle="modal">Generar Pago</a></li>
    						</ul>
    					</li>
 				</ul>
@@ -255,10 +256,7 @@
 					<input id="total" type="text" class="span2 alineado" name="presupuesto" placeholder="Monto total..."/><br>
 					
 					<label class="alineado" for="plazosPar">Renovacion</label>
-					<input class="span2 alineado" id="plazosPar" type="checkbox" name="plazos"/><br>
-
-					<label class="alineado" for="saldado">Saldado</label>
-					<input class="span2 alineado" id="saldado" type="checkbox" name="saldado"/><br>
+					<input id="plazosPar" type="checkbox" name="plazos"/><br>
 
 					<label class="alineado" for="modCliente">Plazos</label>
 					<select id="selectPlazos" name="renovacion" class="span2 alineado" type="text">
@@ -268,6 +266,9 @@
 					<option value="9">9 meses</option>
 					<option value="12">12 meses</option>
 					</select><br>
+
+					<label class="alineado" for="saldadoI">Saldado</label>
+					<input id="saldadoI" type="checkbox" name="saldado"/><br>
 					
 					<label class="alineado" for="tarifa">Tarifa mensual</label>
 					<input id="tarifa" type="text" class="span2 alineado" name="tarifa" placeholder="Tarifa mensual..."/><br>
@@ -379,6 +380,35 @@
 				    <button class="btn" data-dismiss="modal" aria-hidden="true">Cerrar</button>
 				    <input type="hidden" name="accion" value="modificar" />
 				    <button type="submit" onclick="validaForm()" class="btn btn-primary" name="uso" value="contrato" >Cambiar</button>
+			  </div>
+		  </form>
+		</div>
+
+		<!-- Modal Pago -->
+		<div id="modalPago" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+			<div class="modal-header">
+		    	<h3 id="myModalLabel">Pago</h3>
+		  	</div>
+		  <form id="formularioPago" action="Menu.php" name="formularioPago" method="post">
+			  <div class="modal-body">
+
+			  		<label class="alineado" for="selectClientesPago">Cliente ID *</label>
+					<select id="selectClientesPago" name="selectClientesPago" class="span2 alineado" type="text" onchange=" Contratos(this);"></select><br>
+
+			  		<label class="alineado" for="modCliente">ID Contrato *</label>
+					<select id="selectContratos" name="idContrato" class="span2 alineado" type="text"></select><br>
+
+					<label class="alineado" for="datepickerInicio">Monto *</label>
+			  		<input type="text" id="montoPago" class="span2 alineado" name="montoPago" required="required"/><br>
+
+			  		<label class="alineado" for="datepickerPago">Fecha *</label>
+			  		<input type="text" id="datepickerPago" class="span2 alineado" name="fechaPago" required="required"/><br>
+					
+			  </div>
+			  <div class="modal-footer">
+				    <button class="btn" data-dismiss="modal" aria-hidden="true">Cerrar</button>
+				    <input type="hidden" name="accion" value="pago" />
+				    <button type="submit" onclick="validaForm()" class="btn btn-primary" name="uso" value="contrato" >Pago</button>
 			  </div>
 		  </form>
 		</div>

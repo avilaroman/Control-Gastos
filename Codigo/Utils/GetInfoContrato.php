@@ -1,10 +1,11 @@
 <?php
-require('../Model/ContratoClass.php');
-//require_once('DebugerPHP.php');
+require('../Model/CuentasClass.php');
+require_once('DebugerPHP.php');
 
-$Getter = new Contrato();
+$Getter = new Cuentas();
 
-$contrato = $Getter->recuperar($_POST['id_contrato']);
+$Getter->recuperar($_GET['idCliente']);
+$contrato = $Getter->obtenerContratos();
 
 if($contrato==null)
 {

@@ -187,6 +187,7 @@ function clientes(){
 			var clientesModCon = document.getElementById('selectClientesModCon');
 			var clientesEnt = document.getElementById('selectClientesEnt');
 			var clientesEntModCon = document.getElementById('selectClientesEntModCon');
+			var clientesPago = document.getElementById('selectClientesPago');
 			var response = eval(ajax.responseText);
 
 			var elemento = document.createElement('option');
@@ -203,6 +204,8 @@ function clientes(){
 			clientesModCon.appendChild(elementoModCon);
 			var elementoEntModCon = elementoModCon.cloneNode(true);
 			clientesEntModCon.appendChild(elementoEntModCon);
+			var elementoPago = elementoEntModCon.cloneNode(true);
+			clientesPago.appendChild(elementoPago);
 
 			for(cliente in response){
 				var option = document.createElement('option');
@@ -219,6 +222,8 @@ function clientes(){
 				clientesModCon.appendChild(optionModCon);
 				var optionEntModCon = optionModCon.cloneNode(true);
 				clientesEntModCon.appendChild(optionEntModCon);
+				var optionPago = option.cloneNode(true);
+				clientesPago.appendChild(optionPago);
 			}
 
 		}
@@ -518,13 +523,16 @@ function obtenerDatosMod(select)
 	}
 }
 
-function llenarClientes(){
+function Contratos(select){
+	var seleccion = select.selectedIndex;
+	var valor = select.value;
+
 	var ajax = nuevoAjax();
 	var url = window.location.pathname.split('/');
 	if(url[3] == 'View')
-		ajax.open('GET','../Utils/GetListaCtl.php',true);
+		ajax.open('GET','../Utils/GetInfoContrato.php?idCliente='+valor,true);
 	else
-		ajax.open('GET','../Codigo/Utils/GetListaCtl.php',true);
+		ajax.open('GET','../Codigo/Utils/GetInfoContrato.php?idCliente'+valor,true);
 	
 	
 	
@@ -532,30 +540,23 @@ function llenarClientes(){
 	{
 		if(ajax.readyState == 4)
 		{
-			var listaCtl = document.getElementById('selectClientes');
-			var ctlCon = document.getElementById('selectClientesCon');
+			var contratos = document.getElementById('selectContratos');
 			var response = eval(ajax.responseText);
 			
 			var defauult = document.createElement('option');
-			var texto = document.createTextNode('Selecciona un cliente...');
+			var texto = document.createTextNode('Selecciona un contrato...');
 			defauult.appendChild(texto);
 			defauult.setAttribute('value', -1);
-			listaCtl.appendChild(defauult);
-			var opCtl = defauult.cloneNode(true);
-			ctlCon.appendChild(opCtl);
+			contrato.appendChild(defauult);
 
-			
 			for (cont in response){
 				if(cont==0)
 					continue;
-				console.log(cont);
 				var option = document.createElement('option');
-				var text = document.createTextNode(response[cont].cliente);
+				var text = document.createTextNode(response[cont].contrato);
 				option.appendChild(text);
-				option.setAttribute('value',response[cont].id_cliente);
-				listaCtl.appendChild(option);
-				var opCtlx = option.cloneNode(true);
-			    ctlCon.appendChild(opCtlx);
+				option.setAttribute('value',response[cont].id_contrato);
+				contratos.appendChild(option);
 			}
 		}
 	}
