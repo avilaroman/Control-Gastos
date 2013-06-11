@@ -1,136 +1,161 @@
 <?php
-class PagoClass{
-
-
+class Pago extends iTablaDB
+{
 	private $monto;
 	private $fecha;
-
-	function __construct($montoP,$fechaP){
-		$this->monto=$montoP;
-		$this->fecha=$fechaP;
+	private $id_contrato;
+	
+	public function __construct($id_contrato="", $monto="", $fecha="")
+	{
+		$this->id_contrato = $id_contrato;
+		$this->monto = $monto;
+		$this->fecha = $fecha;
 	}
-
-	function pago(){
-		require('bd_info.inc');
-
-		$BD = new BaseDatos($hostdb, $userdb, $passdb, $db);
-
-		if(!$BD->conecta())
+	
+	public function getMonto()
+	{
+		return $this->monto;
+	}
+	
+	public function getFecha()
+	{
+		return $this->fecha;
+	}
+		
+   	public function insertar()
+   	{	
+   		if(!$this->conecta())
 		{
-			die('SHIT HAPPENS: '.$BD->conexion->errno.':'.$BD->conexion->error);
+			die('Pago: '.$this->conexion->errno.':'.$this->conexion->error);
 		}
-
-		$query = "INSERT INTO
-			Pago(monto,fecha_pago)
-			VALUES 
-			('$this->monto',
-			'$this->fecha_pago')
-					";
-
-		$resultado = $BD->conexion->query($query);
+		
+		$query = " INSERT INTO
+							Pagp(Contrato_id_contrato, monto, fecha_pago)
+						VALUES
+							($this->id_contrato,
+							'$this->monto',
+							'$this->fecha')";				
+		$resultado = $this->conexion->query($query);
+			
 		if(!$resultado)
 		{
-			echo 'SHIT HAPPENS: '.$BD->conexion->errno.':'.$BD->conexion->error;
+			echo 'Pago::Insertar -> No se pudo insertar el pago: '.$this->conexion->errno.':'.$this->conexion->error;
 			$retornable = FALSE;
 		}
+		else
+		{
+			$this->id = $this->conexion->insert_id;
+			$retornable = TRUE;
+		}
+		
+		$this->cerrar_conexion();
+		return $retornable;
+   	}
+	
+    public function eliminar()
+    {
+    	if(!$this->conecta())
+		{
+			die('Pago::Eliminar: '.$this->conexion->errno.':'.$this->conexion->error);
+		}
+		
+		$query = " DELETE FROM
+						Pago
+					WHERE
+						id_pago = $this->id
+					LIMIT
+						1";
+						
+		$resultado = $this->conexion->query($query);
+		
+		if(!$resultado)
+		{
+			echo 'Pago::Eliminar -> No se pudo eliminar el pago: '.$this->conexion->errno.':'.$this->conexion->error;
+			$retornable = FALSE;
+		}
+		else
+		{
+			$retornable = TRUE;
+		}
+		
+		$this->cerrar_conexion();
+		
+		return $retornable;
+    }
+    public function modificar($campo, $valor)
+    {
+    	if(!$this->conecta())
+		{
+			die('SHIT HAPPENS: '.$this->conexion->errno.':'.$this->conexion->error);
+		}
 
-		$BD->cerrar_conexion();
+		$query = "	UPDATE  
+						Pago
+					SET
+						$campo = '$valor'
+					WHERE
+						id_pago = $this->id";
+
+		$resultado = $this->conexion->query($query);
+
+		if(!$resultado)
+		{
+			echo "No se logro modificar el $campo del Pago: ".$this->conexion->errno.':'.$this->conexion->error;
+			$exito = FALSE;
+		}
+		else
+		{
+			$exito = TRUE;
+		}
+
+		$this->cerrar_conexion();
+
+		return $exito;
+    }
+	public function recuperar($id)
+	{
+		if(!$this->conecta())
+		{
+			die('SHIT HAPPENS: '.$this->conexion->errno.':'.$this->conexion->error);
+		}
+
+
+		$query = "SELECT
+						*
+				  FROM
+						Pago
+				  WHERE
+				  		id_pago = $id";
+
+		//Ejecutar el query
+		$resultado = $this->conexion->query($query);
+
+		if($this->conexion->errno)
+		{
+			echo 'FALLO '.$this->conexion->errno.' : '.$this->conexion->error;
+			
+			$this->conexion -> close();
+			return FALSE;
+		}
+		else
+		{
+			$this->cerrar_conexion();
+
+			while ($fila = $resultado -> fetch_assoc())
+				$pago[] = $fila;
+			
+			if(isset($pago))
+			{
+				$this->id_contrato		= $pago[0]['Contrato_id_contrato'];
+				$this->monto 			= $pago[0]['monto'];
+				$this->fecha			= $pago[0]['fecha_pago'];
+				$this->id 				= $pago[0]['id_pago'];
+				return TRUE;	
+			}
+			
+			return FALSE;
+					
+		}
 	}
-    
-    function modificar($campo, $valor, $id){
-        $this->conecta();
-        if(!$this->conecta())
-        {
-            die('SHIT HAPPENS: '.$this->conexion->errno.':'.$this->conexion->error);
-        }
-        $query = "UPDATE
-                    Pago
-                    SET
-                    $campo = '$valor'
-                    WHERE
-                    id_pago = '$id'";
-        $resultado = $this->conexion->query($query);
-        
-        if($this->conexion->errno)
-        {
-            echo 'Error modificando Pago '.$this->conexion->errno.' : '.$this->conexion->error;
-            //Cerrar la conexion
-            $this->cerrar_conexion();
-            return FALSE;
-        }
-        else
-        {
-            //Cerrar la conexion
-            $this->cerrar_conexion();
-            printf ("Campo Modificado \n");    
-        }
-        
-    }
-    
-    function eliminar($id){
-        $this->conecta();
-        if(!$this->conecta())
-        {
-            die('SHIT HAPPENS: '.$this->conexion->errno.':'.$this->conexion->error);
-        }
-        $query = "DELETE FROM
-                    Pago
-                    WHERE
-                    id_pago LIKE '$id'";
-        $resultado = $this->conexion->query($query);
-        
-        if($this->conexion->errno)
-        {
-            echo 'Error eliminando Pago '.$this->conexion->errno.' : '.$this->conexion->error;
-            //Cerrar la conexion
-            $this->cerrar_conexion();
-            return FALSE;
-        }
-        else
-        {
-            //Cerrar la conexion
-            $this->cerrar_conexion();
-            printf ("Pago Eliminado \n");    
-        }
-        
-        
-    }
-    
-    function ConsultarPago(){
-        
-    $this->conecta();
-        if(!$this->conecta())
-        {
-            die('SHIT HAPPENS: '.$this->conexion->errno.':'.$this->conexion->error);
-        }
-        $query = "SELECT 
-                    *
-                 FROM
-                    Pago";
-        $resultado = $this->conexion->query($query);
-        
-        if($this->conexion->errno)
-        {
-            echo 'Error consultando Pago '.$this->conexion->errno.' : '.$this->conexion->error;
-            //Cerrar la conexion
-            $this->cerrar_conexion();
-            return FALSE;
-        }
-        else
-        {
-            //Cerrar la conexion
-            $this->cerrar_conexion();
-
-            while ($fila = $resultado -> fetch_assoc())
-            printf ("[%s|%s|%s]\n", $fila["id_pago"], $fila["monto"], $fila["fecha_pago"]);    
-        }
-        
-        
-    }
-    
-    function insertar($montoP,$fechaP){
-        $model = new PagoClass($montoP,$fechaP);
-    }
-    
 }
 ?>
