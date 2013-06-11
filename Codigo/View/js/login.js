@@ -563,6 +563,170 @@ function llenarClientes(){
 	ajax.send(null);
 }
 
+function obtenerDatosCon(select)
+{
+	var seleccion = select.selectedIndex;
+	var valor = select.value;
+	
+	if(seleccion > 0)
+	{
+		var ajax = nuevoAjax();
+		var url = window.location.pathname.split('/');
+		if(url[3] == 'View')
+			ajax.open('GET','../Utils/GetInfoContrato.php?id_contrato='+valor,true);
+		else
+			ajax.open('GET','../Codigo/Utils/GetInfoContrato.php?id_contrato='+valor,true);
+		
+		ajax.onreadystatechange = function()
+		{
+			if(ajax.readyState == 4)
+			{
+				var response = eval(ajax.responseText);
+				var form = document.getElementById('formularioMod');
+				var usuario = document.getElementById('username');
+				var pass = document.getElementById('passReg');
+				var email = document.getElementById('email');
+				var nombre = document.getElementById('nombre');
+				var apPat = document.getElementById('apellidoP');
+				var apMat = document.getElementById('apellidoM');
+				var rfc = document.getElementById('rfc');
+				var tel = document.getElementById('tel');
+				var persona = document.getElementById('persona');
+				var calle = document.getElementById('calle');
+				var numInt = document.getElementById('numint');
+				var numExt = document.getElementById('numext');
+				var colonia = document.getElementById('col');
+				var cp = document.getElementById('cp');
+				var estado = document.getElementById('selectEstados');
+				var municipio = document.getElementById('selectMunicipios');
+				var evt = document.createEvent("HTMLEvents");
+				evt.initEvent("change",true,true);
+				
+				$(usuario).val(response[0].usuario);
+				$(pass).val(response[0].password);
+				$(nombre).val(response[0].nombre);
+				$(apPat).val(response[0].apellidoP);
+				$(apMat).val(response[0].apellidoM);
+				$(rfc).val(response[0].rfc);
+				$(tel).val(response[0].telefono);
+				$(persona).val(response[0].personaFisica);
+				$(email).val(response[0].email);
+				$(calle).val(response[0].calle);
+				$(numInt).val(response[0].numInt);
+				$(numExt).val(response[0].numExt);
+				$(colonia).val(response[0].colonia);
+				$(cp).val(response[0].cp);
+				$(estado).val(response[0].estado);
+				estado.dispatchEvent(evt);
+
+				switch(response[0].estado){
+					case 2:
+						$(municipio).val(response[0].municipio - 11);
+						break;
+					case 3:
+						$(municipio).val(response[0].municipio - 16);
+						break;
+					case 4:
+						$(municipio).val(response[0].municipio - 21);
+						break;
+					case 5:
+						$(municipio).val(response[0].municipio - 32);
+						break;
+					case 6:
+						$(municipio).val(response[0].municipio - 154);
+						break;
+					case 7:
+						$(municipio).val(response[0].municipio - 221);
+						break;
+					case 8:
+						$(municipio).val(response[0].municipio - 259);
+						break;
+					case 9:
+						$(municipio).val(response[0].municipio - 269);
+						break;
+					case 10:
+						$(municipio).val(response[0].municipio - 309);
+						break;
+					case 11:
+						$(municipio).val(response[0].municipio - 355);
+						break;
+					case 12:
+						$(municipio).val(response[0].municipio - 436);
+						break;
+					case 13:
+						$(municipio).val(response[0].municipio - 520);
+						break;
+					case 14:
+						$(municipio).val(response[0].municipio - 645);
+						break;
+					case '15':
+						$(municipio).val(response[0].municipio - 645);
+						console.log(response[0].municipio - 645);
+						break;
+					case 16:
+						$(municipio).val(response[0].municipio - 883);
+						break;
+					case 17:
+						$(municipio).val(response[0].municipio - 916);
+						break;
+					case 18:
+						$(municipio).val(response[0].municipio - 936);
+						break;
+					case 19:
+						$(municipio).val(response[0].municipio - 987);
+						break;
+					case 20:
+						$(municipio).val(response[0].municipio - 1557);
+						break;
+					case 21:
+						$(municipio).val(response[0].municipio - 1774);
+						break;
+					case 22:
+						$(municipio).val(response[0].municipio - 1792);
+						break;
+					case 23:
+						$(municipio).val(response[0].municipio - 1802);
+						break;
+					case 24:
+						$(municipio).val(response[0].municipio - 1860);
+						break;
+					case 25:
+						$(municipio).val(response[0].municipio - 1878);
+						break;
+					case 26:
+						$(municipio).val(response[0].municipio - 1950);
+						break;
+					case 27:
+						$(municipio).val(response[0].municipio - 1967);
+						break;
+					case 28:
+						$(municipio).val(response[0].municipio - 2010);
+						break;
+					case 29:
+						$(municipio).val(response[0].municipio - 2070);
+						break;
+					case 30:
+						$(municipio).val(response[0].municipio - 2282);
+						break;
+					case 31:
+						$(municipio).val(response[0].municipio - 2388);
+						break;
+					default:
+						console.log('ola k mira');
+						break;
+				}
+				console.log(municipio);
+
+
+				
+
+			}
+		}
+		
+		ajax.send(null);
+	}
+}
+
 /*function llenarClientesCon(){
 	var ajax2 = nuevoAjax();
 	var url = window.location.pathname.split('/');
