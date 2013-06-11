@@ -36,7 +36,7 @@ class Pago extends iTablaDB
 							Pago(Contrato_id_contrato, monto, fecha_pago)
 						VALUES
 							($this->id_contrato,
-							'$this->monto',
+							$this->monto,
 							'$this->fecha')";				
 		$resultado = $this->conexion->query($query);
 			
