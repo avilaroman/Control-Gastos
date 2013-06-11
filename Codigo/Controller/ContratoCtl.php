@@ -51,7 +51,6 @@ class ControladorContrato{
 				break;
 		}
 		}
-		include ('View/vista.php');
 	}
 
     private function crearContrato()
