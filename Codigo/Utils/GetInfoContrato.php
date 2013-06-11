@@ -1,17 +1,22 @@
 <?php
-require('../Model/CuentasClass.php');
-require_once('DebugerPHP.php');
+require_once('../Model/CuentasClass.php');
+//require_once('DebugerPHP.php');
 
 $Getter = new Cuentas();
 
 $Getter->recuperar($_GET['idCliente']);
-$contrato = $Getter->obtenerContratos();
 
+//logConsole('GETTER', $Getter, true);
+
+$contrato = $Getter->obtenerContratos();
+//var_dump($Getter);
+
+//echo '------------------------------------';
 if($contrato==null)
 {
-	logConsole('NO SACA LA INFO CORRECTAMENTE', $Getter, true);
+	//logConsole('NO SACA LA INFO CORRECTAMENTE', $Getter, true);
 }
-
+//var_dump($contrato);
 echo json_encode($contrato);
 
 ?>

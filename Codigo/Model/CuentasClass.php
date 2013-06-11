@@ -1,6 +1,8 @@
 <?php
 require_once('baseDatos.php');
-require_once ("cliente.php");
+require_once('ContratoClass.php');
+require_once ('cliente.php');
+require_once ('iTablaDB.php');
 
 class Cuentas extends iTablaDB
 {
@@ -174,7 +176,7 @@ class Cuentas extends iTablaDB
 				for($i = 0; $i < $tam; $i++)
 				{
 					$contrato = new Contrato();
-					$contrato->recuperar($resultado[$i]['id_contrato']);
+					$contrato->recuperar($resultados[$i]['id_contrato']);
 					$contratos[] = $contrato;
 				}
 

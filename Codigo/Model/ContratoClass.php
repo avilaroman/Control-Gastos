@@ -1,10 +1,10 @@
 <?php
 
-require_once 'Model/iTablaDB.php';
-require_once 'Model/baseDatos.php';
-require_once 'Model/entidad.php';
-require_once 'Model/PagoClass.php';
-require_once 'Model/GastoClass.php';
+require_once 'iTablaDB.php';
+require_once 'baseDatos.php';
+require_once 'entidad.php';
+require_once 'PagoClass.php';
+require_once 'GastoClass.php';
 
 class Contrato extends iTablaDB{
 	private $idCuenta;
@@ -15,6 +15,7 @@ class Contrato extends iTablaDB{
 	private $renovacion;
 	private $saldado;
 	private $asunto;
+	private $presupuesto;
 
 	function __construct($idC="",$idEn="",$fechaC="",$periodoC="",$presupuestoC="",$plazosC="",$renovacionC="",$saldadoC="", $asunto = ""){
 		$this->idCuenta=$idC;
@@ -133,6 +134,7 @@ class Contrato extends iTablaDB{
 			
 			if(isset($contrato))
 			{
+				//var_dump($contrato);
 				$this->id 			= $contrato[0]['id_contrato'];
 				$this->idCuenta		= $contrato[0]['Cuenta_id_cuenta'];
 				$this->idEnt		= $contrato[0]['Entidad_id_contacto'];
@@ -143,6 +145,10 @@ class Contrato extends iTablaDB{
 				$this->renovacion	= $contrato[0]['renovacion'];
 				$this->saldado		= $contrato[0]['saldado'];
 				$this->asunto		= $contrato[0]['asunto'];
+				
+				
+				//var_dump($this);
+				
 				return TRUE;	
 			}
 			
@@ -188,7 +194,7 @@ class Contrato extends iTablaDB{
 				for($i = 0; $i < $tam; $i++)
 				{
 					$pago = new Pago();
-					$pago->recuperar($resultado[$i]['id_pago']);
+					$pago->recuperar($resultados[$i]['id_pago']);
 					$pagos[] = $pago;
 				}
 
@@ -238,7 +244,7 @@ class Contrato extends iTablaDB{
 				for($i = 0; $i < $tam; $i++)
 				{
 					$gasto = new Gasto();
-					$gasto->recuperar($resultado[$i]['id_gasto']);
+					$gasto->recuperar($resultados[$i]['id_gasto']);
 					$gastos[] = $gasto;
 				}
 

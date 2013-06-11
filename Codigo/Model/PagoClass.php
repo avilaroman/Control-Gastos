@@ -1,6 +1,6 @@
 <?php
 
-require_once ('Model/iTablaDB.php');
+require_once ('iTablaDB.php');
 
 class Pago extends iTablaDB
 {

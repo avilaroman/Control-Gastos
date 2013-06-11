@@ -1,7 +1,7 @@
 <?php
 
-require('iTablaDB.php');
-require('DatosEntidades.php');
+require_once('iTablaDB.php');
+require_once('DatosEntidades.php');
 
 class Entidad extends iTablaDB
 {
