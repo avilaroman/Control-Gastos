@@ -134,7 +134,6 @@ class Contrato extends iTablaDB{
 			
 			if(isset($contrato))
 			{
-				//var_dump($contrato);
 				$this->id 			= $contrato[0]['id_contrato'];
 				$this->idCuenta		= $contrato[0]['Cuenta_id_cuenta'];
 				$this->idEnt		= $contrato[0]['Entidad_id_contacto'];
@@ -147,7 +146,59 @@ class Contrato extends iTablaDB{
 				$this->asunto		= $contrato[0]['asunto'];
 				
 				
-				//var_dump($this);
+				return TRUE;	
+			}
+			
+			return FALSE;
+					
+		}
+	}
+
+	public function recuperarChafa($id)
+	{
+		if(!$this->conecta())
+		{
+			die('SHIT HAPPENS: '.$this->conexion->errno.':'.$this->conexion->error);
+		}
+
+
+		$query = "SELECT
+						*
+				  FROM
+						Contrato
+				  WHERE
+				  		id_contrato = $id";
+
+		//Ejecutar el query
+		$resultado = $this->conexion->query($query);
+
+		if($this->conexion->errno)
+		{
+			echo 'FALLO '.$this->conexion->errno.' : '.$this->conexion->error;
+			
+			$this->conexion -> close();
+			return FALSE;
+		}
+		else
+		{
+			$this->cerrar_conexion();
+
+			while ($fila = $resultado -> fetch_assoc())
+				$contrato[] = $fila;
+			
+			if(isset($contrato))
+			{
+				$this->id_ 			= $contrato[0]['id_contrato'];
+				$this->idCuenta_	= $contrato[0]['Cuenta_id_cuenta'];
+				$this->idEnt_		= $contrato[0]['Entidad_id_contacto'];
+				$this->fecha_		= $contrato[0]['fecha_contrato'];
+				$this->periodo_		= $contrato[0]['periodo_fiscal'];
+				$this->presupuesto_	= $contrato[0]['presupuesto'];
+				$this->plazos_		= $contrato[0]['plazos'];
+				$this->renovacion_	= $contrato[0]['renovacion'];
+				$this->saldado_		= $contrato[0]['saldado'];
+				$this->asunto_		= $contrato[0]['asunto'];
+				
 				
 				return TRUE;	
 			}

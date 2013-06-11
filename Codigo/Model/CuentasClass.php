@@ -176,7 +176,7 @@ class Cuentas extends iTablaDB
 				for($i = 0; $i < $tam; $i++)
 				{
 					$contrato = new Contrato();
-					$contrato->recuperar($resultados[$i]['id_contrato']);
+					$contrato->recuperarChafa($resultados[$i]['id_contrato']);
 					$contratos[] = $contrato;
 				}
 
