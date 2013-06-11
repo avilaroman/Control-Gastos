@@ -1,10 +1,10 @@
 <?php
 
-require('Model/CuentasClass.php');
-require('Model/ContratoClass.php');
-require('Model/PagoClass.php');
-require('Model/GastoClass.php');
-require('Utils/Cleaner.php');
+require_once('Model/CuentasClass.php');
+require_once('Model/ContratoClass.php');
+require_once('Model/PagoClass.php');
+require_once('Model/GastoClass.php');
+require_once('Utils/Cleaner.php');
 //require_once('View/html.html');
 class ControladorContrato{
 	public $model;
