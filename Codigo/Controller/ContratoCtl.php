@@ -1,6 +1,6 @@
 <?php
 
-
+require('Model/CuentasClass.php');
 require('Model/ContratoClass.php');
 require('Model/PagoClass.php');
 require('Model/GastoClass.php');
@@ -9,20 +9,14 @@ require('Utils/Cleaner.php');
 class ControladorContrato{
 	public $model;
 
-	function __construct(){
-		$this -> model = new ContratoClass();
-	}
-
 	function ejecutar(){
-		if(!isset($_REQUEST['accion'])){
-			$usuarios = $this->model->error();
-		}else{
-		      $_REQUEST = Cleaner::LimpiarTodo($_REQUEST);
-		     switch ($_REQUEST['accion']){
+		if(isset($_POST['accion'])){
+		      $_REQUEST = Cleaner::LimpiarTodo($_POST);
+		     switch ($_POST['accion']){
 
 			case 'crear':
                 if(isset($_SESSION['admin']) && $_SESSION['admin'] == 1)
-                $usuario = $this->crearContrato();
+                $this->crearContrato();
                 else{
                     echo "Shit happened or u t not Admin";
                 }
@@ -60,39 +54,29 @@ class ControladorContrato{
 		include ('View/vista.php');
 	}
 
-    private function crearContrato(){
+    private function crearContrato()
+    {
+        $cuenta = new Cuenta();
+		
+        $usuario = $cuenta->recuperarCliente($_POST['idCliente']);
+        $idEnt_Cont = $_POST['idEntidad'];
+        $idCuenta = $cuenta->getIdCuenta();
+        $fecha = $_POST['fecha'];
+        $periodo = $_POST['periodo'];
+        $presupuesto = $_POST['presupuesto'];
+        $plazos = $_POST['plazos'];
+        $renovacion = $_POST['renovacion'];
+        $saldado = $_POST['saldado'];
         
-                //if admin se ingresa id manual, else...
+		$contrato = new Contrato($idCuenta, $idEnt_Cont, $fecha, $periodo, $presupuesto, $plazos, $renovacion, $saldado);
+		
+		$contrato->insertar();
                 
-                $entidad = new Cliente();
-                if($entidad->obtenerCliente($_REQUEST['idCliente'])){
-                
-                /*$nombre = $_REQUEST['nombre'];
-                $apellidoPat = $_REQUEST['apellidoPat'];
-                $apellidoMat = $_REQUEST['apellidoMat'];
-                $rfc = $_REQUEST['RFC'];
-                
-                $entidad = new Entidad($nombre,$apellidoPat,$apellidoMat,$rfc);
-                $entidad->insertar();
-                */
-                $idEnt_Cont = $entidad -> idEntidad;
-                $idCuenta = $_REQUEST['idCuenta'];
-                $fecha = $_REQUEST['fecha'];
-                $periodo = $_REQUEST['periodo'];
-                $presupuesto = $_REQUEST['presupuesto'];
-                $plazos = $_REQUEST['plazos'];
-                $renovacion = $_REQUEST['renovacion'];
-                $saldado = $_REQUEST['saldado'];
-                
-                $this->model->crear($idCuenta,$idEnt_Cont,$fecha,$periodo,$presupuesto,$plazos,$renovacion,$saldado);
-                
-                $usuario = $this->model;
-                }
     }
 
     private function realizarPago(){
-                $monto = $_REQUEST['monto'];
-                $fecha = $_REQUEST['fecha'];
+                $monto = $_POST['monto'];
+                $fecha = $_POST['fecha'];
                 $usuario = $this->model->RealizarPago($monto,$fecha);
     }
 }
