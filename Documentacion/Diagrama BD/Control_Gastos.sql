@@ -61,7 +61,7 @@ CREATE  TABLE IF NOT EXISTS `cc409_gastosse`.`Contrato` (
   `id_contrato` INT NOT NULL AUTO_INCREMENT ,
   `Cuenta_id_cuenta` INT NOT NULL ,
   `Entidad_id_contacto` INT NOT NULL ,
-  `fecha_contrato` DATE NOT NULL ,
+  `fecha_contrato` VARCHAR(45) NOT NULL ,
   `periodo_fiscal` VARCHAR(45) NOT NULL ,
   `presupuesto` DECIMAL NULL ,
   `plazos` TINYINT(1) NOT NULL ,
@@ -191,7 +191,7 @@ CREATE  TABLE IF NOT EXISTS `cc409_gastosse`.`Pago` (
   `id_pago` INT NOT NULL AUTO_INCREMENT ,
   `Contrato_id_contrato` INT NOT NULL ,
   `monto` DECIMAL NOT NULL ,
-  `fecha_pago` DATE NOT NULL ,
+  `fecha_pago` VARCHAR(45) NOT NULL ,
   PRIMARY KEY (`id_pago`) ,
   INDEX `fk_Pago_Contrato1_idx` (`Contrato_id_contrato` ASC) ,
   CONSTRAINT `fk_Pago_Contrato1`
@@ -321,6 +321,9 @@ CREATE TABLE IF NOT EXISTS `cc409_gastosse`.`estados` (
   `estado` varchar(255) DEFAULT NULL,
   PRIMARY KEY (`id_estado`)
 ) ENGINE=MyISAM;
+
+
+
 
 --
 -- Volcar la base de datos para la tabla `estados`
