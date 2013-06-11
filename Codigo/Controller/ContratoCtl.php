@@ -25,8 +25,7 @@ class ControladorContrato{
 				$this->realizarPago();
 				break;
 			case 'gasto':
-				$usuario = $this->model->RealizarGasto($_REQUEST['costo'],$_REQUEST['precio'],$_REQUEST['comentario'],
-					$_REQUEST['categoria'],$_REQUEST['cuenta_origen'],$_REQUEST['cuenta_destino'],$_REQUEST['comision']);
+				$this->realizarGasto();
 				break;
                 
             case 'consultar':
@@ -38,11 +37,6 @@ class ControladorContrato{
                 //if gasto o pago
                 $usuario = $this->model->ModificarPago($_REQUEST['campo'], $_REQUEST['valor'], $_REQUEST['id']);
                 //$usuario = $this->model->ModificarGasto($_REQUEST['campo'], $_REQUEST['valor'], $_REQUEST['id']);
-                break;
-            case 'eliminar':
-                //if
-                $usuario = $this->model->EliminarPago($_REQUEST['del']);
-                $usuario = $this->model->EliminarGasto($_REQUEST['del']);
                 break;
 			
 			default:
@@ -103,6 +97,24 @@ class ControladorContrato{
 		
 		$pago->insertar();
     }
+	
+	private function realizarGasto()
+    {
+		$id_contrato	= $_POST['idContrato'];
+		$costo 			= $_POST['costo'];
+		$comentario 	= $_POST['comentario'];
+		$categoria 		= $_POST['categoria'];
+		$cuenta_origen 	= $_POST['cuenta_origen'];
+		$cuenta_destino = $_POST['cuenta_destino'];
+		$comision 		= $_POST['comision'];
+		
+		$precio			= $costo + $comision;
+		
+		$gasto = new Gasto($id_contrato, $costo, $precio, $comentario, $categoria, $cuenta_origen, $cuenta_destino, $comision);
+		
+		$gasto->insertar();
+    }
 }
+
 
 ?>
