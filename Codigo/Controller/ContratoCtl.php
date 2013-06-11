@@ -33,10 +33,8 @@ class ControladorContrato{
                 $usuario = $this->model->ConsultarPago();
                 $usuario = $this->model->ConsultarGasto();
                 break;
-            case 'modificar':
-                //if gasto o pago
-                $usuario = $this->model->ModificarPago($_REQUEST['campo'], $_REQUEST['valor'], $_REQUEST['id']);
-                //$usuario = $this->model->ModificarGasto($_REQUEST['campo'], $_REQUEST['valor'], $_REQUEST['id']);
+            case 'balance':
+				$this->realizaBalance();
                 break;
 			
 			default:
@@ -114,6 +112,38 @@ class ControladorContrato{
 		
 		$gasto->insertar();
     }
+	
+	private function realizaBalance()
+	{
+		$idContrato = $_POST['idContrato'];
+		$contrato = new Contrato();
+		$contrato->recuperar($idContrato);
+		
+		$pagos = $contrato->obtenerTodosLosPagos();
+		$gastos = $contrato->obtenerTodosLosGastos();
+		
+		
+		$tam = count($gastos);
+		
+		$gasto = 0;
+		
+		for($i = 0; $i < $tam; $i++)
+		{
+			$gasto = $gasto + $gastos[$i]['precio'];
+		}
+		
+		$tam = count($pagos);
+		
+		$pago = 0;
+		
+		for($i = 0; $i < $tam; $i++)
+		{
+			$pago = $pago + $pagos[$i]['monto'];
+		}
+		
+		
+		echo 'BALANCE $ '.($gasto - $pago);
+	}
 }
 
 
