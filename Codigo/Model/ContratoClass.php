@@ -46,7 +46,7 @@ class Contrato extends iTablaDB{
 			'$this->plazos',
 			'$this->renovacion',
 			'$this->saldado',
-			'$this->asunto)
+			'$this->asunto')
 					";
 		$resultado = $this->conexion->query($query);
 		
