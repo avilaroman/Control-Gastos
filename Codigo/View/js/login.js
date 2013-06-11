@@ -189,6 +189,8 @@ function clientes(){
 			var clientesEntModCon = document.getElementById('selectClientesEntModCon');
 			var clientesPago = document.getElementById('selectClientesPago');
 			var clientesGasto = document.getElementById('selectClientesGasto');
+			var clientesExp = document.getElementById('selectClientesExp');
+
 			var response = eval(ajax.responseText);
 
 			var elemento = document.createElement('option');
@@ -209,6 +211,11 @@ function clientes(){
 			clientesPago.appendChild(elementoPago);
 			var elementoGasto = elementoPago.cloneNode(true);
 			clientesGasto.appendChild(elementoGasto);
+			if(clientesExp){
+				var elementoExp = elementoGasto.cloneNode(true);
+				clientesExp.appendChild(elementoExp);
+			}
+
 
 			for(cliente in response){
 				var option = document.createElement('option');
@@ -229,6 +236,10 @@ function clientes(){
 				clientesPago.appendChild(optionPago);
 				var optionGasto = optionPago.cloneNode(true);
 				clientesGasto.appendChild(optionGasto);
+				if(clientesExp){
+					var optionExp = optionGasto.cloneNode(true);
+					clientesExp.appendChild(optionExp);
+				}
 			}
 
 		}
@@ -281,7 +292,57 @@ function obtenerDatos(select)
 				td.setAttribute('id','tableD');
 				var tdTitulos = document.createElement('td');
 				tdTitulos.setAttribute('id','tableT');
-				tdTitulos.setAttribute('width','15%');
+				tdTitulos.setAttribute('width','30%');
+
+				var numExtHead = document.createElement('div');
+				var numExtTitulo = document.createTextNode('Numero exterior:');
+				numExtHead.appendChild(numExtTitulo);
+
+    			var numExt = document.createElement('div');
+    			var numExtText = document.createTextNode(response[0].numExt);
+    			numExt.appendChild(numExtText);
+    			numExt.setAttribute('id','numext');
+    			$(numExt).insertAfter($('#datosTitulo'));
+
+				var numIntHead = document.createElement('div');
+				var numIntTitulo = document.createTextNode('Numero interior:');
+				numIntHead.appendChild(numIntTitulo);
+
+    			var numInt = document.createElement('div');
+    			var numIntText = document.createTextNode(response[0].numInt);
+    			numInt.appendChild(numIntText);
+    			numInt.setAttribute('id','numint');
+    			$(numInt).insertAfter($('#datosTitulo'));
+
+				var calleHead = document.createElement('div');
+				var calleTitulo = document.createTextNode('Calle:');
+				calleHead.appendChild(calleTitulo);
+
+    			var calle = document.createElement('div');
+    			var calleText = document.createTextNode(response[0].calle);
+    			calle.appendChild(calleText);
+    			calle.setAttribute('id','calle');
+    			$(calle).insertAfter($('#datosTitulo'));
+
+				var emailHead = document.createElement('div');
+				var emailTitulo = document.createTextNode('Email:');
+				emailHead.appendChild(emailTitulo);
+
+    			var email = document.createElement('div');
+    			var emailText = document.createTextNode(response[0].email);
+    			email.appendChild(emailText);
+    			email.setAttribute('id','email');
+    			$(email).insertAfter($('#datosTitulo'));
+
+				var telHead = document.createElement('div');
+				var telTitulo = document.createTextNode('Telefono:');
+				telHead.appendChild(telTitulo);
+
+    			var tel = document.createElement('div');
+    			var telText = document.createTextNode(response[0].telefono);
+    			tel.appendChild(telText);
+    			tel.setAttribute('id','tel');
+    			$(tel).insertAfter($('#datosTitulo'));
 
 				var rfcHead = document.createElement('div');
 				var rfcTitulo = document.createTextNode('RFC:');
@@ -331,12 +392,22 @@ function obtenerDatos(select)
     			td.appendChild(apMat);
     			td.appendChild(apPat);
     			td.appendChild(rfc);
+    			td.appendChild(tel);
+    			td.appendChild(email);
+    			td.appendChild(calle);
+    			td.appendChild(numInt);
+    			td.appendChild(numExt);
     			//tr.appendChild(td);
 
     			tdTitulos.appendChild(nombreHead);
     			tdTitulos.appendChild(apPatHead);
     			tdTitulos.appendChild(apMatHead);
     			tdTitulos.appendChild(rfcHead);
+    			tdTitulos.appendChild(telHead);
+    			tdTitulos.appendChild(emailHead);
+    			tdTitulos.appendChild(calleHead);
+    			tdTitulos.appendChild(numIntHead);
+    			tdTitulos.appendChild(numExtHead);
     			
     			$(td).insertAfter($('#datosTitulo'));
     			$(tdTitulos).insertAfter($('#datosTitulo'));
@@ -351,7 +422,7 @@ function obtenerDatos(select)
 	function home(){
 		var protocol = window.location.protocol;
 		var host = window.location.host;
-		var path = 'Control-Gastos/Codigo/Menu.php';
+		var path = 'ControlGastos/Codigo/Menu.php';
 
 		//alert(protocol);
 
