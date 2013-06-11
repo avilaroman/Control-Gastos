@@ -64,9 +64,8 @@ class ControladorContrato{
         $fecha = $_POST['fecha'];
         $periodo = $_POST['periodo'];
         $presupuesto = $_POST['presupuesto'];
-        $plazos = $_POST['plazos'];
 		
-		if(strcmp($plazos, "on") == 0)
+		if(isset($_POST['plazos']))
 		{
 			$plazos = TRUE;
 		}
@@ -76,9 +75,8 @@ class ControladorContrato{
 		}
 		
         $renovacion = $_POST['renovacion'];
-        $saldado = $_POST['saldado'];
 		
-		if(strcmp($saldado, "on") == 0)
+		if(isset($_POST['saldado']))
 		{
 			$saldado = TRUE;
 		}

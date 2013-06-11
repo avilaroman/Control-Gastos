@@ -83,7 +83,7 @@ class ControladorCliente
 		$RFC = $_REQUEST['RFC'];
 		$esPersonaFisica = $_REQUEST['esPersonaFisica'];
 		
-		if(strcmp($esPersonaFisica, "on") == 0)
+		if(isset($_REQUEST['esPersonaFisica']))
 		{
 			$esPersonaFisica = TRUE;
 		}
