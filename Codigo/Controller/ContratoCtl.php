@@ -20,11 +20,9 @@ class ControladorContrato{
                 else{
                     echo "Shit happened or u t not Admin";
                 }
-				$_REQUEST['uso'] = '';	
 				break;
 			case 'pago':
-				$usuario = $this->realizarPago();
-
+				$this->realizarPago();
 				break;
 			case 'gasto':
 				$usuario = $this->model->RealizarGasto($_REQUEST['costo'],$_REQUEST['precio'],$_REQUEST['comentario'],
@@ -52,6 +50,8 @@ class ControladorContrato{
 				break;
 		}
 		}
+
+		$_REQUEST['uso'] = '';	
 	}
 
     private function crearContrato()
@@ -93,10 +93,15 @@ class ControladorContrato{
                 
     }
 
-    private function realizarPago(){
-                $monto = $_POST['monto'];
-                $fecha = $_POST['fecha'];
-                $usuario = $this->model->RealizarPago($monto,$fecha);
+    private function realizarPago()
+    {
+    	$idContrato = $_POST['idContrato'];
+        $monto 		= $_POST['monto'];
+        $fecha 		= $_POST['fecha'];
+		
+		$pago = new Pago($idContrato, $monto, $fecha);
+		
+		$pago->insertar();
     }
 }
 
