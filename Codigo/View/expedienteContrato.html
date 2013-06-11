@@ -455,7 +455,6 @@
 			  </div>
 		  </form>
 		</div>
-	
 	<div class="container-fluid">
 		<div class="row-fluid">
 			<div class="hero-unit span10">
@@ -465,49 +464,12 @@
 						<tr>
 							<th>Expediente</th>
 						</tr>
+						<select id="selectClientesExpCon" type="text" onchange="obtenerDatos(this)"></select>
+						<a target="_blank" href="../Utils/generaExcel.php"><button>Generar Expediente</button></a>
 					</thead>
-					<tbody>
-						<tr>
-							<th>Realizado por:</th>
-						</tr>
-						<tr>
-							<td>
-								<div class="span3">Nomina:</div>
-								<div class="span8">3434354</div>
-							</td>
-						</tr>
-						<tr>
-							<td>
-								<div class="span3">Nombre:</div>
-								<div class="span8">Banquero</div>
-							</td>
-						</tr>
-						<tr>
-							<td>
-								<div class="span3">Telefono:</div>
-								<div class="span8">34343434</div>
-							</td>
-						</tr>
-						<tr>
-							<td>
-								<div class="span3">Fecha apertura:</div>
-								<div class="span8">06/06/2013</div>
-							</td>
-						</tr>
-						<tr>
-							<th>Contrato:</th>
-						</tr>
-						<tr>
-							<td>
-								<div class="span3">Asunto:</div>
-								<div class="span8">Foo</div>
-							</td>
-						</tr>
-						<tr>
-							<td>
-								<div class="span3">Forma de Pago:</div>
-								<div class="span8">Bar</div>
-							</td>
+					<tbody id="datosClientes">
+						<tr id="datosTitulo">
+								<th>Datos Generales</th>
 						</tr>
 					</tbody>
 				</table>
@@ -518,7 +480,6 @@
 
 
 	</div>
-
 
 	
 
