@@ -16,7 +16,8 @@ if($contrato==null)
 {
 	//logConsole('NO SACA LA INFO CORRECTAMENTE', $Getter, true);
 }
-//var_dump($contrato);
+
+//var_dump($arreglo);
 echo json_encode($contrato);
 
 ?>

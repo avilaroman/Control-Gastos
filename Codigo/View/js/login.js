@@ -188,6 +188,7 @@ function clientes(){
 			var clientesEnt = document.getElementById('selectClientesEnt');
 			var clientesEntModCon = document.getElementById('selectClientesEntModCon');
 			var clientesPago = document.getElementById('selectClientesPago');
+			var clientesGasto = document.getElementById('selectClientesGasto');
 			var response = eval(ajax.responseText);
 
 			var elemento = document.createElement('option');
@@ -206,6 +207,8 @@ function clientes(){
 			clientesEntModCon.appendChild(elementoEntModCon);
 			var elementoPago = elementoEntModCon.cloneNode(true);
 			clientesPago.appendChild(elementoPago);
+			var elementoGasto = elementoPago.cloneNode(true);
+			clientesGasto.appendChild(elementoGasto);
 
 			for(cliente in response){
 				var option = document.createElement('option');
@@ -222,8 +225,10 @@ function clientes(){
 				clientesModCon.appendChild(optionModCon);
 				var optionEntModCon = optionModCon.cloneNode(true);
 				clientesEntModCon.appendChild(optionEntModCon);
-				var optionPago = option.cloneNode(true);
+				var optionPago = optionEntModCon.cloneNode(true);
 				clientesPago.appendChild(optionPago);
+				var optionGasto = optionPago.cloneNode(true);
+				clientesGasto.appendChild(optionGasto);
 			}
 
 		}
@@ -532,7 +537,7 @@ function Contratos(select){
 	if(url[3] == 'View')
 		ajax.open('GET','../Utils/GetInfoContrato.php?idCliente='+valor,true);
 	else
-		ajax.open('GET','../Codigo/Utils/GetInfoContrato.php?idCliente'+valor,true);
+		ajax.open('GET','../Codigo/Utils/GetInfoContrato.php?idCliente='+valor,true);
 	
 	
 	
@@ -541,22 +546,27 @@ function Contratos(select){
 		if(ajax.readyState == 4)
 		{
 			var contratos = document.getElementById('selectContratos');
+			var contratosGastos = document.getElementById('selectContratosGasto');
 			var response = eval(ajax.responseText);
 			
 			var defauult = document.createElement('option');
 			var texto = document.createTextNode('Selecciona un contrato...');
 			defauult.appendChild(texto);
 			defauult.setAttribute('value', -1);
-			contrato.appendChild(defauult);
+			contratos.appendChild(defauult);
+
+			var elementoGastos = defauult.cloneNode(true);
+			contratosGastos.appendChild(elementoGastos);
 
 			for (cont in response){
-				if(cont==0)
-					continue;
 				var option = document.createElement('option');
-				var text = document.createTextNode(response[cont].contrato);
+				var text = document.createTextNode(response[cont].id_);
 				option.appendChild(text);
-				option.setAttribute('value',response[cont].id_contrato);
+				option.setAttribute('value',response[cont].id_);
 				contratos.appendChild(option);
+
+				var optionGastos = option.cloneNode(true);
+				contratosGastos.appendChild(optionGastos);
 			}
 		}
 	}

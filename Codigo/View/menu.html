@@ -13,6 +13,7 @@
     $( "#datepicker" ).datepicker();
     $( "#datepickerInicio" ).datepicker();
     $( "#datepickerFin" ).datepicker();
+    $( "#datepickerPago" ).datepicker();
   });
   </script>
 </head>
@@ -69,6 +70,7 @@
     		 				<li><a href="#modalAltaCliente" data-toggle="modal">Alta Cliente</a></li>
 						  	<li><a href="#modalAltaContrato" data-toggle="modal">Añadir Contrato</a></li>
 						  	<li><a href="#modalPago" data-toggle="modal">Generar Pago</a></li>
+						  	<li><a href="#modalGasto" data-toggle="modal">Generar Pago</a></li>
    						</ul>
    					</li>
 				</ul>
@@ -398,17 +400,58 @@
 			  		<label class="alineado" for="modCliente">ID Contrato *</label>
 					<select id="selectContratos" name="idContrato" class="span2 alineado" type="text"></select><br>
 
-					<label class="alineado" for="datepickerInicio">Monto *</label>
-			  		<input type="text" id="montoPago" class="span2 alineado" name="montoPago" required="required"/><br>
+					<label class="alineado" for="montoPago">Monto *</label>
+			  		<input type="text" id="montoPago" class="span2 alineado" name="monto" required="required"/><br>
 
 			  		<label class="alineado" for="datepickerPago">Fecha *</label>
-			  		<input type="text" id="datepickerPago" class="span2 alineado" name="fechaPago" required="required"/><br>
+			  		<input type="text" id="datepickerPago" class="span2 alineado" name="fecha" required="required"/><br>
 					
 			  </div>
 			  <div class="modal-footer">
 				    <button class="btn" data-dismiss="modal" aria-hidden="true">Cerrar</button>
 				    <input type="hidden" name="accion" value="pago" />
 				    <button type="submit" onclick="validaForm()" class="btn btn-primary" name="uso" value="contrato" >Pago</button>
+			  </div>
+		  </form>
+		</div>
+
+		<!-- Modal Gasto -->
+		<div id="modalGasto" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+			<div class="modal-header">
+		    	<h3 id="myModalLabel">Gasto</h3>
+		  	</div>
+		  <form id="formularioGasto" action="Menu.php" name="formularioGasto" method="post">
+			  <div class="modal-body">
+
+			  		<label class="alineado" for="selectClientesGasto">Cliente ID *</label>
+					<select id="selectClientesGasto" name="selectClientesGasto" class="span2 alineado" type="text" onchange=" Contratos(this);"></select><br>
+
+			  		<label class="alineado" for="selectContratosGasto">ID Contrato *</label>
+					<select id="selectContratosGasto" name="idContrato" class="span2 alineado" type="text"></select><br>
+
+					<label class="alineado" for="costoGasto">Costo *</label>
+			  		<input type="text" id="costoGasto" class="span2 alineado" name="costo" required="required"/><br>
+
+			  		<label class="alineado" for="comentarioGasto">Comentario *</label>
+			  		<input type="text" id="comentarioGasto" class="span2 alineado" name="comentario" required="required"/><br>
+
+			  		<label class="alineado" for="categoriaGasto">Categoria *</label>
+			  		<input type="text" id="categoriaGasto" class="span2 alineado" name="categoria" required="required"/><br>
+
+			  		<label class="alineado" for="origenGasto">Cuenta origen</label>
+			  		<input type="text" id="origenGasto" class="span2 alineado" name="cuenta_origen"/><br>
+
+			  		<label class="alineado" for="destinoGasto">Cuenta destino</label>
+			  		<input type="text" id="destinoGasto" class="span2 alineado" name="cuenta_destino"/><br>
+
+			  		<label class="alineado" for="comisionGasto">Comision</label>
+			  		<input type="text" id="comisionGasto" class="span2 alineado" name="comision" required="required"/><br>
+					
+			  </div>
+			  <div class="modal-footer">
+				    <button class="btn" data-dismiss="modal" aria-hidden="true">Cerrar</button>
+				    <input type="hidden" name="accion" value="gasto" />
+				    <button type="submit" onclick="validaForm()" class="btn btn-primary" name="uso" value="contrato" >Gasto</button>
 			  </div>
 		  </form>
 		</div>

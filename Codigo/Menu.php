@@ -17,16 +17,20 @@ if((!isset($_SESSION)))
         {
             case 'cliente':
                 $controlador = new ControladorCliente();
+                require_once ('View/menu.html');  
                 break;
             case 'contrato':
 				include ('Utils/StatusSession.php');
                 $controlador = new ControladorContrato();
+                require_once ('View/menu.html');  
                 break;
             case 'login':
                 $controlador = new LoginCtl();
+                require_once ('View/menu.html');  
                 break;
             case 'registrar':
                 $controlador = new RegisterCtl();
+                require_once ('View/menu.html');  
                 break;
             default:
 				 include ('Utils/StatusSession.php');
