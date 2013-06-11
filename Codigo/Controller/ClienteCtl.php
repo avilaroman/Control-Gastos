@@ -49,7 +49,7 @@ class ControladorCliente
 							$this->modelo->reconstruirCliente($_POST['seleccionado']);
 							
 							$this->modificarCliente();
-							$_REQUEST['uso'] = 'modificar';
+							$_REQUEST['uso'] = '';
 						//}
 					}
 					//{

@@ -20,6 +20,7 @@ class ControladorContrato{
                 else{
                     echo "Shit happened or u t not Admin";
                 }
+				$_REQUEST['uso'] = '';	
 				break;
 			case 'pago':
 				$usuario = $this->realizarPago();
