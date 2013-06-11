@@ -1,4 +1,7 @@
 <?php
+
+require_once ('Model/iTablaDB.php');
+
 class Pago extends iTablaDB
 {
 	private $monto;
@@ -30,7 +33,7 @@ class Pago extends iTablaDB
 		}
 		
 		$query = " INSERT INTO
-							Pagp(Contrato_id_contrato, monto, fecha_pago)
+							Pago(Contrato_id_contrato, monto, fecha_pago)
 						VALUES
 							($this->id_contrato,
 							'$this->monto',
