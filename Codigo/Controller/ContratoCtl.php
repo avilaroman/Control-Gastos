@@ -67,8 +67,9 @@ class ControladorContrato{
         $plazos = $_POST['plazos'];
         $renovacion = $_POST['renovacion'];
         $saldado = $_POST['saldado'];
+		$asunto = $_POST['asunto'];
         
-		$contrato = new Contrato($idCuenta, $idEnt_Cont, $fecha, $periodo, $presupuesto, $plazos, $renovacion, $saldado);
+		$contrato = new Contrato($idCuenta, $idEnt_Cont, $fecha, $periodo, $presupuesto, $plazos, $renovacion, $saldado, $asunto);
 		
 		$contrato->insertar();
                 
