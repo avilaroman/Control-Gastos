@@ -2,7 +2,7 @@
 
 require_once ('Model/iTablaDB.php');
 
-class Gastos extends iTablaDB
+class Gasto extends iTablaDB
 {
 	private $id_contrato;
 	private $costo;
