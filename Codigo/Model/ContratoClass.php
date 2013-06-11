@@ -12,8 +12,9 @@ class Contrato extends iTablaDB{
 	private $plazos;
 	private $renovacion;
 	private $saldado;
+	private $asunto;
 
-	function __construct($idC="",$idEn="",$fechaC="",$periodoC="",$presupuestoC="",$plazosC="",$renovacionC="",$saldadoC=""){
+	function __construct($idC="",$idEn="",$fechaC="",$periodoC="",$presupuestoC="",$plazosC="",$renovacionC="",$saldadoC="", $asunto = ""){
 		$this->idCuenta=$idC;
 		$this->idEnt=$idEn;
 		$this->fecha=$fechaC;
@@ -22,6 +23,7 @@ class Contrato extends iTablaDB{
 		$this->plazos=$plazosC;
 		$this->renovacion=$renovacionC;
 		$this->saldado=$saldadoC;
+		$this->asunto = $asunto;
 	}
 
 	public function insertar(){	
@@ -32,7 +34,7 @@ class Contrato extends iTablaDB{
 		}
 
 		$query = "INSERT INTO
-			Contrato(Cuenta_id_cuenta, Entidad_id_contacto,fecha_contrato,periodo_fiscal,presupuesto,plazos,renovacion,saldado)
+			Contrato(Cuenta_id_cuenta, Entidad_id_contacto,fecha_contrato,periodo_fiscal,presupuesto,plazos,renovacion,saldado, asunto)
 			VALUES 
 			($this->idCuenta,
 			 $this->idEnt,
@@ -41,7 +43,8 @@ class Contrato extends iTablaDB{
 			'$this->presupuesto',
 			'$this->plazos',
 			'$this->renovacion',
-			'$this->saldado')
+			'$this->saldado',
+			'$this->asunto)
 					";
 		$resultado = $this->conexion->query($query);
 		
@@ -64,7 +67,36 @@ class Contrato extends iTablaDB{
         
     }
     public function eliminar(){}
-    public function modificar($campo, $valor){}
+    public function modificar($campo, $valor)
+    {
+    	if(!$this->conecta())
+		{
+			die('SHIT HAPPENS: '.$this->conexion->errno.':'.$this->conexion->error);
+		}
+
+		$query = "	UPDATE  
+						Contrato
+					SET
+						$campo = '$valor'
+					WHERE
+						id_contrato = $this->id";
+
+		$resultado = $this->conexion->query($query);
+
+		if(!$resultado)
+		{
+			echo "No se logro modificar el $campo del Contrato: ".$this->conexion->errno.':'.$this->conexion->error;
+			$exito = FALSE;
+		}
+		else
+		{
+			$exito = TRUE;
+		}
+
+		$this->cerrar_conexion();
+
+		return $exito;
+    }
 	
 	public function recuperar($id)
 	{
@@ -109,6 +141,7 @@ class Contrato extends iTablaDB{
 				$this->plazos		= $contrato[0]['plazos'];
 				$this->renovacion	= $contrato[0]['renovacion'];
 				$this->saldado		= $contrato[0]['saldado'];
+				$this->asunto		= $contrato[0]['asunto'];
 				return TRUE;	
 			}
 			
