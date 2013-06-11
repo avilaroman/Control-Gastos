@@ -65,8 +65,28 @@ class ControladorContrato{
         $periodo = $_POST['periodo'];
         $presupuesto = $_POST['presupuesto'];
         $plazos = $_POST['plazos'];
+		
+		if(strcmp($plazos, "on") == 0)
+		{
+			$plazos = TRUE;
+		}
+		else
+		{
+			$plazos = FALSE;
+		}
+		
         $renovacion = $_POST['renovacion'];
         $saldado = $_POST['saldado'];
+		
+		if(strcmp($saldado, "on") == 0)
+		{
+			$saldado = TRUE;
+		}
+		else
+		{
+			$saldado = FALSE;
+		}
+		
 		$asunto = $_POST['asunto'];
         
 		$contrato = new Contrato($idCuenta, $idEnt_Cont, $fecha, $periodo, $presupuesto, $plazos, $renovacion, $saldado, $asunto);
