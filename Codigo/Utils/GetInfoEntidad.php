@@ -3,7 +3,7 @@ require('../Model/CuentasClass.php');
 //require_once('DebugerPHP.php');
 
 $cuenta = new Cuentas();
-$cuenta = $cuenta->recuperar($_GET['idCliente']);
+$cuenta = $cuenta->recuperarCliente($_GET['idCliente']);
 
 if($cuenta==null)
 {
