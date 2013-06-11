@@ -44,6 +44,9 @@ if((!isset($_SESSION)))
 			include ('Utils/StatusSession.php');
 			require_once ('View/menu.html');
 		}
+		else {
+		include ('View/login.html');
+		}		
     }
  		
 
