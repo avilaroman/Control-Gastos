@@ -307,6 +307,106 @@ class Contrato extends iTablaDB{
 					
 		}
 	}
+	
+	public function obtenerTodosLosPagosPorFecha($fecha)
+	{
+		if(!$this->conecta())
+		{
+			die('SHIT HAPPENS: '.$this->conexion->errno.':'.$this->conexion->error);
+		}
+		
+		$query = "SELECT
+					id_pago
+				  FROM
+				  	Pago
+				  WHERE
+				  	Contrato_id_contrato = $this->id AND fecha_pago LIKE '$fecha'";
+					
+		$resultado = $this->conexion->query($query);
+		
+		if($this->conexion->errno)
+		{
+			echo 'FALLO al obtener pagos del contrato'.$this->conexion->errno.' : '.$this->conexion->error;
+			
+			$this->conexion -> close();
+			return null;
+		}
+		else
+		{
+			$this->cerrar_conexion();
+
+			while ($fila = $resultado -> fetch_assoc())
+				$resultados[] = $fila;
+			
+			if(isset($resultados))
+			{
+				$tam = count($resultados);
+			
+				for($i = 0; $i < $tam; $i++)
+				{
+					$pago = new Pago();
+					$pago->recuperar($resultados[$i]['id_pago']);
+					$pagos[] = $pago;
+				}
+
+				
+				return $pagos;	
+			}
+			
+			return null;
+					
+		}
+	}
+	
+	public function obtenerTodosLosGastosPorFecha($fecha)
+	{
+		if(!$this->conecta())
+		{
+			die('SHIT HAPPENS: '.$this->conexion->errno.':'.$this->conexion->error);
+		}
+		
+		$query = "SELECT
+					id_gasto
+				  FROM
+				  	Gasto
+				  WHERE
+				  	Contrato_id_contrato = $this->id AND fecha LIKE '$fecha'";
+					
+		$resultado = $this->conexion->query($query);
+		
+		if($this->conexion->errno)
+		{
+			echo 'FALLO al obtener gastos del contrato'.$this->conexion->errno.' : '.$this->conexion->error;
+			
+			$this->conexion -> close();
+			return null;
+		}
+		else
+		{
+			$this->cerrar_conexion();
+
+			while ($fila = $resultado -> fetch_assoc())
+				$resultados[] = $fila;
+			
+			if(isset($resultados))
+			{
+				$tam = count($resultados);
+			
+				for($i = 0; $i < $tam; $i++)
+				{
+					$gasto = new Gasto();
+					$gasto->recuperar($resultados[$i]['id_gasto']);
+					$gastos[] = $gasto;
+				}
+
+				
+				return $gastos;	
+			}
+			
+			return null;
+					
+		}
+	}
 
 }
 ?>
