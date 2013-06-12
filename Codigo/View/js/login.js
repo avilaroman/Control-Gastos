@@ -14,6 +14,8 @@ function llenarEstados(){
 		{
 			var estados = document.getElementById('selectEstados');
 			var response = eval(ajax.responseText);
+
+			estados.options.length = 0;
 			
 			var defauult = document.createElement('option');
 			var texto = document.createTextNode('Selecciona un estado...');
@@ -61,8 +63,8 @@ function obtenerMunicipios(select)
 	if(seleccion > 0)
 	{
 		var ajax = nuevoAjax();
-		var url = window.location.pathname;
-		if(url == '/Control-Gastos/Codigo/View/expedienteCliente.html')
+		var url = window.location.pathname.split('/');
+		if(url[3] == 'View')
 			ajax.open('GET','../Utils/GetMunicipios.php?idEstado='+seleccion,true);
 		else
 			ajax.open('GET','../Codigo/Utils/GetMunicipios.php?idEstado='+seleccion,true);
@@ -193,6 +195,16 @@ function clientes(){
 			var clientesExpCon = document.getElementById('selectClientesExpCon');
 
 			var response = eval(ajax.responseText);
+
+			/*clientes.options.length = 0;
+			clientesCon.options.length = 0;
+			clientesModCon.options.length = 0;
+			clientesEnt.options.length = 0;
+			clientesEntModCon.options.length = 0;
+			clientesPago.options.length = 0;
+			clientesGasto.options.length = 0;
+			clientesExp.options.length = 0;
+			clientesExpCon.options.length = 0;*/
 
 			var elemento = document.createElement('option');
 			var texto = document.createTextNode('selecciona Cliente...');
@@ -644,7 +656,7 @@ function obtenerDatosMod(select)
 		if(url[3] == 'View')
 			ajax.open('GET','../Utils/GetInfoEntidad.php?idCliente='+valor,true);
 		else
-			ajax.open('GET','../Codigo/Utils/GetInfoEntidad.php?idCliente='+valor,true);
+			ajax.open('GET','../Utils/GetInfoEntidad.php?idCliente='+valor,true);
 		
 		ajax.onreadystatechange = function()
 		{
@@ -817,11 +829,67 @@ function Contratos(select){
 			var contratosGastos = document.getElementById('selectContratosGasto');
 			var response = eval(ajax.responseText);
 			
+			contratos.options.length=0;
+			contratosGastos.options.length=0;
+
 			var defauult = document.createElement('option');
 			var texto = document.createTextNode('Selecciona un contrato...');
 			defauult.appendChild(texto);
 			defauult.setAttribute('value', -1);
-			contratos.appendChild(defauult);
+			defauult.setAttribute('id', 'defaultoption');
+
+			if(!document.getElementById('defaultoption'))
+				contratos.appendChild(defauult);
+
+			var elementoGastos = defauult.cloneNode(true);
+			contratosGastos.appendChild(elementoGastos);
+
+			for (cont in response){
+				var option = document.createElement('option');
+				var text = document.createTextNode(response[cont].id_);
+				option.appendChild(text);
+				option.setAttribute('value',response[cont].id_);
+				contratos.appendChild(option);
+
+				var optionGastos = option.cloneNode(true);
+				contratosGastos.appendChild(optionGastos);
+			}
+		}
+	}
+	
+	ajax.send(null);
+}
+
+function ContratosId(valor){
+
+	var ajax = nuevoAjax();
+	var url = window.location.pathname.split('/');
+	if(url[3] == 'View')
+		ajax.open('GET','../Utils/GetInfoContrato.php?idCliente='+valor,true);
+	else
+		ajax.open('GET','../Codigo/Utils/GetInfoContrato.php?idCliente='+valor,true);
+	
+	
+	
+	ajax.onreadystatechange = function()
+	{
+		if(ajax.readyState == 4)
+		{
+			var contratos = document.getElementById('selectContratos');
+			var contratosGastos = document.getElementById('selectContratosGasto');
+			var response = eval(ajax.responseText);
+			
+			contratos.options.length=0;
+			contratosGastos.options.length=0;
+
+			var defauult = document.createElement('option');
+			var texto = document.createTextNode('Selecciona un contrato...');
+			defauult.appendChild(texto);
+			defauult.setAttribute('value', -1);
+			defauult.setAttribute('id', 'defaultoption');
+
+			if(!document.getElementById('defaultoption'))
+				contratos.appendChild(defauult);
 
 			var elementoGastos = defauult.cloneNode(true);
 			contratosGastos.appendChild(elementoGastos);

@@ -9,6 +9,6 @@ if(!isset($_SESSION['username']))
 	header("Location: index.php");
 }
 else {
-	echo "Bienvenido".$_SESSION['username'].PHP_EOL;
+	echo "Bienvenido ".$_SESSION['username'].PHP_EOL;
 }
 ?>

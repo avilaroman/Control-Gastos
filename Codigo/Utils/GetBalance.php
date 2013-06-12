@@ -1,11 +1,12 @@
 <?php
-require_once('Model/ContratoClass.php');
-require_once('Model/PagoClass.php');
-require_once('Model/GastoClass.php');
+require_once('../Model/ContratoClass.php');
+require_once('../Model/PagoClass.php');
+require_once('../Model/GastoClass.php');
 //require_once('DebugerPHP.php');
 		$idContrato = $_GET['idContrato'];
 		$contrato = new Contrato();
 		$contrato->recuperar($idContrato);
+
 		
 		$pagos = $contrato->obtenerTodosLosPagos();
 		$gastos = $contrato->obtenerTodosLosGastos();
