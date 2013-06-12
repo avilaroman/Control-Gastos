@@ -190,6 +190,7 @@ function clientes(){
 			var clientesPago = document.getElementById('selectClientesPago');
 			var clientesGasto = document.getElementById('selectClientesGasto');
 			var clientesExp = document.getElementById('selectClientesExp');
+			var clientesExpCon = document.getElementById('selectClientesExpCon');
 
 			var response = eval(ajax.responseText);
 
@@ -211,11 +212,16 @@ function clientes(){
 			clientesPago.appendChild(elementoPago);
 			var elementoGasto = elementoPago.cloneNode(true);
 			clientesGasto.appendChild(elementoGasto);
-			if(clientesExp){
-				var elementoExp = elementoGasto.cloneNode(true);
-				clientesExp.appendChild(elementoExp);
+			
+			if(clientesExp!=null){
+			var elementoExp = elementoGasto.cloneNode(true);
+			clientesExp.appendChild(elementoExp);
 			}
 
+			if(clientesExpCon!=null){
+			var elementoExpCon = elementoGasto.cloneNode(true);
+			clientesExpCon.appendChild(elementoExpCon);
+			}
 
 			for(cliente in response){
 				var option = document.createElement('option');
@@ -236,9 +242,15 @@ function clientes(){
 				clientesPago.appendChild(optionPago);
 				var optionGasto = optionPago.cloneNode(true);
 				clientesGasto.appendChild(optionGasto);
+
 				if(clientesExp){
-					var optionExp = optionGasto.cloneNode(true);
-					clientesExp.appendChild(optionExp);
+				var optionExp = optionGasto.cloneNode(true); //response cliente
+				clientesExp.appendChild(optionExp);
+				}
+
+				if(clientesExpCon){
+				var optionExpCon = optionGasto.cloneNode(true); //response cliente
+				clientesExpCon.appendChild(optionExpCon);
 				}
 			}
 
@@ -440,17 +452,18 @@ function obtenerDatosExp(select)
 			{
 				var response = eval(ajax.responseText);
 				var form = document.getElementById('datosClientes');
-				var nombreC = document.getElementById('nombreDatos');
+				var idElem = document.getElementById('idCon');
 				var apMatC = document.getElementById('apMatDatos');
 				var apPatC = document.getElementById('apPatDatos');
 				var rfcC = document.getElementById('rfcDatos');
 				var tdC = document.getElementById('tableD');
 				var tdT = document.getElementById('tableT');
+				var divnulo = document.getElementById('nulo');
 
-				if(nombreC != null)
+				if(idElem != null || divnulo != null)
 					var namae = tdC.parentNode;
 					//var namae2 = namae.parentNode;
-				if(nombreC && nombreC!=null){
+				if((idElem && idElem!=null)||(divnulo && divnulo!=null)){
 					/*namae.removeChild(nombreC);
 					namae.removeChild(apMatC);
 					namae.removeChild(apPatC);
@@ -465,123 +478,134 @@ function obtenerDatosExp(select)
 				tdTitulos.setAttribute('id','tableT');
 				tdTitulos.setAttribute('width','30%');
 
-				var numExtHead = document.createElement('div');
-				var numExtTitulo = document.createTextNode('Numero exterior:');
-				numExtHead.appendChild(numExtTitulo);
+				if(response==null){
+					var nulo = document.createElement('div');
+					var nuloTitulo = document.createTextNode('Cliente seleccionado no tiene contrato');
+					nulo.appendChild(nuloTitulo);
+					nulo.setAttribute('id','nulo');
+					td.appendChild(nulo);
+					$(tdTitulos).insertAfter($('#datosTitulo'));
+					$(td).insertAfter($('#datosTitulo'));
+				}else{
 
-    			var numExt = document.createElement('div');
-    			var numExtText = document.createTextNode(response[0].numExt);
-    			numExt.appendChild(numExtText);
-    			numExt.setAttribute('id','numext');
-    			$(numExt).insertAfter($('#datosTitulo'));
+				var saldadoHead = document.createElement('div');
+				var saldadoTitulo = document.createTextNode('Saldado:');
+				saldadoHead.appendChild(saldadoTitulo);
 
-				var numIntHead = document.createElement('div');
-				var numIntTitulo = document.createTextNode('Numero interior:');
-				numIntHead.appendChild(numIntTitulo);
+    			var saldado = document.createElement('div');
+    			var saldadoText = document.createTextNode(response[0].saldado_);
+    			saldado.appendChild(saldadoText);
+    			saldado.setAttribute('id','saldado');
+    			$(saldado).insertAfter($('#datosTitulo'));
 
-    			var numInt = document.createElement('div');
-    			var numIntText = document.createTextNode(response[0].numInt);
-    			numInt.appendChild(numIntText);
-    			numInt.setAttribute('id','numint');
-    			$(numInt).insertAfter($('#datosTitulo'));
+				var renovacionHead = document.createElement('div');
+				var renovacionTitulo = document.createTextNode('Renovacion:');
+				renovacionHead.appendChild(renovacionTitulo);
 
-				var calleHead = document.createElement('div');
-				var calleTitulo = document.createTextNode('Calle:');
-				calleHead.appendChild(calleTitulo);
+    			var renovacion = document.createElement('div');
+    			var renovacionText = document.createTextNode(response[0].renovacion_);
+    			renovacion.appendChild(renovacionText);
+    			renovacion.setAttribute('id','renovacion');
+    			$(renovacion).insertAfter($('#datosTitulo'));
 
-    			var calle = document.createElement('div');
-    			var calleText = document.createTextNode(response[0].calle);
-    			calle.appendChild(calleText);
-    			calle.setAttribute('id','calle');
-    			$(calle).insertAfter($('#datosTitulo'));
+				var plazosHead = document.createElement('div');
+				var plazosTitulo = document.createTextNode('Plazos:');
+				plazosHead.appendChild(plazosTitulo);
 
-				var emailHead = document.createElement('div');
-				var emailTitulo = document.createTextNode('Email:');
-				emailHead.appendChild(emailTitulo);
+    			var plazos = document.createElement('div');
+    			var plazosText = document.createTextNode(response[0].plazos_);
+    			plazos.appendChild(plazosText);
+    			plazos.setAttribute('id','plazos');
+    			$(plazos).insertAfter($('#datosTitulo'));
 
-    			var email = document.createElement('div');
-    			var emailText = document.createTextNode(response[0].email);
-    			email.appendChild(emailText);
-    			email.setAttribute('id','email');
-    			$(email).insertAfter($('#datosTitulo'));
+				var presHead = document.createElement('div');
+				var presTitulo = document.createTextNode('Presupuesto:');
+				presHead.appendChild(presTitulo);
 
-				var telHead = document.createElement('div');
-				var telTitulo = document.createTextNode('Telefono:');
-				telHead.appendChild(telTitulo);
+    			var pres = document.createElement('div');
+    			var presText = document.createTextNode(response[0].presupuesto_);
+    			pres.appendChild(presText);
+    			pres.setAttribute('id','pres');
+    			$(pres).insertAfter($('#datosTitulo'));
 
-    			var tel = document.createElement('div');
-    			var telText = document.createTextNode(response[0].telefono);
-    			tel.appendChild(telText);
-    			tel.setAttribute('id','tel');
-    			$(tel).insertAfter($('#datosTitulo'));
+				var periodoHead = document.createElement('div');
+				var periodoTitulo = document.createTextNode('Periodo:');
+				periodoHead.appendChild(periodoTitulo);
 
-				var rfcHead = document.createElement('div');
-				var rfcTitulo = document.createTextNode('RFC:');
-				rfcHead.appendChild(rfcTitulo);
+    			var periodo = document.createElement('div');
+    			var periodoText = document.createTextNode(response[0].periodo_);
+    			periodo.appendChild(periodoText);
+    			periodo.setAttribute('id','periodo');
+    			$(periodo).insertAfter($('#datosTitulo'));
 
-    			var rfc = document.createElement('div');
-    			var rfcText = document.createTextNode(response[0].rfc);
-    			rfc.appendChild(rfcText);
-    			rfc.setAttribute('id','rfcDatos');
+				var fechaHead = document.createElement('div');
+				var fechaTitulo = document.createTextNode('Fecha::');
+				fechaHead.appendChild(fechaTitulo);
+
+    			var fecha = document.createElement('div');
+    			var fechaText = document.createTextNode(response[0].fecha_);
+    			fecha.appendChild(fechaText);
+    			fecha.setAttribute('id','fecha');
     			//rfc.setAttribute('class','span8');
-    			$(rfc).insertAfter($('#datosTitulo'));
+    			$(fecha).insertAfter($('#datosTitulo'));
 
-    			var apMatHead = document.createElement('div');
-				var apMatTitulo = document.createTextNode('Apellido Materno:');
-				apMatHead.appendChild(apMatTitulo);
+    			var idEntHead = document.createElement('div');
+				var idEntTitulo = document.createTextNode('Id Contacto:');
+				idEntHead.appendChild(idEntTitulo);
 
-				var apMat = document.createElement('div');
-    			var lastM = document.createTextNode(response[0].apellidoM);
-    			apMat.appendChild(lastM);
-    			apMat.setAttribute('id','apMatDatos');
+				var idEnt = document.createElement('div');
+    			var idEntText = document.createTextNode(response[0].idEnt_);
+    			idEnt.appendChild(idEntText);
+    			idEnt.setAttribute('id','idEnt');
     			//apMat.setAttribute('class','span8');
-    			$(apMat).insertAfter($('#datosTitulo'));
+    			$(idEnt).insertAfter($('#datosTitulo'));
 
-    			var apPatHead = document.createElement('div');
-				var apPatTitulo = document.createTextNode('Apellido Paterno:');
-				apPatHead.appendChild(apPatTitulo);
+    			var idCuenHead = document.createElement('div');
+				var idCuenTitulo = document.createTextNode('Id Cuenta:');
+				idCuenHead.appendChild(idCuenTitulo);
 
-    			var apPat = document.createElement('div');
-    			var lastP = document.createTextNode(response[0].apellidoP);
-    			apPat.appendChild(lastP);
-    			apPat.setAttribute('id','apPatDatos');
+    			var idCuen = document.createElement('div');
+    			var idCuenText= document.createTextNode(response[0].idCuenta_);
+    			idCuen.appendChild(idCuenText);
+    			idCuen.setAttribute('id','idCuen');
     			//apPat.setAttribute('class','span8');
-    			$(apPat).insertAfter($('#datosTitulo'));
+    			$(idCuen).insertAfter($('#datosTitulo'));
 
-    			var nombreHead = document.createElement('div');
-				var nombreTitulo = document.createTextNode('Nombre:');
-				nombreHead.appendChild(nombreTitulo);
+    			var idHead = document.createElement('div');
+				var idTitulo = document.createTextNode('Id:');
+				idHead.appendChild(idTitulo);
 
-    			var nombre = document.createElement('div');
-    			var name = document.createTextNode(response[0].nombre);
-    			console.log(name);
-    			nombre.appendChild(name);
-    			nombre.setAttribute('id','nombreDatos');
+    			var id = document.createElement('div');
+    			var idText= document.createTextNode(response[0].id_);
+    			id.appendChild(idText);
+    			id.setAttribute('id','idCon');
     			//mbre.setAttribute('class','span8');
-    			$(nombre).insertAfter($('#datosTitulo'));
-    			td.appendChild(nombre);
-    			td.appendChild(apMat);
-    			td.appendChild(apPat);
-    			td.appendChild(rfc);
-    			td.appendChild(tel);
-    			td.appendChild(email);
-    			td.appendChild(calle);
-    			td.appendChild(numInt);
-    			td.appendChild(numExt);
+    			$(id).insertAfter($('#datosTitulo'));
+
+    			td.appendChild(id);
+    			td.appendChild(idCuen);
+    			td.appendChild(idEnt);
+    			td.appendChild(fecha);
+    			td.appendChild(periodo);
+    			td.appendChild(pres);
+    			td.appendChild(plazos);
+    			td.appendChild(renovacion);
+    			td.appendChild(saldado);
     			//tr.appendChild(td);
 
-    			tdTitulos.appendChild(nombreHead);
-    			tdTitulos.appendChild(apPatHead);
-    			tdTitulos.appendChild(apMatHead);
-    			tdTitulos.appendChild(rfcHead);
-    			tdTitulos.appendChild(telHead);
-    			tdTitulos.appendChild(emailHead);
-    			tdTitulos.appendChild(calleHead);
-    			tdTitulos.appendChild(numIntHead);
-    			tdTitulos.appendChild(numExtHead);
+    			tdTitulos.appendChild(idHead);
+    			tdTitulos.appendChild(idCuenHead);
+    			tdTitulos.appendChild(idEntHead);
+    			tdTitulos.appendChild(fechaHead);
+    			tdTitulos.appendChild(periodoHead);
+    			tdTitulos.appendChild(presHead);
+    			tdTitulos.appendChild(plazosHead);
+    			tdTitulos.appendChild(renovacionHead);
+    			tdTitulos.appendChild(saldadoHead);
     			
     			$(td).insertAfter($('#datosTitulo'));
     			$(tdTitulos).insertAfter($('#datosTitulo'));
+    			}
 
 			}
 		}
