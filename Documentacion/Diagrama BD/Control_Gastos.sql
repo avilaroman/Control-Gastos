@@ -164,6 +164,7 @@ CREATE  TABLE IF NOT EXISTS `cc409_gastosse`.`Gasto` (
   `cuenta_origen` VARCHAR(45) NULL ,
   `cuenta_destino` VARCHAR(45) NULL ,
   `comision` VARCHAR(45) NOT NULL ,
+  `fecha` VARCHAR(45) NOT NULL ,
   PRIMARY KEY (`id_gasto`) ,
   INDEX `fk_Gasto_Contrato1_idx` (`Contrato_id_contrato` ASC) ,
   CONSTRAINT `fk_Gasto_Contrato1`

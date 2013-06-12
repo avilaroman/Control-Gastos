@@ -12,10 +12,10 @@ class Gasto extends iTablaDB
 	private $cuenta_origen;
 	private $cuenta_destino;
 	private $comision;
-	
+	private $fecha;
 	
 	public function __construct($id_contrato="", $costo="", $precio="", $comentario="", 
-								$categoria="", $cuenta_origen="", $cuenta_destino="", $comision="")
+								$categoria="", $cuenta_origen="", $cuenta_destino="", $comision="", $fecha = "")
 	{
 		$this->id_contrato 		= $id_contrato;
 		$this->costo 			= $costo;
@@ -25,6 +25,7 @@ class Gasto extends iTablaDB
 		$this->cuenta_origen 	= $cuenta_origen;
 		$this->cuenta_destino 	= $cuenta_destino;
 		$this->comision 		= $comision;
+		$this->fecha			= $fecha;
 	}
 	
 	public function getCosto()
@@ -61,6 +62,11 @@ class Gasto extends iTablaDB
 	{
 		return $this->comision;
 	}
+	
+	public function getFecha()
+	{
+		return $this->fecha;
+	}
 		
    	public function insertar()
    	{	
@@ -70,7 +76,7 @@ class Gasto extends iTablaDB
 		}
 		
 		$query = " INSERT INTO
-							Gasto(Contrato_id_contrato, costo, precio, comentario, categoria, cuenta_origen, cuenta_destino, comision)
+							Gasto(Contrato_id_contrato, costo, precio, comentario, categoria, cuenta_origen, cuenta_destino, comision, fecha)
 						VALUES
 							($this->id_contrato,
 							$this->costo,
@@ -79,7 +85,8 @@ class Gasto extends iTablaDB
 							'$this->categoria',
 							'$this->cuenta_origen',
 							'$this->cuenta_destino',
-							'$this->comision'
+							'$this->comision',
+							'$this->fecha
 							)";		
 									
 		$resultado = $this->conexion->query($query);
@@ -202,6 +209,7 @@ class Gasto extends iTablaDB
 				$this->cuenta_origen 	= $gasto[0]['cuenta_origen'];
 				$this->cuenta_destino 	= $gasto[0]['cuenta_destino'];
 				$this->comision 		= $gasto[0]['comision'];
+				$this->fecha			= $gasto[0]['fecha'];
 				return TRUE;	
 			}
 			
