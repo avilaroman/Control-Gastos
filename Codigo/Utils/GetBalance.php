@@ -17,7 +17,7 @@ require_once('Model/GastoClass.php');
 		
 		for($i = 0; $i < $tam; $i++)
 		{
-			$gasto = $gasto + $gastos[$i]['precio'];
+			$gasto = $gasto + $gastos[$i]->getPrecio();
 		}
 		
 		$tam = count($pagos);
@@ -26,12 +26,10 @@ require_once('Model/GastoClass.php');
 		
 		for($i = 0; $i < $tam; $i++)
 		{
-			$pago = $pago + $pagos[$i]['monto'];
+			$pago = $pago + $pagos[$i]->getMonto();
 		}
 		
 		$balance = $gasto - $pago;
 		echo 'BALANCE $ '.($gasto - $pago);
-
-	echo json_encode($estados);
 
 ?>
