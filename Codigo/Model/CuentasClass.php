@@ -6,6 +6,7 @@ require_once ('iTablaDB.php');
 
 class Cuentas extends iTablaDB
 {
+	private $esAdmin;
 	private $idCliente;
 	
 	public function getidCliente()
@@ -16,6 +17,11 @@ class Cuentas extends iTablaDB
 	public function getIdCuenta()
 	{
 		return $this->id;
+	}
+	
+	public function isAdmin()
+	{
+		return $this->esAdmin;
 	}
 	
 	
@@ -44,6 +50,7 @@ class Cuentas extends iTablaDB
 			$usuario->reconstruirCliente($cuenta[0]['Cliente_id_cliente']);
 			$cuentaObtenida['nombre_usuario'] 	=  $cuenta[0]['nombre_usuario'];
 			$cuentaObtenida['clave_acceso']	 	=  $cuenta[0]['clave_acceso'];
+			$cuentaObtenido['admin']			=  $cuenta[0]['admin'];
 			$cuentaObtenida['idCliente']		=  $usuario->getIdCliente();
 			$cuentaObtenida['esPersonaFisica'] 	=  $usuario->getPersonaFisica();
 			$cuentaObtenida['nombre'] 			=  $usuario->getName();
@@ -57,7 +64,7 @@ class Cuentas extends iTablaDB
 			$cuentaObtenida['idEntidad'] 		=  $usuario->getIdEntidad();
 			
 			$this->id 							= $cuenta[0]['id_cuenta'];
-			
+			$this->esAdmin						= $cuenta[0]['admin'];
 			$this->idCliente					= $usuario->getIdCliente();
 		}
 		
@@ -89,10 +96,12 @@ class Cuentas extends iTablaDB
 		
 		if(isset($cuenta))
 		{
+			$cuentaObtenido['admin']			=  $cuenta[0]['admin'];
 			$cuentaObtenida['nombre_usuario'] 	=  $cuenta[0]['nombre_usuario'];
 			$cuentaObtenida['clave_acceso']	 	=  $cuenta[0]['clave_acceso'];
 			$this->id 							= $cuenta[0]['id_cuenta'];
 			$this->idCliente					= $cuenta[0]['Cliente_id_cliente'];
+			$this->esAdmin						= $cuenta[0]['admin'];
 			
 			return TRUE;
 		}
