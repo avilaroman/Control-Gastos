@@ -77,63 +77,73 @@ class ControladorCliente
 	
 	private function InsertarCliente()
 	{
-		$nombre = $_REQUEST['nombre'];
-		$apellidoPat = $_REQUEST['apellidoPat'];
-		$apellidoMat = $_REQUEST['apellidoMat'];
-		$RFC = $_REQUEST['RFC'];
-		$esPersonaFisica = $_REQUEST['esPersonaFisica'];
-		
-		if(isset($_REQUEST['esPersonaFisica']))
+		if(isset($_REQUEST['nombre']) && isset($_REQUEST['apellidoPat']) && isset($_REQUEST['apellidoMat']) && isset($_REQUEST['RFC']))
 		{
-			$esPersonaFisica = TRUE;
+		   	$nombre = $_REQUEST['nombre'];
+			$apellidoPat = $_REQUEST['apellidoPat'];
+			$apellidoMat = $_REQUEST['apellidoMat'];
+			$RFC = $_REQUEST['RFC'];
+			$esPersonaFisica = $_REQUEST['esPersonaFisica'];
+			
+			if(isset($_REQUEST['esPersonaFisica']))
+			{
+				$esPersonaFisica = TRUE;
+			}
+			else
+			{
+				$esPersonaFisica = FALSE;
+			}
+				
+			$this->modelo = new Cliente($nombre, $apellidoPat, $apellidoMat, $RFC, $esPersonaFisica);
+			$usuario = $this->modelo;
+			if(!$usuario->insertar())
+			{
+				die('ERRORES CREANDO AL CLIENTE');
+			}
+			
+			$usuario->crearCliente($usuario->getIdEntidad());
+			
+			if(isset($_REQUEST['telefono']))
+			{
+				$telefono = new Telefono($usuario->getIdEntidad(), $_REQUEST['telefono']);
+				
+				if($telefono->insertar())
+				{
+					$usuario->agregarTelefono($telefono);
+				}
+			}
+	
+			if(isset($_REQUEST['email']))
+			{
+				$email = new Email($usuario->getIdEntidad(), $_REQUEST['email']);
+				
+				if($email->insertar())
+				{
+					$usuario->agregarEmail($email);
+				}
+			}
+			
+			if(isset($_REQUEST['direccion']))
+			{
+				$this->InsertarDireccion($usuario);
+			}
+			
+			if(isset($_REQUEST['cuentaBancaria']))
+			{
+				$this->InsertarCuentaBancaria($usuario);
+			}
+			
+			$this->modelo = $usuario;
+			
+			return $usuario;
 		}
 		else
 		{
-			$esPersonaFisica = FALSE;
+			return null;		
 		}
+	
 			
-		$this->modelo = new Cliente($nombre, $apellidoPat, $apellidoMat, $RFC, $esPersonaFisica);
-		$usuario = $this->modelo;
-		if(!$usuario->insertar())
-		{
-			die('ERRORES CREANDO AL CLIENTE');
-		}
-		
-		$usuario->crearCliente($usuario->getIdEntidad());
-		
-		if(isset($_REQUEST['telefono']))
-		{
-			$telefono = new Telefono($usuario->getIdEntidad(), $_REQUEST['telefono']);
-			
-			if($telefono->insertar())
-			{
-				$usuario->agregarTelefono($telefono);
-			}
-		}
-
-		if(isset($_REQUEST['email']))
-		{
-			$email = new Email($usuario->getIdEntidad(), $_REQUEST['email']);
-			
-			if($email->insertar())
-			{
-				$usuario->agregarEmail($email);
-			}
-		}
-		
-		if(isset($_REQUEST['direccion']))
-		{
-			$this->InsertarDireccion($usuario);
-		}
-		
-		if(isset($_REQUEST['cuentaBancaria']))
-		{
-			$this->InsertarCuentaBancaria($usuario);
-		}
-		
-		$this->modelo = $usuario;
-		
-		return $usuario;		
+				
 	}
 
 	private function InsertarDireccion($usuario)
