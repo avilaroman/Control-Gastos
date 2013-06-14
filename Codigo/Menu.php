@@ -28,10 +28,6 @@ if((!isset($_SESSION)))
                 $controlador = new LoginCtl();
                 require_once ('View/menu.html');  
                 break;
-            case 'registrar':
-                $controlador = new RegisterCtl();
-                require_once ('View/menu.html');  
-                break;
             default:
 				 include ('Utils/StatusSession.php');
 				require_once ('View/menu.html');  
