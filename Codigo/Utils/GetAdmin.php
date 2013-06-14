@@ -7,7 +7,7 @@ if(!isset($_SESSION))
 
 $Getter = new Cuentas();
 
-$Getter->recuperarCliente(/*$_SESSION['id']*/1);
+$Getter->recuperarCliente($_SESSION['id']);
 
 //var_dump($Getter);
 
@@ -18,7 +18,7 @@ $Getter->recuperarCliente(/*$_SESSION['id']*/1);
 	logConsole('NO SACA LA INFO CORRECTAMENTE', $Getter, true);
 }*/
 
-$arreglo = array('admin' => $Getter->isAdmin());
+$arreglo = array(array('admin' => $Getter->isAdmin()));
 
 echo json_encode($arreglo);
 

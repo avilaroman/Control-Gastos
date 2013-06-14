@@ -6,22 +6,28 @@ function admin(){
 	else
 		ajax.open('GET','../Codigo/Utils/GetAdmin.php',true);
 
-	ajax.onreadystatechange = function(){
+	console.log(ajax.readyState);
+
+	ajax.onreadystatechange = function()
+	{
 		if(ajax.readyState == 4){
 			var dropMod = document.getElementById('dropMod');
 			var dropExp = document.getElementById('dropExp');
 			var dropAct = document.getElementById('dropAct');
 			var response = eval(ajax.responseText);
 
-			if(response[0].admin == 0){
-				//quitar elementos
-			}
-			else{
-				//dejar elementos
-			}
+			if(dropMod!=null)
+			var parent = dropMod.parentNode;
 
+			if(response[0].admin == '0'){
+				parent.removeChild(dropMod);
+				parent.removeChild(dropExp);
+				parent.removeChild(dropAct);
+			}
 		}
 	}
+
+	ajax.send(null);
 
 }
 
@@ -34,7 +40,7 @@ function llenarEstados(){
 	else
 		ajax.open('GET','../Codigo/Utils/GetEstados.php',true);
 	
-	
+	console.log(ajax.readyState);
 	
 	ajax.onreadystatechange = function()
 	{
