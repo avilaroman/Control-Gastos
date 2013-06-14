@@ -31,6 +31,9 @@ require_once('../Model/GastoClass.php');
 		}
 		
 		$balance = $gasto - $pago;
-		echo 'BALANCE $ '.($gasto - $pago);
+		
+		$arreglo = array('balance' => $balance);
+		
+		echo json_encode($arreglo);
 
 ?>
