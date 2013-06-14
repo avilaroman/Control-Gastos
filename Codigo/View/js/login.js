@@ -1,3 +1,31 @@
+function admin(){
+	var ajax = nuevoAjax();
+	var url = window.location.pathname.split('/');
+	if(url[3] == 'View')
+		ajax.open('GET','../Utils/GetAdmin.php',true);
+	else
+		ajax.open('GET','../Codigo/Utils/GetAdmin.php',true);
+
+	ajax.onreadystatechange = function(){
+		if(ajax.readyState == 4){
+			var dropMod = document.getElementById('dropMod');
+			var dropExp = document.getElementById('dropExp');
+			var dropAct = document.getElementById('dropAct');
+			var response = eval(ajax.responseText);
+
+			if(response[0].admin == 0){
+				//quitar elementos
+			}
+			else{
+				//dejar elementos
+			}
+
+		}
+	}
+
+}
+
+
 function llenarEstados(){
 	var ajax = nuevoAjax();
 	var url = window.location.pathname.split('/');
@@ -656,7 +684,7 @@ function obtenerDatosMod(select)
 		if(url[3] == 'View')
 			ajax.open('GET','../Utils/GetInfoEntidad.php?idCliente='+valor,true);
 		else
-			ajax.open('GET','../Utils/GetInfoEntidad.php?idCliente='+valor,true);
+			ajax.open('GET','../Codigo/Utils/GetInfoEntidad.php?idCliente='+valor,true);
 		
 		ajax.onreadystatechange = function()
 		{
@@ -805,6 +833,43 @@ function obtenerDatosMod(select)
 		}
 		
 		ajax.send(null);
+	}
+	else{
+				var form = document.getElementById('formularioMod');
+				var usuario = document.getElementById('username');
+				var pass = document.getElementById('passReg');
+				var email = document.getElementById('email');
+				var nombre = document.getElementById('nombre');
+				var apPat = document.getElementById('apellidoP');
+				var apMat = document.getElementById('apellidoM');
+				var rfc = document.getElementById('rfc');
+				var tel = document.getElementById('tel');
+				var persona = document.getElementById('persona');
+				var calle = document.getElementById('calle');
+				var numInt = document.getElementById('numint');
+				var numExt = document.getElementById('numext');
+				var colonia = document.getElementById('col');
+				var cp = document.getElementById('cp');
+				var estado = document.getElementById('selectEstados');
+				var municipio = document.getElementById('selectMunicipios');
+				//var evt = document.createEvent("HTMLEvents");
+				//evt.initEvent("change",true,true);
+				
+				$(usuario).val("");
+				$(pass).val("");
+				$(nombre).val("");
+				$(apPat).val("");
+				$(apMat).val("");
+				$(rfc).val("");
+				$(tel).val("");
+				$(persona).val("");
+				$(email).val("");
+				$(calle).val("");
+				$(numInt).val("");
+				$(numExt).val("");
+				$(colonia).val("");
+				$(cp).val("");
+				$(estado).val("");
 	}
 }
 
